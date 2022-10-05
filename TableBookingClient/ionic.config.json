@@ -1,0 +1,7 @@
+{
+  "name": "TableBooking",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
