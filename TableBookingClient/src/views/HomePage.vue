@@ -1,29 +1,33 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+
+    <ion-header>
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-searchbar></ion-searchbar>
+        <ion-buttons slot="primary">
+          <ion-button>
+            <ion-icon :icon="ellipsisHorizontal"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+
     </ion-content>
+
+    <ion-footer>
+      <bottom-navigation></bottom-navigation>
+    </ion-footer>
+
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonSearchbar, IonHeader, IonPage, IonToolbar, IonIcon } from '@ionic/vue';
+import { ellipsisHorizontal } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import bottom-navigation from 'components/bottom-navigation.vue';
 
 export default defineComponent({
   name: 'HomePage',
@@ -31,9 +35,13 @@ export default defineComponent({
     IonContent,
     IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar
-  }
+    IonToolbar,
+    IonSearchbar,
+    IonIcon
+  },
+  setup() {
+    return { ellipsisHorizontal };
+  },
 });
 </script>
 
