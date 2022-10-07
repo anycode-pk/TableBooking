@@ -1,15 +1,7 @@
 <template>
   <ion-page>
-
     <ion-header>
-      <ion-toolbar>
-        <ion-searchbar></ion-searchbar>
-        <ion-buttons slot="primary">
-          <ion-button>
-            <ion-icon :icon="ellipsisHorizontal"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
+      <SearchBar/>
     </ion-header>
     
     <ion-content :fullscreen="true">
@@ -17,31 +9,25 @@
     </ion-content>
 
     <ion-footer>
-      <bottom-navigation></bottom-navigation>
-    </ion-footer>
 
+    </ion-footer>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonSearchbar, IonHeader, IonPage, IonToolbar, IonIcon } from '@ionic/vue';
-import { ellipsisHorizontal } from 'ionicons/icons';
+import SearchBar from "@/components/SearchBar.vue";
+import { IonContent, IonHeader, IonPage, IonFooter } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import bottom-navigation from 'components/bottom-navigation.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
+    SearchBar,
     IonContent,
     IonHeader,
-    IonPage,
-    IonToolbar,
-    IonSearchbar,
-    IonIcon
-  },
-  setup() {
-    return { ellipsisHorizontal };
-  },
+    IonFooter,
+    IonPage
+  }
 });
 </script>
 
