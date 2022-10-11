@@ -3,7 +3,7 @@
     <ion-searchbar slot="start"/>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon :icon="options"></ion-icon>
+        <ion-icon slot="icon-only" :icon="optionsSharp"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { IonToolbar, IonSearchbar, IonButtons, IonButton, IonIcon, IonSegment, IonSegmentButton } from '@ionic/vue';
-import { options } from 'ionicons/icons';
+import { optionsSharp } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'SearchBar',
@@ -35,7 +35,7 @@ export default defineComponent({
     IonSegmentButton
   },
   setup() {
-    return { options };
+    return { optionsSharp };
   }
 });
 </script>
