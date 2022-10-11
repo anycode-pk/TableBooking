@@ -11,14 +11,14 @@
         </ion-button>
       </ion-buttons>
       <ion-card-header>
-        <ion-card-title>Alfredo's</ion-card-title>
-        <ion-card-subtitle>Italian</ion-card-subtitle>
+        <ion-card-title>{{ restaurantName || 'Name' }}</ion-card-title>
+        <ion-card-subtitle>{{ restaurantType || 'Type' }}</ion-card-subtitle>
       </ion-card-header>
     </ion-toolbar>
   </ion-card>
 </template>
 
-<script>
+<script lang="ts">
 import {
   IonCard,
   IonCardHeader,
@@ -43,12 +43,16 @@ export default defineComponent({
     IonIcon,
     IonToolbar
   },
+  props: {
+    restaurantName: String,
+    restaurantType: String
+  },
   setup() {
     return {
       heartSharp,
       shareSharp
     }
-  }
+  },
 });
 </script>
 
