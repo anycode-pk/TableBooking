@@ -14,6 +14,7 @@
 <script lang="ts">
 import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
 import { defineComponent } from 'vue';
+import axios from "axios";
 
 export default defineComponent({
   name: 'Home',
@@ -23,8 +24,28 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar
+  },
+
+  data() {
+    return {
+      restaurants: [] as any[],
+      fetchingRestaurants: false
+    }
+  },
+
+  methods: {
+    async getRestaurants() {
+      const getRestaurantsResponse = await axios.get<any>('https://localhost:7012/api/Restaurant')
+      this.restaurants = getRestaurantsResponse.data
+    },
+  },
+
+  async mounted() {
+    await this.getRestaurants();
   }
+
 });
+
 </script>
 
 <style scoped>
