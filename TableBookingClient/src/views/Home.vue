@@ -16,6 +16,12 @@ import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from "axios";
 
+interface Restaurant {
+  id: string,
+  name: string,
+  tables: any
+}
+
 export default defineComponent({
   name: 'Home',
   components: {
@@ -28,14 +34,14 @@ export default defineComponent({
 
   data() {
     return {
-      restaurants: [] as any[],
+      restaurants: [] as Restaurant[],
       fetchingRestaurants: false
     }
   },
 
   methods: {
     async getRestaurants() {
-      const getRestaurantsResponse = await axios.get<any>('https://localhost:7012/api/Restaurant')
+      const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
       this.restaurants = getRestaurantsResponse.data
     },
   },
