@@ -1,18 +1,38 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import HomePage from '../views/HomePage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/tabs/home',
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: HomePage
-  }
-]
+    path: '/tabs/',
+    component: () => import('./Tabs.vue'),
+    children: [
+      {
+        path: '',
+        redirect: 'home',
+      },
+      {
+        path: 'home',
+        component: () => import('@/views/Home.vue'),
+      },
+      {
+        path: 'search',
+        component: () => import('@/views/Search.vue'),
+      },
+      {
+        path: 'bookings',
+        component: () => import('@/views/Bookings.vue'),
+      },
+      {
+        path: 'account',
+        component: () => import('@/views/Account.vue'),
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
