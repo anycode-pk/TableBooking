@@ -5,12 +5,8 @@
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="list">
-      <ion-segment-button value="list">
-        List
-      </ion-segment-button>
-      <ion-segment-button value="map">
-        Map
-      </ion-segment-button>
+      <ion-segment-button value="list">List</ion-segment-button>
+      <ion-segment-button value="map">Map</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </template>
