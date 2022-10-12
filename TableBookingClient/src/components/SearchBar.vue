@@ -1,11 +1,7 @@
 <template>
   <ion-toolbar>
     <ion-searchbar slot="start"/>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" :icon="optionsSharp"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <SearchOptions/>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="list">
@@ -20,31 +16,24 @@
 </template>
 
 <script lang="ts">
-import { IonToolbar, IonSearchbar, IonButtons, IonButton, IonIcon, IonSegment, IonSegmentButton } from '@ionic/vue';
-import { optionsSharp } from 'ionicons/icons';
+import {IonToolbar, IonSearchbar, IonSegment, IonSegmentButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
+import SearchOptions from "@/components/SearchOptions.vue";
+
 export default defineComponent({
   name: 'SearchBar',
   components: {
+    SearchOptions,
     IonToolbar,
     IonSearchbar,
-    IonButtons,
-    IonButton,
-    IonIcon,
     IonSegment,
-    IonSegmentButton
+    IonSegmentButton,
   },
-  setup() {
-    return { optionsSharp };
-  }
 });
 </script>
 
 <style scoped>
   ion-searchbar{
     padding: 10px;
-  }
-  ion-buttons{
-    padding-right: 5px;
   }
 </style>

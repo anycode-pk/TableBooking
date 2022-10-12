@@ -4,9 +4,9 @@
       <SearchBar/>
     </ion-header>
     <ion-content>
-        <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-          <restaurant-card :restaurant-name=restaurant.name />
-        </ion-list>
+      <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
+        <restaurant-card :restaurant-name=restaurant.name />
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
