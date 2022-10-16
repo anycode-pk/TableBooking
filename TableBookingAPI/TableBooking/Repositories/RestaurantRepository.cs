@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using TableBooking.Interfaces;
 using TableBooking.Models;
 
-namespace TableBooking.Services;
+namespace TableBooking.Repositories;
 
-public class RestaurantService
+public class RestaurantRepository : IRestaurantRepository
 {
     private readonly IMongoCollection<Restaurant> _restaurantCollection;
-
-    public RestaurantService(IOptions<DatabaseSettings> databaseSettings)
+    
+    public RestaurantRepository(IOptions<DatabaseSettings> databaseSettings)
     {
         var mongoClient = new MongoClient(
             databaseSettings.Value.ConnectionString);
@@ -19,7 +20,7 @@ public class RestaurantService
         _restaurantCollection = mongoDatabase.GetCollection<Restaurant>(
             databaseSettings.Value.CollectionName);
     }
-
+    
     public async Task<List<Restaurant>> GetAsync()
     {
         return await _restaurantCollection.Find(_ => true).ToListAsync();
