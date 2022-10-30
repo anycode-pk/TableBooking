@@ -7,13 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Google.Cloud.Firestore" Version="3.0.0" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-        <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Controllers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models\Table.cs" />
+      <Compile Remove="Models\Reservation.cs" />
     </ItemGroup>
 
 </Project>
