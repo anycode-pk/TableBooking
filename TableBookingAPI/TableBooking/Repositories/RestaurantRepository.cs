@@ -54,7 +54,7 @@ public class RestaurantRepository : IRestaurantRepository
     public async Task<Restaurant?> GetAsync(string id)
     {
         var document = restaurantCollection.Document(id);
-        var snapshot = await document.GetSnapshotAsync();
+        var snapshot = await document.GetSnapshotAsync(); // tutaj gdzies nie powinno byc query ? wyzej jest
         if (snapshot.Exists)
         {
             Dictionary<string, object> dictionary = snapshot.ToDictionary();
@@ -88,16 +88,29 @@ public class RestaurantRepository : IRestaurantRepository
 
     public async Task CreateAsync(Restaurant restaurant)
     {
-        //
+        var documentReference = restaurantCollection.Document(restaurant.ToString()); // dobry path?
+        var restaurant1 = new Dictionary<string, object>
+        {
+            { "Id"  , restaurant.Id   },
+            { "name", restaurant.Name },
+            { "type", restaurant.Type }
+        };
+        await documentReference.SetAsync(restaurant1);
     }
 
     public async Task UpdateAsync(string id, Restaurant updatedBook)
     {
-        //
+        var bookReference = restaurantCollection.Document(id);
+        var updateBook = new Dictionary<string, object>
+        {
+            { "Id", id }
+        };
+        await bookReference.UpdateAsync("Id", id);
     }
 
-    public async Task RemoveAsync(string id)
+    public async Task RemoveAsync(string id) // nie usuwa subkolekcji usunietej kolekcji
     {
-        //
+        DocumentReference idRef = restaurantCollection.Document(id);
+        await idRef.DeleteAsync();
     }
 }
