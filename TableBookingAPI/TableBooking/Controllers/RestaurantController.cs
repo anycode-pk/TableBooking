@@ -18,7 +18,7 @@ namespace TableBooking.Controllers
         public async Task<List<Restaurant>> Get() =>
             await _restaurantRepository.GetAsync();
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Restaurant>> Get(string id)
         {
             var book = await _restaurantRepository.GetAsync(id);
@@ -56,7 +56,7 @@ namespace TableBooking.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var book = await _restaurantRepository.GetAsync(id);

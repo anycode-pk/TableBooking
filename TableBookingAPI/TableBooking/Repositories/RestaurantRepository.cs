@@ -1,4 +1,5 @@
 using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
 using Microsoft.Extensions.Options;
 using TableBooking.Interfaces;
 using TableBooking.Models;
@@ -10,17 +11,18 @@ public class RestaurantRepository : IRestaurantRepository
     private readonly CollectionReference restaurantCollection;
     public RestaurantRepository(IOptions<DatabaseSettings> databaseSettings)
     {
-        var db = FirestoreDb.Create(databaseSettings.Value.ProjectId);
-
-        restaurantCollection = db.Collection(databaseSettings.Value.ProjectId);
+        var jsonString = File.ReadAllText("tablebookingapp-367116-a347694f7eb8.json");
+        var builder = new FirestoreClientBuilder {JsonCredentials = jsonString};
+        var db = FirestoreDb.Create(databaseSettings.Value.ProjectId, builder.Build());
+        restaurantCollection = db.Collection("Restaurants");
+        Console.WriteLine("Established connection with firestore");
     }
     
     public async Task<List<Restaurant>> GetAsync()
     {
         var restaurants = new List<Restaurant>();
-        Query query = restaurantCollection;
-        QuerySnapshot querySnapshot = await query.GetSnapshotAsync();
-        foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
+        var collectionSnapshot = await restaurantCollection.GetSnapshotAsync();
+        foreach (var documentSnapshot in collectionSnapshot.Documents)
         {
             Dictionary<string, object> dictionary = documentSnapshot.ToDictionary();
             var name = "";
@@ -47,14 +49,13 @@ public class RestaurantRepository : IRestaurantRepository
             };
             restaurants.Add(restaurant);
         }
-
         return restaurants;
     }
 
     public async Task<Restaurant?> GetAsync(string id)
     {
         var document = restaurantCollection.Document(id);
-        var snapshot = await document.GetSnapshotAsync(); // tutaj gdzies nie powinno byc query ? wyzej jest
+        var snapshot = await document.GetSnapshotAsync();
         if (snapshot.Exists)
         {
             Dictionary<string, object> dictionary = snapshot.ToDictionary();
@@ -88,7 +89,7 @@ public class RestaurantRepository : IRestaurantRepository
 
     public async Task CreateAsync(Restaurant restaurant)
     {
-        var documentReference = restaurantCollection.Document(restaurant.ToString()); // dobry path?
+        var documentReference = restaurantCollection.Document(restaurant.Id);
         var restaurant1 = new Dictionary<string, object>
         {
             { "Id"  , restaurant.Id   },
@@ -108,9 +109,9 @@ public class RestaurantRepository : IRestaurantRepository
         await bookReference.UpdateAsync("Id", id);
     }
 
-    public async Task RemoveAsync(string id) // nie usuwa subkolekcji usunietej kolekcji
+    public async Task RemoveAsync(string id)
     {
-        DocumentReference idRef = restaurantCollection.Document(id);
-        await idRef.DeleteAsync();
+        var document = restaurantCollection.Document(id);
+        await document.DeleteAsync();
     }
 }
