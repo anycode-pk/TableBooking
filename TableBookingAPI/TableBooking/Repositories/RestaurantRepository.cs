@@ -11,7 +11,7 @@ public class RestaurantRepository : IRestaurantRepository
     private readonly CollectionReference restaurantCollection;
     public RestaurantRepository(IOptions<DatabaseSettings> databaseSettings)
     {
-        var jsonString = File.ReadAllText("tablebookingapp-367116-a347694f7eb8.json");
+        var jsonString = File.ReadAllText("ServiceKey.json");
         var builder = new FirestoreClientBuilder {JsonCredentials = jsonString};
         var db = FirestoreDb.Create(databaseSettings.Value.ProjectId, builder.Build());
         restaurantCollection = db.Collection("Restaurants");
@@ -24,30 +24,7 @@ public class RestaurantRepository : IRestaurantRepository
         var collectionSnapshot = await restaurantCollection.GetSnapshotAsync();
         foreach (var documentSnapshot in collectionSnapshot.Documents)
         {
-            Dictionary<string, object> dictionary = documentSnapshot.ToDictionary();
-            var name = "";
-            var type = "";
-            if (dictionary.ContainsKey("name"))
-            {
-                if (dictionary.TryGetValue("name", out var result))
-                {
-                    name = result.ToString();
-                }
-            }
-            if (dictionary.ContainsKey("type"))
-            {
-                if (dictionary.TryGetValue("type", out var result))
-                {
-                    type = result.ToString();
-                }
-            }
-            var restaurant = new Restaurant
-            {
-                Id = documentSnapshot.Id,
-                Name = name,
-                Type = type
-            };
-            restaurants.Add(restaurant);
+            restaurants.Add(CreateRestaurantFromDocument(documentSnapshot));
         }
         return restaurants;
     }
@@ -55,33 +32,10 @@ public class RestaurantRepository : IRestaurantRepository
     public async Task<Restaurant?> GetAsync(string id)
     {
         var document = restaurantCollection.Document(id);
-        var snapshot = await document.GetSnapshotAsync();
-        if (snapshot.Exists)
+        var documentSnapshot = await document.GetSnapshotAsync();
+        if (documentSnapshot.Exists)
         {
-            Dictionary<string, object> dictionary = snapshot.ToDictionary();
-            var name = "";
-            var type = "";
-            if (dictionary.ContainsKey("name"))
-            {
-                if (dictionary.TryGetValue("name", out var result))
-                {
-                    name = result.ToString();
-                }
-            }
-            if (dictionary.ContainsKey("type"))
-            {
-                if (dictionary.TryGetValue("type", out var result))
-                {
-                    type = result.ToString();
-                }
-            }
-            var restaurant = new Restaurant
-            {
-                Id = snapshot.Id,
-                Name = name,
-                Type = type
-            };
-            return restaurant;
+            return CreateRestaurantFromDocument(documentSnapshot);
         }
 
         return new Restaurant();
@@ -94,7 +48,8 @@ public class RestaurantRepository : IRestaurantRepository
         {
             { "Id"  , restaurant.Id   },
             { "name", restaurant.Name },
-            { "type", restaurant.Type }
+            { "type", restaurant.Type },
+            { "image", restaurant.Image }
         };
         await documentReference.SetAsync(restaurant1);
     }
@@ -113,5 +68,43 @@ public class RestaurantRepository : IRestaurantRepository
     {
         var document = restaurantCollection.Document(id);
         await document.DeleteAsync();
+    }
+
+    private Restaurant CreateRestaurantFromDocument(DocumentSnapshot documentSnapshot)
+    {
+        Dictionary<string, object> dictionary = documentSnapshot.ToDictionary();
+        var name = "";
+        var type = "";
+        var photo = "";
+        if (dictionary.ContainsKey("name"))
+        {
+            if (dictionary.TryGetValue("name", out var result))
+            {
+                name = result.ToString();
+            }
+        }
+        if (dictionary.ContainsKey("type"))
+        {
+            if (dictionary.TryGetValue("type", out var result))
+            {
+                type = result.ToString();
+            }
+        }
+        if (dictionary.ContainsKey("photo"))
+        {
+            if (dictionary.TryGetValue("photo", out var result))
+            {
+                photo = result.ToString();
+            }
+        }
+        var restaurant = new Restaurant
+        {
+            Id = documentSnapshot.Id,
+            Name = name,
+            Type = type,
+            Image = photo
+        };
+
+        return restaurant;
     }
 }
