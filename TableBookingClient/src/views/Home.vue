@@ -24,11 +24,6 @@ export default defineComponent({
     IonTitle,
     IonToolbar
   },
-
-
-
-
-
 });
 
 </script>

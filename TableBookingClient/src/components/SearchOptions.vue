@@ -1,7 +1,7 @@
 <template>
     <ion-buttons slot="end">
       <ion-button id="open-modal" expand="block">
-        <ion-icon slot="icon-only" :icon="optionsSharp"></ion-icon>
+        <ion-icon slot="icon-only" :icon=optionsSharp ></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-modal ref="modal" trigger="open-modal" @willDismiss="onWillDismiss">
@@ -9,13 +9,13 @@
         <ion-toolbar>
           <ion-buttons slot="start">
             <ion-button @click="cancel()">
-              <ion-icon slot="icon-only" :icon="arrowBackSharp"/>
+              <ion-icon slot="icon-only" :icon=arrowBackSharp />
             </ion-button>
           </ion-buttons>
           <ion-title>Filters</ion-title>
           <ion-buttons slot="end">
             <ion-button @click="confirm()">
-              <ion-icon slot="icon-only" :icon="checkmarkSharp"/>
+              <ion-icon slot="icon-only" :icon=checkmarkSharp />
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
@@ -50,17 +50,17 @@
             </ion-list-header>
             <ion-item>
               <ion-label>$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked="checked"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>$$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked="checked"></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>$$$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked="checked"></ion-checkbox>
             </ion-item>
           </ion-radio-group>
         </ion-list>
@@ -78,12 +78,11 @@ import {
   IonToolbar,
   IonTitle,
   IonItem,
-  IonInput,
   IonLabel,
   IonIcon,
   IonList,
   IonRadio,
-  IonRadioGroup, IonListHeader,
+  IonRadioGroup, IonListHeader, IonCheckbox,
 
 } from '@ionic/vue';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -106,6 +105,7 @@ export default defineComponent({
     IonRadio,
     IonRadioGroup,
     IonListHeader,
+    IonCheckbox
   },
   methods: {
     cancel() {
