@@ -42,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     component: () => import('@/views/RestaurantView.vue'),
   },
+  {
+    name: 'Admin',
+    path: '/admin',
+    component: () => import('@/views/AdminView.vue'),
+  }
 ];
 
 const router = createRouter({
