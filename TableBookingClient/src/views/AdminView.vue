@@ -11,7 +11,7 @@
     <ion-content>
       <IonList>
         <IonCard>
-          <ion-card-header color="primary">
+          <ion-card-header color="success">
             <ion-card-title>
               Create restaurant
             </ion-card-title>
@@ -26,8 +26,23 @@
             <ion-input v-model="restaurant.image" placeholder="image"></ion-input>
           </ion-item>
           <ion-item>
-            <IonButton slot="end" @click="postRestaurant()">Create</IonButton>
+            <IonButton color="success" slot="end" @click="postRestaurant()">Create</IonButton>
           </ion-item>
+        </IonCard>
+        <IonCard>
+          <ion-card-header color="primary">
+            <ion-card-title>
+              Edit restaurants
+            </ion-card-title>
+              <ion-button slot="">
+                Fetch
+              </ion-button>
+          </ion-card-header>
+          <ion-list>
+            <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
+              <ion-item></ion-item>
+            </ion-list>
+          </ion-list>
         </IonCard>
       </IonList>
     </ion-content>
@@ -51,16 +66,19 @@ import {
 import { defineComponent } from 'vue';
 import axios from "axios";
 
+interface Restaurant {
+  id: string,
+  name: string,
+  type: string,
+  image: string
+}
+
 export default defineComponent({
   name: 'AdminView',
   data () {
     return{
-      restaurant: {
-        id: "",
-        name: "",
-        type: "",
-        image: "",
-      },
+      restaurant: {} as Restaurant,
+      restaurants: [] as Restaurant[]
     }
   },
   methods: {
