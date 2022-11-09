@@ -50,17 +50,17 @@
             </ion-list-header>
             <ion-item>
               <ion-label>$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked='checked'></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>$$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked='checked'></ion-checkbox>
             </ion-item>
 
             <ion-item>
               <ion-label>$$$</ion-label>
-              <ion-checkbox slot="end" checked=true></ion-checkbox>
+              <ion-checkbox slot="end" checked='checked'></ion-checkbox>
             </ion-item>
           </ion-radio-group>
         </ion-list>
@@ -78,12 +78,13 @@ import {
   IonToolbar,
   IonTitle,
   IonItem,
-  IonInput,
   IonLabel,
   IonIcon,
   IonList,
   IonRadio,
-  IonRadioGroup, IonListHeader,
+  IonRadioGroup,
+  IonListHeader,
+  IonCheckbox,
 
 } from '@ionic/vue';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -91,6 +92,7 @@ import { defineComponent } from 'vue';
 import {optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, timeSharp} from "ionicons/icons";
 
 export default defineComponent({
+  name: 'SearchOptions',
   components: {
     IonButtons,
     IonButton,
@@ -106,6 +108,7 @@ export default defineComponent({
     IonRadio,
     IonRadioGroup,
     IonListHeader,
+    IonCheckbox
   },
   methods: {
     cancel() {

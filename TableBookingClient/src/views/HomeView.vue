@@ -2,29 +2,30 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Bookings</ion-title>
+        <ion-title>Home</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-
+      <!-- content -->
     </ion-content>
   </ion-page>
 </template>
 
-<script>
-import {IonPage, IonContent, IonTitle, IonHeader, IonToolbar} from "@ionic/vue";
+<script lang="ts">
+import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Bookings',
+  name: 'HomeView',
   components: {
     IonContent,
+    IonHeader,
     IonPage,
     IonTitle,
-    IonHeader,
     IonToolbar
-  }
+  },
 });
+
 </script>
 
 <style scoped>

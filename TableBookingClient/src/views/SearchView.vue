@@ -4,8 +4,9 @@
       <SearchBar/>
     </ion-header>
     <ion-content>
+      <RestaurantCard :restaurant-name="'TestName'" :restaurant-type="'TestType'" :restaurant-id="'123'" />
       <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-        <restaurant-card :restaurant-name=restaurant.name />
+        <RestaurantCard :restaurant-name=restaurant.name :restaurant-type=restaurant.type :restaurant-id=restaurant.id />
       </ion-list>
     </ion-content>
   </ion-page>
@@ -21,11 +22,12 @@ import SearchBar from "@/components/SearchBar.vue";
 interface Restaurant {
   id: string,
   name: string,
-  type: string
+  type: string,
+  image: string
 }
 
 export default defineComponent({
-  name: 'Search',
+  name: 'SearchView',
   data() {
     return {
       restaurants: [] as Restaurant[],
@@ -38,6 +40,10 @@ export default defineComponent({
       this.restaurants = getRestaurantsResponse.data
     },
   },
+  async mounted() {
+    await this.getRestaurants();
+    console.log(this.restaurants);
+  },
   components: {
     RestaurantCard,
     IonContent,
@@ -46,10 +52,6 @@ export default defineComponent({
     IonHeader,
     IonList
   },
-  async mounted() {
-    await this.getRestaurants();
-    console.log(this.restaurants);
-  }
 });
 </script>
 

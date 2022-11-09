@@ -1,21 +1,21 @@
 <template>
-  <ion-card>
-    <img src="../assets/img/RestaurantPlaceholder.jpg"/>
-    <ion-toolbar>
-      <ion-buttons slot="primary">
-        <ion-button fill="clear">
-          <ion-icon slot="icon-only" :icon="heartSharp"/>
-        </ion-button>
-        <ion-button fill="clear">
-          <ion-icon slot="icon-only" :icon="shareSharp"/>
-        </ion-button>
-      </ion-buttons>
-      <ion-card-header>
-        <ion-card-title>{{ restaurantName || 'Name' }}</ion-card-title>
-        <ion-card-subtitle>{{ restaurantType || 'Type' }}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-toolbar>
-  </ion-card>
+    <ion-card :router-link='linkToRestaurant'>
+      <img alt="../assets/img/RestaurantPlaceholder.jpg" src="../assets/img/RestaurantPlaceholder.jpg"/>
+      <ion-toolbar>
+        <ion-buttons slot="primary">
+          <ion-button fill="clear">
+            <ion-icon slot="icon-only" :icon="heartSharp"/>
+          </ion-button>
+          <ion-button fill="clear">
+            <ion-icon slot="icon-only" :icon="shareSharp"/>
+          </ion-button>
+        </ion-buttons>
+        <ion-card-header>
+          <ion-card-title>{{ restaurantName || 'Name' }}</ion-card-title>
+          <ion-card-subtitle>{{ restaurantType || 'Type' }}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-toolbar>
+    </ion-card>
 </template>
 
 <script lang="ts">
@@ -33,6 +33,7 @@ import { heartSharp, shareSharp } from 'ionicons/icons'
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  name: 'RestaurantCard',
   components: {
     IonCard,
     IonCardHeader,
@@ -44,6 +45,7 @@ export default defineComponent({
     IonToolbar
   },
   props: {
+    restaurantId: String,
     restaurantName: String,
     restaurantType: String
   },
@@ -53,6 +55,11 @@ export default defineComponent({
       shareSharp
     }
   },
+  data() {
+    return {
+      linkToRestaurant: "/restaurant/" + this.restaurantId
+    }
+  }
 });
 </script>
 

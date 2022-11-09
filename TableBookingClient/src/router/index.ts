@@ -15,22 +15,32 @@ const routes: Array<RouteRecordRaw> = [
         redirect: 'home',
       },
       {
+        name: 'Home',
         path: 'home',
-        component: () => import('@/views/Home.vue'),
+        component: () => import('@/views/HomeView.vue'),
       },
       {
+        name: 'Search',
         path: 'search',
-        component: () => import('@/views/Search.vue'),
+        component: () => import('@/views/SearchView.vue'),
       },
       {
+        name: 'Bookings',
         path: 'bookings',
-        component: () => import('@/views/Bookings.vue'),
+        component: () => import('@/views/BookingsView.vue'),
       },
       {
+        name: 'Account',
         path: 'account',
-        component: () => import('@/views/Account.vue'),
+        component: () => import('@/views/AccountView.vue'),
       },
     ],
+  },
+  {
+    name: 'Restaurant',
+    path: '/restaurant/:id',
+    props: true,
+    component: () => import('@/views/RestaurantView.vue'),
   },
 ];
 

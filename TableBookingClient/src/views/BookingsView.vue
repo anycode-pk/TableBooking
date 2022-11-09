@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Account</ion-title>
+        <ion-title>Bookings</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import { IonPage, IonContent, IonTitle, IonHeader, IonToolbar } from "@ionic/vue";
+import {IonPage, IonContent, IonTitle, IonHeader, IonToolbar} from "@ionic/vue";
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Account',
+  name: 'BookingsView',
   components: {
     IonContent,
     IonPage,
