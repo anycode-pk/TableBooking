@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <IonList>
+      <ion-list>
         <IonCard>
           <ion-card-header color="success">
             <ion-card-title>
@@ -29,22 +29,59 @@
             <IonButton color="success" slot="end" @click="postRestaurant()">Create</IonButton>
           </ion-item>
         </IonCard>
-        <IonCard>
+        <ion-card>
           <ion-card-header color="primary">
             <ion-card-title>
               Edit restaurants
             </ion-card-title>
-              <ion-button slot="">
+          </ion-card-header>
+          <ion-toolbar>
+            <ion-buttons slot="end">
+              <ion-button @click="getRestaurants" fill="solid" color="medium">
                 Fetch
               </ion-button>
-          </ion-card-header>
+            </ion-buttons>
+            <ion-searchbar @ionChange="handleChange($event)"></ion-searchbar>
+          </ion-toolbar>
+
           <ion-list>
-            <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-              <ion-item></ion-item>
-            </ion-list>
+              <ion-list v-for="restaurant in results" :key="restaurant.id">
+                <ion-item>
+                  <ion-toolbar>
+                    {{restaurant.name}}
+                    <ion-buttons slot="end">
+                      <ion-button color="warning" :id="restaurant.id">Edit</ion-button>
+                      <ion-button color="danger">
+                        delete
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-item>
+                <ion-popover :trigger="restaurant.id" trigger-action="click">
+                  <ion-card>
+                    <ion-list>
+                      <ion-item>
+                        <ion-label>name:</ion-label>
+                        <ion-input v-model="restaurant.name" placeholder="type"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>type:</ion-label>
+                        <ion-input v-model="restaurant.type" placeholder="type"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>image src:</ion-label>
+                        <ion-input v-model="restaurant.image" placeholder="image"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <IonButton color="warning" slot="end" >Update</IonButton>
+                      </ion-item>
+                    </ion-list>
+                  </ion-card>
+                </ion-popover>
+              </ion-list>
           </ion-list>
-        </IonCard>
-      </IonList>
+        </ion-card>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
@@ -56,14 +93,13 @@ import {
   IonContent,
   IonHeader,
   IonInput,
-  IonItem,
-  IonLabel,
+  IonItem, IonLabel,
   IonList,
-  IonPage,
+  IonPage, IonPopover, IonSearchbar,
   IonTitle,
   IonToolbar, toastController
 } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import {defineComponent, ref} from 'vue';
 import axios from "axios";
 
 interface Restaurant {
@@ -81,9 +117,25 @@ export default defineComponent({
       restaurants: [] as Restaurant[]
     }
   },
+  setup(){
+    const results = ref({});
+    return { results }
+  },
   methods: {
+    handleChange(event) {
+      const query = event.target.value.toLowerCase();
+      this.results = this.restaurants.filter(d => d.name.toLowerCase().indexOf(query) > -1);
+    },
     async postRestaurant(){
       axios.post("https://localhost:7012/api/Restaurant", this.restaurant).then((response) => {this.presentToast(response.status)});
+    },
+    async deleteRestaurant(id: string){
+      axios.delete("https://localhost:7012/api/Restaurant/"+id).then((response) => {this.presentToast(response.status)});
+    },
+    async getRestaurants() {
+      const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
+      this.restaurants = getRestaurantsResponse.data
+      this.results = this.restaurants;
     },
     async presentToast(response: number) {
       let message = "Status: " + response.toString() + ((response>=200 && response<300)?" Success":" Error");
@@ -109,7 +161,10 @@ export default defineComponent({
     IonCardHeader,
     IonCardTitle,
     IonBackButton,
-    IonButtons
+    IonButtons,
+    IonPopover,
+    IonSearchbar,
+    IonLabel
   },
 });
 
