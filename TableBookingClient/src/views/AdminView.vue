@@ -17,13 +17,13 @@
             </ion-card-title>
           </ion-card-header>
           <ion-item>
-            <ion-input v-model="restaurant.name" placeholder="name"></ion-input>
+            <ion-input v-model="newRestaurant.name" placeholder="name"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="restaurant.type" placeholder="type"></ion-input>
+            <ion-input v-model="newRestaurant.type" placeholder="type"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="restaurant.image" placeholder="image"></ion-input>
+            <ion-input v-model="newRestaurant.image" placeholder="image"></ion-input>
           </ion-item>
           <ion-item>
             <IonButton color="success" slot="end" @click="postRestaurant()">Create</IonButton>
@@ -45,24 +45,24 @@
           </ion-toolbar>
 
           <ion-list>
-              <ion-list v-for="restaurant in results" :key="restaurant.id">
+              <ion-list v-for="result in results" :key="result.id">
                 <ion-item>
                   <ion-toolbar>
-                    {{restaurant.name}}
+                    {{result.name}}
                     <ion-buttons slot="end">
-                      <ion-button color="warning" :id="restaurant.id">Edit</ion-button>
-                      <ion-button color="danger">
+                      <ion-button color="warning" :id="result.id">Edit</ion-button>
+                      <ion-button color="danger" @click="deleteRestaurant(result.id)">
                         delete
                       </ion-button>
                     </ion-buttons>
                   </ion-toolbar>
                 </ion-item>
-                <ion-popover :trigger="restaurant.id" trigger-action="click">
+                <ion-popover :trigger="result.id" trigger-action="click">
                   <ion-card>
                     <ion-list>
                       <ion-item>
                         <ion-label>name:</ion-label>
-                        <ion-input v-model="restaurant.name" placeholder="type"></ion-input>
+                        <ion-input v-model="restaurant.name" placeholder="name"></ion-input>
                       </ion-item>
                       <ion-item>
                         <ion-label>type:</ion-label>
@@ -73,7 +73,7 @@
                         <ion-input v-model="restaurant.image" placeholder="image"></ion-input>
                       </ion-item>
                       <ion-item>
-                        <IonButton color="warning" slot="end" >Update</IonButton>
+                        <IonButton @click="putRestaurant(restaurant.id)" color="warning" slot="end" >Update</IonButton>
                       </ion-item>
                     </ion-list>
                   </ion-card>
@@ -113,7 +113,18 @@ export default defineComponent({
   name: 'AdminView',
   data () {
     return{
-      restaurant: {} as Restaurant,
+      restaurant: {
+        id: "",
+        name: "",
+        type: "",
+        image: "",
+      } as Restaurant,
+      newRestaurant: {
+        id: "",
+        name: "",
+        type: "",
+        image: "",
+      } as Restaurant,
       restaurants: [] as Restaurant[]
     }
   },
@@ -122,18 +133,29 @@ export default defineComponent({
     return { results }
   },
   methods: {
-    handleChange(event) {
+    handleChange(event: any) {
       const query = event.target.value.toLowerCase();
       this.results = this.restaurants.filter(d => d.name.toLowerCase().indexOf(query) > -1);
     },
     async postRestaurant(){
-      axios.post("https://localhost:7012/api/Restaurant", this.restaurant).then((response) => {this.presentToast(response.status)});
+      await axios.post<Restaurant>("https://localhost:7012/api/Restaurant", this.newRestaurant).then((response) => {this.presentToast(response.status)});
+      await this.getRestaurants();
+    },
+    async putRestaurant(id: string){
+      await axios.put<Restaurant>("https://localhost:7012/api/Restaurant/"+id, {
+        id: id,
+        name: this.restaurant.name,
+        type: this.restaurant.type,
+        image: this.restaurant.image
+      }).then((response) => {this.presentToast(response.status); console.log(response)});
+      await this.getRestaurants();
     },
     async deleteRestaurant(id: string){
-      axios.delete("https://localhost:7012/api/Restaurant/"+id).then((response) => {this.presentToast(response.status)});
+      await axios.delete("https://localhost:7012/api/Restaurant/"+id).then((response) => {this.presentToast(response.status)});
+      await this.getRestaurants();
     },
     async getRestaurants() {
-      const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
+      const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant');
       this.restaurants = getRestaurantsResponse.data
       this.results = this.restaurants;
     },
@@ -142,7 +164,8 @@ export default defineComponent({
       const toast = await toastController.create({
         message: message,
         duration: 4000,
-        position: 'bottom'
+        position: 'bottom',
+        color: ((response>=200 && response<300)?'success':'danger')
       });
       await toast.present();
     },
