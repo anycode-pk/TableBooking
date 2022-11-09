@@ -15,7 +15,6 @@ public class RestaurantRepository : IRestaurantRepository
         var builder = new FirestoreClientBuilder {JsonCredentials = jsonString};
         var db = FirestoreDb.Create(databaseSettings.Value.ProjectId, builder.Build());
         restaurantCollection = db.Collection("Restaurants");
-        Console.WriteLine("Established connection with firestore");
     }
     
     public async Task<List<Restaurant>> GetAsync()
@@ -43,15 +42,13 @@ public class RestaurantRepository : IRestaurantRepository
 
     public async Task CreateAsync(Restaurant restaurant)
     {
-        var documentReference = restaurantCollection.Document(restaurant.Id);
-        var restaurant1 = new Dictionary<string, object>
+        var newRestaurant = new Dictionary<string, object>
         {
-            { "Id"  , restaurant.Id   },
             { "name", restaurant.Name },
             { "type", restaurant.Type },
             { "image", restaurant.Image }
         };
-        await documentReference.SetAsync(restaurant1);
+        await restaurantCollection.AddAsync(newRestaurant);
     }
 
     public async Task UpdateAsync(string id, Restaurant updatedBook)

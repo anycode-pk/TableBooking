@@ -42,7 +42,6 @@ export default defineComponent({
   },
   async mounted() {
     await this.getRestaurant();
-    console.log(this.restaurant);
   },
   props: {
     id: String

@@ -42,7 +42,6 @@ export default defineComponent({
   },
   async mounted() {
     await this.getRestaurants();
-    console.log(this.restaurants);
   },
   components: {
     RestaurantCard,
