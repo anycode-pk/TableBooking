@@ -233,4 +233,35 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-card-background: #1e1e1e;
   }
+
+  /*
+   * Text ion classes
+   * -------------------------------------------
+   */
+
+.ion-header{
+  font-size: 45px;
+  text-align: center;
+  color: #a42a29;
+}
+
+.ion-subtitle{
+  text-align: center;
+  color: #b24848;
+  margin-bottom: 25px;
+  font-size: 26px;
+}
+
+  /*
+     * Buttons specifications
+     * -------------------------------------------
+     */
+.ion-sign-in-button{
+  --background: #b24848;
+}
+
+.ion-sign-up-button{
+  --background: #b24848;
+}
+
 }
