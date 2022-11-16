@@ -5,8 +5,12 @@
         <img src="../assets/img/WelcomeImage.png"></div>
       <ion-card-header class="ion-header"> Welcome! </ion-card-header>
       <ion-card-subtitle class="ion-subtitle"> We are happy to see you. </ion-card-subtitle>
-      <div id="ButtonsForSigningInContainer"> <ion-button class="ion-sign-in-button" shape="round" fill="" size="large" > Sign in </ion-button> </div>
-      <div id="ButtonsForSigningUpContainer"> <ion-button class="ion-sign-up-button" shape="round" fill="" size="large" > Sign up </ion-button> </div>
+      <div id="ButtonsForSigningInContainer">
+        <ion-button class="ion-sign-in-button" shape="round" fill="" size="large" href="/signin"> Sign in </ion-button>
+      </div>
+      <div id="ButtonsForSigningUpContainer">
+        <ion-button class="ion-sign-up-button" shape="round" fill="" size="large" href="/signup"> Sign up </ion-button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
