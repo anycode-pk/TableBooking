@@ -6,52 +6,38 @@
     <ion-content>
       <RestaurantCard :restaurant-name="'TestName'" :restaurant-type="'TestType'" :restaurant-id="'123'" />
       <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-        <RestaurantCard :restaurant-name=restaurant.name :restaurant-type=restaurant.type :restaurant-id=restaurant.id />
+        <RestaurantCard :name=restaurant.name :type=restaurant.type :image="restaurant.image" />
       </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import {IonPage, IonContent, IonHeader, IonList} from "@ionic/vue";
-import { defineComponent } from 'vue';
-import axios from "axios";
-import RestaurantCard from "@/components/RestaurantCard.vue";
-import SearchBar from "@/components/SearchBar.vue";
+<script setup lang="ts">
+  import axios from "axios";
+  import {onMounted, ref} from "vue";
+  import { IonPage, IonHeader, IonContent, IonList } from "@ionic/vue";
+  import SearchBar from "@/components/SearchBar.vue";
+  import RestaurantCard from "@/components/RestaurantCard.vue";
 
-interface Restaurant {
-  id: string,
-  name: string,
-  type: string,
-  image: string
-}
+  interface Restaurant {
+    id: string,
+    name: string,
+    type: string,
+    image: string
+  }
 
-export default defineComponent({
-  name: 'SearchView',
-  data() {
-    return {
-      restaurants: [] as Restaurant[],
-      fetchingRestaurants: false
+  const restaurants: any = ref([])
+  async function getRestaurants(): Promise<void>{
+    const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
+    let restaurantData = getRestaurantsResponse.data;
+    for (let restaurant in restaurantData){
+      restaurants.value.push(restaurantData[restaurant]);
     }
-  },
-  methods: {
-    async getRestaurants() {
-      const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
-      this.restaurants = getRestaurantsResponse.data
-    },
-  },
-  async mounted() {
-    await this.getRestaurants();
-  },
-  components: {
-    RestaurantCard,
-    IonContent,
-    IonPage,
-    SearchBar,
-    IonHeader,
-    IonList
-  },
-});
+  }
+  onMounted(async () => {
+    await getRestaurants();
+    console.log(restaurants.value);
+  })
 </script>
 
 <style scoped>
