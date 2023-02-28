@@ -14,7 +14,7 @@
 <script lang="ts">
 import {IonToolbar, IonSearchbar, IonSegment, IonSegmentButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
-import SearchOptions from "@/components/SearchOptions.vue";
+import SearchOptions from "@/views/SearchView/components/SearchOptions.vue";
 
 export default defineComponent({
   name: 'SearchBar',

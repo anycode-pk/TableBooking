@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Name Surname</ion-title>
+        <ion-title>Bookings</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>

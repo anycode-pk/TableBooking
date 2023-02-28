@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Search',
         path: 'search',
-        component: () => import('@/views/SearchView.vue'),
+        component: () => import('@/views/SearchView/SearchView.vue'),
       },
       {
         name: 'Bookings',

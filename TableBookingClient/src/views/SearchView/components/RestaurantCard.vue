@@ -1,6 +1,6 @@
 <template>
     <ion-card :router-link='linkToRestaurant'>
-      <img alt="../assets/img/RestaurantPlaceholder.jpg" src="../assets/img/RestaurantPlaceholder.jpg"/>
+      <img alt="../assets/img/RestaurantPlaceholder.jpg" src="../../../assets/img/RestaurantPlaceholder.jpg"/>
       <ion-toolbar>
         <ion-buttons slot="primary">
           <ion-button fill="clear">
@@ -64,7 +64,16 @@ export default defineComponent({
 </script>
 
 <style>
-  img{
 
+  @media (min-width: 768px) {
+    ion-card {
+      width: 50%;
+      height: 300px;
+    }
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
   }
 </style>
