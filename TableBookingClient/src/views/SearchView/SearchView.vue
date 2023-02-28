@@ -4,50 +4,19 @@
       <SearchBar/>
     </ion-header>
     <ion-content>
-      <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-        <RestaurantCard :name=restaurant.name :type=restaurant.type :image="restaurant.image" />
-      </ion-list>
+      <ion-router-outlet>
+        <!-- <router-view /> -->
+      </ion-router-outlet>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import axios from "axios";
-  import {onMounted, ref} from "vue";
-  import { IonPage, IonHeader, IonContent, IonList } from "@ionic/vue";
+  import { IonPage, IonHeader, IonContent } from "@ionic/vue";
   import SearchBar from "@/views/SearchView/components/SearchBar.vue";
-  import RestaurantCard from "@/views/SearchView/components/RestaurantCard.vue";
-
-  interface Restaurant {
-    id: string,
-    name: string,
-    type: string,
-    image: string
-  }
-
-  const restaurants: any = ref([
-    {id: "1", name: "Restaurant 1", type: "It", image: "https://www.italianfood.net/wp-content/uploads/2019/03/italian-food-recipes.jpg"},
-    {id: "2", name: "Restaurant 2", type: "It", image: "https://www.italianfood.net/wp-content/uploads/2019/03/italian-food-recipes.jpg"},
-    {id: "3", name: "Restaurant 3", type: "It", image: "https://www.italianfood.net/wp-content/uploads/2019/03/italian-food-recipes.jpg"},
-  ])
-  async function getRestaurants(): Promise<void>{
-    const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant')
-    let restaurantData = getRestaurantsResponse.data;
-    for (let restaurant in restaurantData){
-      restaurants.value.push(restaurantData[restaurant]);
-    }
-  }
-  onMounted(async () => {
-    await getRestaurants();
-    console.log(restaurants.value);
-  })
+  import IonRouterOutlet from "@/App.vue";
 </script>
 
 <style scoped>
-  /* center list items */
-  ion-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+
 </style>

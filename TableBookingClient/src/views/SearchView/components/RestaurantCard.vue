@@ -47,7 +47,8 @@ export default defineComponent({
   props: {
     restaurantId: String,
     restaurantName: String,
-    restaurantType: String
+    restaurantType: String,
+    restaurantImage: String
   },
   setup() {
     return {

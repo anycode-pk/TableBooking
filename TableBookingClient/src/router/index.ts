@@ -4,15 +4,15 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/home',
+    redirect: '/home',
   },
   {
-    path: '/tabs/',
-    component: () => import('./Tabs.vue'),
+    path: '/',
+    component: () => import('./NavBar.vue'),
     children: [
       {
         path: '',
-        redirect: 'home',
+        redirect: '/home',
       },
       {
         name: 'Home',
@@ -20,9 +20,24 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/HomeView.vue'),
       },
       {
-        name: 'Search',
         path: 'search',
         component: () => import('@/views/SearchView/SearchView.vue'),
+        children: [
+          {
+            path: '',
+            redirect: '/search/list',
+          },
+          {
+            name: 'list',
+            path: 'list',
+            component: () => import('@/views/SearchView/SearchListView.vue'),
+          },
+          {
+            name: 'map',
+            path: 'map',
+            component: () => import('@/views/SearchView/SearchMapView.vue'),
+          }
+        ],
       },
       {
         name: 'Bookings',
@@ -34,34 +49,34 @@ const routes: Array<RouteRecordRaw> = [
         path: 'account',
         component: () => import('@/views/AccountView.vue'),
       },
+      {
+        name: 'Restaurant',
+        path: 'restaurant/:id',
+        props: true,
+        component: () => import('@/views/RestaurantView.vue'),
+      },
+      {
+        name: 'Admin',
+        path: 'admin',
+        component: () => import('@/views/AdminView.vue'),
+      },
+      {
+        name: "Welcome",
+        path: 'welcome',
+        component: () => import('@/views/WelcomeView.vue'),
+      },
+      {
+        name: "SignIn",
+        path: 'signin',
+        component: () => import('@/views/SignInView.vue'),
+      },
+      {
+        name: "SignUp",
+        path: 'signup',
+        component: () => import('@/views/SignUpView.vue'),
+      }
     ],
   },
-  {
-    name: 'Restaurant',
-    path: '/restaurant/:id',
-    props: true,
-    component: () => import('@/views/RestaurantView.vue'),
-  },
-  {
-    name: 'Admin',
-    path: '/admin',
-    component: () => import('@/views/AdminView.vue'),
-  },
-  {
-    name: "Welcome",
-    path: '/welcome',
-    component: () => import('@/views/WelcomeView.vue'),
-  },
-  {
-    name: "SignIn",
-    path: '/signin',
-    component: () => import('@/views/SignInView.vue'),
-  },
-  {
-    name: "SignUp",
-    path: '/signup',
-    component: () => import('@/views/SignUpView.vue'),
-  }
 ];
 
 const router = createRouter({

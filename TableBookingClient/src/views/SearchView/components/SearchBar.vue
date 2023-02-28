@@ -4,7 +4,7 @@
     <SearchOptions/>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="list">
+    <ion-segment value="list" @ionChange="onSegmentChange">
       <ion-segment-button value="list">List</ion-segment-button>
       <ion-segment-button value="map">Map</ion-segment-button>
     </ion-segment>
@@ -25,6 +25,12 @@ export default defineComponent({
     IonSegment,
     IonSegmentButton,
   },
+  methods: {
+    onSegmentChange(event: CustomEvent) {
+      const value = event.detail.value;
+      this.$router.push(value);
+    }
+  }
 });
 </script>
 
@@ -32,4 +38,5 @@ export default defineComponent({
   ion-searchbar{
     padding: 10px;
   }
+
 </style>
