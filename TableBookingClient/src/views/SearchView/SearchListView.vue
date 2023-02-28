@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-list v-for="restaurant in restaurants" :key="restaurant.id">
-        <RestaurantCard :restaurant-name=restaurant.name :restaurant-type=restaurant.type :restaurant-image="restaurant.image" />
+        <RestaurantCard :restaurant-id=restaurant.id :restaurant-name=restaurant.name :restaurant-type=restaurant.type :restaurant-image="restaurant.image" />
       </ion-list>
     </ion-content>
   </ion-page>
