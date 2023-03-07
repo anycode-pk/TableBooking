@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Restaurant',
         path: 'restaurant/:id',
         props: true,
-        component: () => import('@/views/RestaurantView.vue'),
+        component: () => import('@/views/RestaurantView/RestaurantView.vue'),
       },
       {
         name: 'Admin',
