@@ -16,9 +16,4 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Models\Table.cs" />
-      <Compile Remove="Models\Reservation.cs" />
-    </ItemGroup>
-
 </Project>

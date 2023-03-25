@@ -1,12 +1,4 @@
-using TableBooking.Interfaces;
-using TableBooking.Models;
-using TableBooking.Repositories;
-
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
-builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
 builder.Services.AddControllers();
 
