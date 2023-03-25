@@ -12,10 +12,11 @@ namespace TableBooking.Controllers
         //    _restaurantRepository = restaurantRepository;
         //}
 
-        //[HttpGet]
-        //public async Task<List<Restaurant>> Get() =>
-        //    await _restaurantRepository.GetAsync();
-
+        [HttpGet]
+        public string Get()
+        {
+            return "Hello World";
+        }
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Restaurant>> Get(string id)
         //{
