@@ -8,6 +8,8 @@
 
     <ItemGroup>
         <PackageReference Include="Google.Cloud.Firestore" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.15" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.15">
           <PrivateAssets>all</PrivateAssets>
@@ -24,6 +26,24 @@
 
     <ItemGroup>
       <Folder Include="Controllers" />
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="WebApp1\Areas\Identity\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_LoginPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\appsettings.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\obj\WebApp1.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>
