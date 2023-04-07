@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TableBooking.EF;
@@ -11,9 +12,10 @@ using TableBooking.EF;
 namespace TableBooking.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230407122124_NewTables")]
+    partial class NewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,9 +164,6 @@ namespace TableBooking.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("BookingId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -217,8 +216,6 @@ namespace TableBooking.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -227,30 +224,6 @@ namespace TableBooking.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("TableBooking.Model.Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TableId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TableId");
-
-                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Restaurant", b =>
@@ -286,27 +259,6 @@ namespace TableBooking.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Restaurants");
-                });
-
-            modelBuilder.Entity("TableBooking.Model.Table", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("NoSeats")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -358,39 +310,6 @@ namespace TableBooking.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TableBooking.Model.AppUser", b =>
-                {
-                    b.HasOne("TableBooking.Model.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-                });
-
-            modelBuilder.Entity("TableBooking.Model.Booking", b =>
-                {
-                    b.HasOne("TableBooking.Model.Table", "Table")
-                        .WithMany()
-                        .HasForeignKey("TableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Table");
-                });
-
-            modelBuilder.Entity("TableBooking.Model.Table", b =>
-                {
-                    b.HasOne("TableBooking.Model.Restaurant", "Restaurant")
-                        .WithMany()
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurant");
                 });
 #pragma warning restore 612, 618
         }

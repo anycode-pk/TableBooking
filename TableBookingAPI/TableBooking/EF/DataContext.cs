@@ -35,4 +35,6 @@ public class DataContext : IdentityDbContext<AppUser>
     //     return null;
     // }
     public DbSet<Restaurant> Restaurants { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Table> Tables { get; set; }
 }
