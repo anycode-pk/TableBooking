@@ -7,5 +7,5 @@ public class AppUser : IdentityUser
 {
     public string? RefreshToken { get; set; }         
     public DateTime? RefreshTokenExpiryTime { get; set; } 
-    public Booking Booking { get; set; }
+    public IEnumerable<Booking> Booking { get; set; }
 }
