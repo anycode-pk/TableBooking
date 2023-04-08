@@ -8,6 +8,6 @@ public class Restaurant : Entity
     public string? Location { get; set; }
     public DateTime OpenTime { get; set; }
     public DateTime CloseTime { get; set; }
-    public IEnumerable<Table> Table { get; set; }
+    public IEnumerable<Table> Tables { get; set; }
     
 }
