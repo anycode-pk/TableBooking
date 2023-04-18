@@ -68,63 +68,21 @@
     </ion-modal>
 </template>
 
-<script lang="ts">
-import {
-  IonButtons,
-  IonButton,
-  IonModal,
-  IonHeader,
-  IonContent,
-  IonToolbar,
-  IonTitle,
-  IonItem,
-  IonLabel,
-  IonIcon,
-  IonList,
-  IonRadio,
-  IonRadioGroup,
-  IonListHeader,
-  IonCheckbox,
-
-} from '@ionic/vue';
+<script setup lang="ts">
+import { IonButtons, IonButton, IonModal, IonHeader, IonContent, IonToolbar, IonTitle, IonItem, IonLabel, IonIcon, IonList, IonRadio, IonRadioGroup, IonListHeader, IonCheckbox } from '@ionic/vue';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { defineComponent } from 'vue';
 import {optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, timeSharp} from "ionicons/icons";
 
-export default defineComponent({
-  name: 'SearchOptions',
-  components: {
-    IonButtons,
-    IonButton,
-    IonModal,
-    IonHeader,
-    IonContent,
-    IonToolbar,
-    IonTitle,
-    IonItem,
-    IonLabel,
-    IonIcon,
-    IonList,
-    IonRadio,
-    IonRadioGroup,
-    IonListHeader,
-    IonCheckbox
-  },
-  methods: {
-    cancel() {
-      (this.$refs.modal as any).$el.dismiss(null, 'cancel');
-    },
-    confirm() {
+//TODO: Fix this
+const cancel = () => {
+    (this.$refs.modal as any).$el.dismiss(null, 'cancel');
+  }
+const confirm = () => {
       (this.$refs.modal as any).$el.dismiss(null, 'confirm');
-    },
-    onWillDismiss(ev: CustomEvent<OverlayEventDetail>) {
+    }
+const onWillDismiss = (ev: CustomEvent<OverlayEventDetail>) => {
       if (ev.detail.role === 'confirm') {
         //On confirm
       }
-    },
-  },
-  setup() {
-    return { optionsSharp, arrowBackSharp, checkmarkSharp,flameSharp,starSharp, timeSharp };
-  },
-});
+    };
 </script>

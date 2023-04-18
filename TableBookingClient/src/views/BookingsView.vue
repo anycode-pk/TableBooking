@@ -10,20 +10,8 @@
   </ion-page>
 </template>
 
-<script>
-import {IonPage, IonContent, IonTitle, IonHeader, IonToolbar, IonList} from "@ionic/vue";
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Account',
-  components: {
-    IonContent,
-    IonPage,
-    IonTitle,
-    IonHeader,
-    IonToolbar,
-  }
-});
+<script setup lang="ts">
+import {IonPage, IonContent, IonTitle, IonHeader, IonToolbar} from "@ionic/vue";
 </script>
 
 <style scoped>

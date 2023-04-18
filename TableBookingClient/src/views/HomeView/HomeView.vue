@@ -11,20 +11,8 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'HomeView',
-  components: {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar
-  },
-});
 
 </script>
 
