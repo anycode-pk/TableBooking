@@ -20,6 +20,7 @@
     "@ionic/vue-router": "^7.0.0",
     "axios": "^1.1.2",
     "core-js": "^3.6.5",
+    "ionic": "^5.4.16",
     "ionicons": "^6.0.3",
     "lorem-ipsum": "^2.0.8",
     "vue": "^3.2.47",
