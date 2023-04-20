@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TableBooking.DTOs;
 using TableBooking.EF;
 using TableBooking.Model;
 
@@ -21,17 +22,26 @@ namespace TableBooking.Controllers
             return Ok(restaurants);
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var restaurant = _context.Restaurants.Find(id);
             return Ok(restaurant);
         }
-
+        
         [HttpPost]
-        public async Task<IActionResult> Add(string name)
+        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto) 
         {
-            var restaurant = new Restaurant { Name = name };
+            var restaurant = new Restaurant
+            {
+                Name = restaurantShortInfoDto.Name,
+                CloseTime = restaurantShortInfoDto.CloseTime,
+                Description = restaurantShortInfoDto.Description,
+                Id = restaurantShortInfoDto.Id,
+                Location = restaurantShortInfoDto.Location,
+                OpenTime = restaurantShortInfoDto.OpenTime,
+                Type = restaurantShortInfoDto.Type
+            };
             _context.Restaurants.Add(restaurant);
             await _context.SaveChangesAsync();
             return Ok(restaurant);
