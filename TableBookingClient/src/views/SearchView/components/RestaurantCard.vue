@@ -11,57 +11,24 @@
           </ion-button>
         </ion-buttons>
         <ion-card-header>
-          <ion-card-title>{{ restaurantName || 'Name' }}</ion-card-title>
-          <ion-card-subtitle>{{ restaurantType || 'Type' }}</ion-card-subtitle>
+          <ion-card-title>{{ props.restaurant.name || 'Name' }}</ion-card-title>
+          <ion-card-subtitle>{{ props.restaurant.type || 'Type' }}</ion-card-subtitle>
         </ion-card-header>
       </ion-toolbar>
     </ion-card>
 </template>
 
-<script lang="ts">
-import {
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonButton,
-  IonIcon,
-  IonButtons,
-  IonToolbar
-} from '@ionic/vue';
-import { heartSharp, shareSharp } from 'ionicons/icons'
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonToolbar, IonButtons, IonButton, IonIcon } from "@ionic/vue";
+import { heartSharp, shareSharp } from "ionicons/icons";
+import { defineProps } from "vue";
+import type { Restaurant } from "@/models";
 
-export default defineComponent({
-  name: 'RestaurantCard',
-  components: {
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonButton,
-    IonButtons,
-    IonIcon,
-    IonToolbar
-  },
-  props: {
-    restaurantId: String,
-    restaurantName: String,
-    restaurantType: String,
-    restaurantImage: String
-  },
-  setup() {
-    return {
-      heartSharp,
-      shareSharp
-    }
-  },
-  data() {
-    return {
-      linkToRestaurant: "/restaurant/" + this.restaurantId
-    }
-  }
-});
+const props = defineProps<{
+  restaurant: Restaurant
+}>();
+
+const linkToRestaurant = "/restaurant/" + props.restaurant.id;
 </script>
 
 <style>

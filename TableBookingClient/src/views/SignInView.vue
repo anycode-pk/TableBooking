@@ -4,16 +4,9 @@
   </ion-page>
 </template>
 
-<script>
-import {defineComponent} from "vue";
+<script setup lang="ts">
 import {IonPage} from "@ionic/vue";
 
-export default defineComponent({
-  name: "SignInView",
-  components: {
-    IonPage
-  },
-});
 </script>
 
 <style scoped>

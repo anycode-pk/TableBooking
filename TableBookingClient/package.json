@@ -15,15 +15,17 @@
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/status-bar": "4.0.1",
-    "@ionic/vue": "^6.0.0",
-    "@ionic/vue-router": "^6.0.0",
+    "@ionic/core": "^7.0.0",
+    "@ionic/vue": "^7.0.0",
+    "@ionic/vue-router": "^7.0.0",
     "axios": "^1.1.2",
     "core-js": "^3.6.5",
     "ionic": "^5.4.16",
     "ionicons": "^6.0.3",
-    "vue": "^3.2.21",
+    "lorem-ipsum": "^2.0.8",
+    "vue": "^3.2.47",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@capacitor/cli": "4.3.0",

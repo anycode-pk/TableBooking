@@ -11,27 +11,15 @@
   </ion-toolbar>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {IonToolbar, IonSearchbar, IonSegment, IonSegmentButton} from '@ionic/vue';
-import { defineComponent } from 'vue';
 import SearchOptions from "@/views/SearchView/components/SearchOptions.vue";
+import router from "@/router";
 
-export default defineComponent({
-  name: 'SearchBar',
-  components: {
-    SearchOptions,
-    IonToolbar,
-    IonSearchbar,
-    IonSegment,
-    IonSegmentButton,
-  },
-  methods: {
-    onSegmentChange(event: CustomEvent) {
-      const value = event.detail.value;
-      this.$router.push(value);
-    }
-  }
-});
+const onSegmentChange = (e: CustomEvent) => {
+  //push segment value to router
+    router.push(e.detail.value);
+}
 </script>
 
 <style scoped>
