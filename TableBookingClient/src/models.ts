@@ -2,9 +2,14 @@ export type Restaurant = {
     id: string;
     name: string;
     type: string;
-    time: string;
+    openTime: string;
+    closeTime: string;
+    rating: number;
     shortDescription?: string;
     description?: string;
     imageUrl: string;
-    address: string;
+    location: string;
+    phone: string;
+    website: string;
+    email: string;
 }
