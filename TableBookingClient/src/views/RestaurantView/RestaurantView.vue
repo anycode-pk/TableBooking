@@ -9,29 +9,38 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-card>
-        <img alt="image of restaurant" src="../../assets/img/RestaurantPlaceholder.jpg" />
-        <ion-card-header>
-          <ion-card-title>{{ restaurant && restaurant.name || "Restaurant" }}</ion-card-title>
-          <div id="time">
-            <IonIcon :icon="time"/>
-            <IonLabel> 8:00-21:00</IonLabel>
-          </div>
-          <ion-card-subtitle>{{ restaurant && restaurant.type || "Type" }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ restaurant && restaurant.description || loremIpsum }}</p>
-        </ion-card-content>
-          <IonButton expand="block" color="primary" routerLink="/book-restaurant/{{restaurant.id}}">Book a table</IonButton>
-      </ion-card>
+        <ion-card>
+            <img alt="../assets/img/RestaurantPlaceholder.jpg" src=""/>
+            <div class="header-row">
+                <ion-card-header>
+                    <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
+                    <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
+                    <div class="time-container">
+                        <IonIcon class="time-icon" :icon="time"/>
+                        <IonLabel class="time-label">8:00-21:00</IonLabel>
+                    </div>
+                </ion-card-header>
+                <div class="card-buttons">
+                    <ion-button fill="clear">
+                        <ion-icon slot="icon-only" :icon="heartSharp"/>
+                    </ion-button>
+                    <ion-button  fill="clear">
+                        <ion-icon slot="icon-only" :icon="shareSharp"/>
+                    </ion-button>
+                </div>
+            </div>
+            <ion-card-content>
+                <p>{{ restaurant.shortDescription || 'Short description' }}</p>
+            </ion-card-content>
+        </ion-card>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 
-import {IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton } from "@ionic/vue";
-import { time } from "ionicons/icons";
+import {IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
+import {heartSharp, shareSharp, time} from "ionicons/icons";
 import type { Restaurant } from "@/models";
 import {LoremIpsum} from "lorem-ipsum";
 import axios from "axios";
