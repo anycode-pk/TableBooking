@@ -48,7 +48,7 @@ public class TableController : ControllerBase
         var tableToDelete = _context.Tables.Find(id);
         if (tableToDelete == null)
             return NotFound($"Restaurant with Id = {id} not found");
-        _context.Restaurants.Remove(tableToDelete);
+        _context.Tables.Remove(tableToDelete);
         _context.SaveChanges();
         return Ok(tableToDelete);
     }

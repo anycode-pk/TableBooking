@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TableBooking.EF;
@@ -11,9 +12,10 @@ using TableBooking.EF;
 namespace TableBooking.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230509110611_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,10 +270,6 @@ namespace TableBooking.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Location")
                         .HasColumnType("text");
 
@@ -281,12 +279,6 @@ namespace TableBooking.Migrations
 
                     b.Property<DateTime>("OpenTime")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
                         .HasColumnType("text");
