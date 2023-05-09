@@ -31,6 +31,10 @@
             </div>
             <ion-card-content>
                 <p>{{ restaurant.description || 'Description' }}</p>
+                <ion-button @click="bookTable">
+                    <ion-icon slot="start" :icon="time"></ion-icon>
+                    <ion-label>Book a table</ion-label>
+                </ion-button>
             </ion-card-content>
         </ion-card>
     </ion-content>
@@ -47,17 +51,6 @@ import axios from "axios";
 import {onMounted} from "vue";
 import {restaurantPlaceholders} from "@/restaurants";
 
-const loremIpsum :string = new LoremIpsum({
-    sentencesPerParagraph: {
-        max: 8,
-        min: 4
-    },
-    wordsPerSentence: {
-        max: 16,
-        min: 4
-    }
-}).generateParagraphs(1);
-
 let restaurant :Restaurant;
 restaurant = restaurantPlaceholders[0];
 
@@ -71,6 +64,10 @@ async function getRestaurant(): Promise<void>{
 onMounted(async () => {
     await getRestaurant();
 })
+
+const bookTable = () => {
+    console.log("Book table");
+};
 
 </script>
 
