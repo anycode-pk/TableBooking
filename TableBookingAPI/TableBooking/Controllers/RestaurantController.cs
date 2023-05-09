@@ -9,7 +9,7 @@ namespace TableBooking.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private DataContext _context;
+        private readonly DataContext _context;
         public RestaurantController(DataContext context)
         {
             _context = context;
@@ -26,6 +26,8 @@ namespace TableBooking.Controllers
         public IActionResult GetById(int id)
         {
             var restaurant = _context.Restaurants.Find(id);
+            if (restaurant == null)
+                return NotFound();
             return Ok(restaurant);
         }
         
@@ -37,7 +39,6 @@ namespace TableBooking.Controllers
                 Name = restaurantShortInfoDto.Name,
                 CloseTime = restaurantShortInfoDto.CloseTime,
                 Description = restaurantShortInfoDto.Description,
-                Id = restaurantShortInfoDto.Id,
                 Location = restaurantShortInfoDto.Location,
                 OpenTime = restaurantShortInfoDto.OpenTime,
                 Type = restaurantShortInfoDto.Type
