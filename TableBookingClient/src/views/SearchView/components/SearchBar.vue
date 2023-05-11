@@ -1,7 +1,7 @@
 <template>
   <ion-toolbar>
     <ion-searchbar slot="start"/>
-    <SearchOptions/>
+    <!--<SearchOptions/>-->
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="list" @ionChange="onSegmentChange">

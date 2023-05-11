@@ -39,8 +39,8 @@
             </ion-item>
 
             <ion-item>
-              <ion-icon :icon="timeSharp"/>
-              <ion-label>Delivery time</ion-label>
+              <ion-icon :icon="locationSharp"/>
+              <ion-label>Distance</ion-label>
               <ion-radio slot="end" color="success" value="time" mode="ios"></ion-radio>
             </ion-item>
           </ion-radio-group>
@@ -52,12 +52,10 @@
               <ion-label>$</ion-label>
               <ion-checkbox slot="end" checked='checked'></ion-checkbox>
             </ion-item>
-
             <ion-item>
               <ion-label>$$</ion-label>
               <ion-checkbox slot="end" checked='checked'></ion-checkbox>
             </ion-item>
-
             <ion-item>
               <ion-label>$$$</ion-label>
               <ion-checkbox slot="end" checked='checked'></ion-checkbox>
@@ -69,20 +67,31 @@
 </template>
 
 <script setup lang="ts">
-import { IonButtons, IonButton, IonModal, IonHeader, IonContent, IonToolbar, IonTitle, IonItem, IonLabel, IonIcon, IonList, IonRadio, IonRadioGroup, IonListHeader, IonCheckbox } from '@ionic/vue';
-import { OverlayEventDetail } from '@ionic/core/components';
-import {optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, timeSharp} from "ionicons/icons";
+import { ref } from 'vue';
+import { IonModal, IonIcon } from '@ionic/vue';
+import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, locationSharp } from 'ionicons/icons';
+import { OverlayEventDetail } from '@ionic/core';
 
-//TODO: Fix this
+const modal = ref<typeof IonModal | null>(null);
+
+const openModal = () => {
+    modal.value = modal.value?.$el.present();
+};
+
 const cancel = () => {
-    (this.$refs.modal as any).$el.dismiss(null, 'cancel');
-  }
+    modal.value?.$el.dismiss(null, 'cancel');
+};
+
 const confirm = () => {
-      (this.$refs.modal as any).$el.dismiss(null, 'confirm');
-    }
+    modal.value?.$el.dismiss(null, 'confirm');
+};
+
 const onWillDismiss = (ev: CustomEvent<OverlayEventDetail>) => {
-      if (ev.detail.role === 'confirm') {
-        //On confirm
-      }
-    };
+    if (ev.detail.role === 'confirm') {
+        // On confirm
+    }
+    if (ev.detail.role === 'cancel') {
+        // On cancel
+    }
+};
 </script>

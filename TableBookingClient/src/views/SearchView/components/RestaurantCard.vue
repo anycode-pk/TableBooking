@@ -1,27 +1,24 @@
 <template>
     <ion-card  :router-link='linkToRestaurant'>
-      <img alt="../assets/img/RestaurantPlaceholder.jpg" src="../../../assets/img/RestaurantPlaceholder.jpg"/>
+      <img class="restaurant-card-image" alt="Restaurant image" v-bind:src="restaurant.imageUrl"/>
     <div class="header-row">
         <ion-card-header>
-          <ion-card-subtitle>{{ props.restaurant.type || 'Type' }}</ion-card-subtitle>
-          <ion-card-title>{{ props.restaurant.name || 'Name' }}</ion-card-title>
+            <ion-card-title>{{ props.restaurant.name || 'Name' }}</ion-card-title>
+            <RestaurantRating v-bind:rating="restaurant.rating"/>
             <div class="time-container">
                 <IonIcon class="time-icon" :icon="time"/>
-                <IonLabel class="time-label">8:00-21:00</IonLabel>
+                <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
             </div>
         </ion-card-header>
             <div class="card-buttons">
                 <ion-button @click.stop="likeRestaurant" fill="clear">
                     <ion-icon slot="icon-only" :icon="heartSharp"/>
                 </ion-button>
-                <ion-button  fill="clear">
+                <ion-button @click.stop="shareRestaurant" fill="clear">
                     <ion-icon slot="icon-only" :icon="shareSharp"/>
                 </ion-button>
             </div>
         </div>
-        <ion-card-content>
-            <p>{{ props.restaurant.shortDescription || 'Short description' }}</p>
-        </ion-card-content>
     </ion-card>
 </template>
 
@@ -30,7 +27,7 @@ import {IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonButton, IonIco
 import {heartSharp, shareSharp, time} from "ionicons/icons";
 import { defineProps } from "vue";
 import type { Restaurant } from "@/models";
-import router from "@/router";
+import RestaurantRating from "@/views/components/RestaurantRating.vue";
 
 const props = defineProps<{
   restaurant: Restaurant
@@ -39,6 +36,9 @@ const props = defineProps<{
 const linkToRestaurant = `/restaurant/${props.restaurant.id}`;
 const likeRestaurant = () => {
   console.log("Like restaurant");
+};
+const shareRestaurant = () => {
+  console.log("Share restaurant");
 };
 
 </script>
@@ -55,6 +55,10 @@ const likeRestaurant = () => {
       object-fit: cover;
     }
   }
+  ion-card {
+    width: calc(100% - 20px);
+  }
+
 
   .header-row {
     display: flex;
@@ -86,5 +90,17 @@ const likeRestaurant = () => {
   .time-label{
       padding: 5px;
       margin-top: 2px;
+  }
+  .restaurant-card-image{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .restaurant-card-title{
+      display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
   }
 </style>
