@@ -1,8 +1,15 @@
 using System.Configuration;
+using System.Text;
 using Google;
+using Google.Api;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using TableBooking.EF;
+using TableBooking.Model;
 using TableBooking.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +30,16 @@ var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(
         npgsqlBuilder.ConnectionString));
+
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<DbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+});
+
 
 builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>(); // 3 cykle poczytaj
 
