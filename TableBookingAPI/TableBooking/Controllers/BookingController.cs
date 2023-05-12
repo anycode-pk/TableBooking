@@ -15,11 +15,13 @@ namespace TableBooking.Controllers
         {
             _context = context;
         }
+        
         [HttpGet]
         public IActionResult GetAllBookings()
         {
             return Ok(_context.Bookings.ToList());
         }
+        
         [HttpGet("{id}")]
         public ActionResult<BookingDTO> GetBooking([FromRoute] int id)
         {
