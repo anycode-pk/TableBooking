@@ -7,7 +7,11 @@ Web applications that allows you to book a table at your favourite restaurant.
 # How to Use
 - Working on it...
 # Technologies Used
-- None SQL DB (we have to choose)
+- Ionic
+- Vue
+- Entity Framework Core
+- ASP.NET
+- PostgreSQL
 # Future Improvements
 - Book a table
 
