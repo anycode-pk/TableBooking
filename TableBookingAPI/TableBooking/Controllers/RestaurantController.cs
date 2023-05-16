@@ -18,7 +18,7 @@ namespace TableBooking.Controllers
         }
         
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetAllRestaurants()
         {
             var restaurants = _context.Restaurants.ToList();
