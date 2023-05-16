@@ -1,4 +1,7 @@
-﻿using IdentityServer4.Services;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using IdentityServer4.Services;
+using ISynergy.Framework.AspNetCore.Abstractions.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -58,24 +61,33 @@ namespace TableBooking.Controllers
         public async Task<IActionResult> Login([FromBody] UserLoginDTO userLoginDTO)
         {
             var user = await userManager.FindByEmailAsync(userLoginDTO.Email);
-
+            
             if (user != null && await userManager.CheckPasswordAsync(user, userLoginDTO.Password))
             {
-                var userClaims = await claimsService.GetUserClaimsAsync(user);
+                //var userClaims = await claimsService.GetUserClaimsAsync(user);
+                await HttpContext.SignInAsync(new ClaimsPrincipal(
+                    new ClaimsIdentity(
+                        new Claim[]
+                        {
+                            new Claim(ClaimTypes.Email, Guid.NewGuid().ToString()) // Globally Unique Identifier
+                        })
+                ));
+               
                 var token = jwtTokenService.GetJwtToken(userClaims);
 
                 return Ok(new UserLoginResultDTO
                 {
                     Succeeded = true,
                     Token = new TokenDTO
-                    { 
+                    {
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
-                       
                     }
                 });
-
-
             }
+
+            return Unauthorized(); // 401
+
+            
         }
         private async Task SeedRoles()
         {
