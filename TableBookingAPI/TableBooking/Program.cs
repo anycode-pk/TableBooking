@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Hasior API",
+        Title = "TableBooking API",
         Version = "v1",
         Description = "Application created by .Net Group Koszalin University of Technology",
     });

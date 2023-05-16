@@ -75,6 +75,7 @@ namespace TableBooking.Controllers
             {
                 return Unauthorized();
             }
+
             //    var userRoles = await userManager.GetRolesAsync(user);
             var authClaims = new List<Claim>
                 {
