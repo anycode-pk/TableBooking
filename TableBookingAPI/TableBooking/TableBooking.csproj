@@ -4,12 +4,10 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>af5c4dec-79ad-4dc9-8bdb-51490d8c2469</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Google.Cloud.Firestore" Version="3.0.0" />
-        <PackageReference Include="I-Synergy.Framework.AspNetCore" Version="2023.1118.1" />
-        <PackageReference Include="IdentityServer4" Version="4.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.15" />
