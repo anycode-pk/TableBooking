@@ -1,6 +1,4 @@
-using ISynergy.Framework.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TableBooking.DTOs;
 using TableBooking.EF;
 using TableBooking.Extentions;
@@ -17,7 +15,7 @@ namespace TableBooking.Controllers
         {
             _context = context;
         }
-        
+
         [HttpGet]
         public IActionResult SearchRestaurants(string? search)
         {
@@ -25,7 +23,7 @@ namespace TableBooking.Controllers
             // jak nic nie wyszuka to zwruc proponowane gowno - task od kacpra (niewykonalny)
             return Ok(restaurantsSearched);
         }
-        
+
 
 
         [HttpGet("{id}")]
@@ -36,9 +34,9 @@ namespace TableBooking.Controllers
                 return NotFound();
             return Ok(restaurant);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto) 
+        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
         {
             var restaurant = new Restaurant
             {
@@ -56,7 +54,7 @@ namespace TableBooking.Controllers
             return Ok(restaurant);
         }
 
-        [HttpDelete("{id:int}")] 
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var restaurantToDelete = await _context.Restaurants.FindAsync(id);
@@ -67,6 +65,6 @@ namespace TableBooking.Controllers
             return Ok(restaurantToDelete);
         }
 
-        
+
     }
 }
