@@ -73,21 +73,19 @@ namespace TableBooking.Controllers
                         })
                 ));
                
-                var token = jwtTokenService.GetJwtToken(userClaims);
+                //var token = jwtTokenService.GetJwtToken(userClaims);
 
                 return Ok(new UserLoginResultDTO
                 {
                     Succeeded = true,
                     Token = new TokenDTO
                     {
-                        Token = new JwtSecurityTokenHandler().WriteToken(token),
+                        //Token = new JwtSecurityTokenHandler().WriteToken(token),
                     }
                 });
             }
 
             return Unauthorized(); // 401
-
-            
         }
         private async Task SeedRoles()
         {

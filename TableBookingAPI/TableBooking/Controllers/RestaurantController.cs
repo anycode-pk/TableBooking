@@ -1,6 +1,9 @@
+using ISynergy.Framework.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TableBooking.DTOs;
 using TableBooking.EF;
+using TableBooking.Extentions;
 using TableBooking.Model;
 
 namespace TableBooking.Controllers
@@ -16,11 +19,14 @@ namespace TableBooking.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAllRestaurants()
+        public IActionResult SearchRestaurants(string? search)
         {
-            var restaurants = _context.Restaurants.ToList();
-            return Ok(restaurants);
+            var restaurantsSearched = _context.Restaurants.Search(search).ToList();
+            // jak nic nie wyszuka to zwruc proponowane gowno - task od kacpra (niewykonalny)
+            return Ok(restaurantsSearched);
         }
+        
+
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -40,6 +46,8 @@ namespace TableBooking.Controllers
                 CloseTime = restaurantShortInfoDto.CloseTime,
                 Description = restaurantShortInfoDto.Description,
                 Location = restaurantShortInfoDto.Location,
+                Rating = 0,
+                Price = restaurantShortInfoDto.Price,
                 OpenTime = restaurantShortInfoDto.OpenTime,
                 Type = restaurantShortInfoDto.Type
             };
@@ -58,5 +66,7 @@ namespace TableBooking.Controllers
             await _context.SaveChangesAsync();
             return Ok(restaurantToDelete);
         }
+
+        
     }
 }

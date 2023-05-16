@@ -15,7 +15,7 @@ public class RestaurantShortInfoDTO
     public string Location { get; set; }
     public string ImageURL { get; set; }
     public int Rating { get; set; }
-    public Price Price { get; set; }
+    public Model.Price Price { get; set; }
     public DateTime OpenTime { get; set; }
     public DateTime CloseTime { get; set; }
 }
