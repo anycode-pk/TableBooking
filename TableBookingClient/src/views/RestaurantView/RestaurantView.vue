@@ -13,25 +13,26 @@
             <img alt="Restaurant image" v-bind:src="restaurant.imageUrl"/>
             <div class="header-row">
                 <ion-card-header>
-                    <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
+                    <RestaurantRating v-bind:rating="restaurant.rating"/>
                     <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
+                    <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
                     <div class="time-container">
                         <IonIcon class="time-icon" :icon="time"/>
                         <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
                     </div>
                 </ion-card-header>
                 <div class="card-buttons">
-                    <ion-button fill="clear">
+                    <ion-button @click.stop="likeRestaurant" fill="clear">
                         <ion-icon slot="icon-only" :icon="heartSharp"/>
                     </ion-button>
-                    <ion-button  fill="clear">
+                    <ion-button @click.stop="shareRestaurant" fill="clear">
                         <ion-icon slot="icon-only" :icon="shareSharp"/>
                     </ion-button>
                 </div>
             </div>
             <ion-card-content>
                 <p>{{ restaurant.description || 'Description' }}</p>
-                <ion-button @click="bookTable">
+                <ion-button :router-link='bookTable'>
                     <ion-icon slot="start" :icon="time"></ion-icon>
                     <ion-label>Book a table</ion-label>
                 </ion-button>
@@ -50,6 +51,7 @@ import {LoremIpsum} from "lorem-ipsum";
 import axios from "axios";
 import {onMounted} from "vue";
 import {restaurantPlaceholders} from "@/restaurants";
+import RestaurantRating from "@/views/components/RestaurantRating.vue";
 
 let restaurant :Restaurant;
 restaurant = restaurantPlaceholders[0];
@@ -65,8 +67,13 @@ onMounted(async () => {
     await getRestaurant();
 })
 
-const bookTable = () => {
-    console.log("Book table");
+const bookTable = '/book/' + restaurant.id;
+
+const likeRestaurant = () => {
+    console.log("Like restaurant");
+};
+const shareRestaurant = () => {
+    console.log("Share restaurant");
 };
 
 </script>
@@ -86,5 +93,8 @@ const bookTable = () => {
       margin: 0;
   }
 
+  ion-card-content{
+      padding-top: 0;
+  }
 
 </style>

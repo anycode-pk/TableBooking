@@ -3,13 +3,15 @@
       <img class="restaurant-card-image" alt="Restaurant image" v-bind:src="restaurant.imageUrl"/>
     <div class="header-row">
         <ion-card-header>
-            <ion-card-title>{{ props.restaurant.name || 'Name' }}</ion-card-title>
             <RestaurantRating v-bind:rating="restaurant.rating"/>
+            <ion-card-title>{{ props.restaurant.name || 'Name' }}</ion-card-title>
+            <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
             <div class="time-container">
                 <IonIcon class="time-icon" :icon="time"/>
                 <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
             </div>
         </ion-card-header>
+        <div class="header-column">
             <div class="card-buttons">
                 <ion-button @click.stop="likeRestaurant" fill="clear">
                     <ion-icon slot="icon-only" :icon="heartSharp"/>
@@ -18,6 +20,7 @@
                     <ion-icon slot="icon-only" :icon="shareSharp"/>
                 </ion-button>
             </div>
+        </div>
         </div>
     </ion-card>
 </template>
@@ -55,10 +58,14 @@ const shareRestaurant = () => {
       object-fit: cover;
     }
   }
-  ion-card {
-    width: calc(100% - 20px);
+  @media (max-width: 768px) {
+      ion-card {
+          width: calc(100% - 20px);
+      }
   }
-
+  ion-card-subtitle{
+      margin: 0;
+  }
 
   .header-row {
     display: flex;
@@ -97,10 +104,15 @@ const shareRestaurant = () => {
     object-fit: cover;
   }
 
-  .restaurant-card-title{
-      display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  .header-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     height: 100%;
+  }
+
+  ion-card-title{
+      margin: 0;
   }
 </style>
