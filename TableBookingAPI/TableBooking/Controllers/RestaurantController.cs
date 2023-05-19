@@ -1,4 +1,3 @@
-using ISynergy.Framework.Core.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TableBooking.DTOs;
@@ -22,7 +21,6 @@ namespace TableBooking.Controllers
         public IActionResult SearchRestaurants(string? search)
         {
             var restaurantsSearched = _context.Restaurants.Search(search).ToList();
-            // jak nic nie wyszuka to zwruc proponowane gowno - task od kacpra (niewykonalny)
             return Ok(restaurantsSearched);
         }
         

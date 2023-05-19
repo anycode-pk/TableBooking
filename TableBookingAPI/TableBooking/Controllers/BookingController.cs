@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TableBooking.DTOs;
 using TableBooking.EF;
 
@@ -15,9 +17,18 @@ namespace TableBooking.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllBookings()
+        public async Task<IActionResult> GetAllBookingsForCurrentUser()
         {
-            return Ok(_context.Bookings.ToList());
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users
+                .Include(u => u.Bookings)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound();
+
+            var bookings = user.Bookings.ToList();
+            return Ok(bookings);
         }
 
         [HttpGet("{id}")]
