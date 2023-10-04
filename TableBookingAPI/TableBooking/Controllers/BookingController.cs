@@ -44,7 +44,7 @@ namespace TableBooking.Controllers
                 return Ok(bookingDto);
             }
 
-            var bookingDtos = user.Bookings.Select(booking=> new BookingDTO
+            var bookingDtos = user.Bookings.Select(booking => new BookingDTO
             {
                 Id = booking.Id,
                 Date = booking.Date,
@@ -52,7 +52,7 @@ namespace TableBooking.Controllers
                 TableId = booking.TableId,
                 UserId = booking.UserId
             }).ToList();
-            
+
             return Ok(bookingDtos);
         }
 
@@ -61,29 +61,6 @@ namespace TableBooking.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
-        [HttpPost]
-        public ActionResult<BookingDTO> AddBooking([FromBody] BookingToCreateDto bookingToCreateDto)
-        {
-            var booking = new Booking
-            {
-                Date = bookingToCreateDto.Date,
-                Duration = bookingToCreateDto.BookingDuration,
-                TableId = bookingToCreateDto.TableId,
-                UserId = bookingToCreateDto.UserId
-            };
-            _context.Bookings.Add(booking);
-            _context.SaveChanges();
-            var bookingDto = new BookingDTO
-            {
-                Id = booking.Id,
-                Date = booking.Date,
-                BookingDuration = booking.Duration,
-                TableId = booking.TableId,
-                UserId = booking.UserId
-            };
-            return Created(string.Empty, bookingDto);
-        }
-
             if (booking == null)
                 return NotFound();
 

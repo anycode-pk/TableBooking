@@ -44,15 +44,6 @@ namespace TableBooking.Controllers
             };
             var result = await userManager.CreateAsync(user, userRegisterDTO.Password);
             if (!result.Succeeded)
-                return Conflict(new UserRegisterResultDTO
-                {
-                    Succeeded = result.Succeeded,
-                    Errors = result.Errors.Select(e => e.Description)
-                });
-            await SeedRoles();
-            result = await userManager.CreateAsync(newUser, UserRoles.User);
-            return CreatedAtAction(nameof(Register), new UserRegisterResultDTO { Succeeded = true });
-
                 return new BadRequestObjectResult("Invalid password lenght");
 
             return Ok(new ResultDTO { Status = "Success", Message = "User created successfully!" });
@@ -75,37 +66,10 @@ namespace TableBooking.Controllers
             //result = await userManager.CreateAsync(newUser, UserRoles.User);
             //return CreatedAtAction(nameof(Register), new UserRegisterResultDTO { Succeeded = true });
         }
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO userLoginDTO)
         {
-            var user = await userManager.FindByEmailAsync(userLoginDTO.Email);
-
-            if (user != null && await userManager.CheckPasswordAsync(user, userLoginDTO.Password))
-            {
-                //var userClaims = await claimsService.GetUserClaimsAsync(user);
-                await HttpContext.SignInAsync(new ClaimsPrincipal(
-                    new ClaimsIdentity(
-                        new Claim[]
-                        {
-                            new Claim(ClaimTypes.Email, Guid.NewGuid().ToString()) // Globally Unique Identifier
-                        })
-                ));
-
-                //var token = jwtTokenService.GetJwtToken(userClaims);
-
-                //return Ok(new UserLoginResultDTO
-                //{
-                //    Succeeded = true,
-                //    Token = new TokenDTO
-                //    {
-                //        Token = new JwtSecurityTokenHandler().WriteToken(token),
-                //    }
-                //});
-                return Ok("Tomek napraw");
-            }
-            return Unauthorized();
             var user = await userManager.FindByNameAsync(userLoginDTO.Username);
             if (!(user != null || await userManager.CheckPasswordAsync(user, userLoginDTO.Password)))
             {
@@ -183,5 +147,7 @@ namespace TableBooking.Controllers
             if (!await roleManager.RoleExistsAsync(UserRoles.User))
                 await roleManager.CreateAsync(new AppRole(UserRoles.User));
         }
+
+
     }
 }
