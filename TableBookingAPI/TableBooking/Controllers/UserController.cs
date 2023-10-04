@@ -85,9 +85,7 @@ namespace TableBooking.Controllers
                 });
             }
 
-            return Unauthorized(); // 401
-
-            
+            return Unauthorized();
         }
         private async Task SeedRoles()
         {
@@ -97,7 +95,5 @@ namespace TableBooking.Controllers
             if (!await roleManager.RoleExistsAsync(UserRoles.User))
                 await roleManager.CreateAsync(new AppRole(UserRoles.User));
         }
-
-
     }
 }

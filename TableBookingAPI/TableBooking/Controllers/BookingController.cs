@@ -41,28 +41,28 @@ namespace TableBooking.Controllers
             return Ok(bookingDto);
         }
 
-        //[HttpPost]
-        //public ActionResult<BookingDTO> AddBooking([FromBody] BookingToCreateDto bookingToCreateDto)
-        //{
-        //    var booking = new Booking
-        //    {
-        //        Date = bookingToCreateDto.Date,
-        //        Duration = bookingToCreateDto.BookingDuration,
-        //        TableId = bookingToCreateDto.TableId,
-        //        UserId = bookingToCreateDto.UserId
-        //    };
-        //    _context.Bookings.Add(booking);
-        //    _context.SaveChanges();
-        //    var bookingDto = new BookingDTO
-        //    {
-        //        Id = booking.Id,
-        //        Date = booking.Date,
-        //        BookingDuration = booking.Duration,
-        //        TableId = booking.TableId,
-        //        UserId = booking.UserId
-        //    };
-        //    return Created(string.Empty, bookingDto);
-        //}
+        [HttpPost]
+        public ActionResult<BookingDTO> AddBooking([FromBody] BookingToCreateDto bookingToCreateDto)
+        {
+            var booking = new Booking
+            {
+                Date = bookingToCreateDto.Date,
+                Duration = bookingToCreateDto.BookingDuration,
+                TableId = bookingToCreateDto.TableId,
+                UserId = bookingToCreateDto.UserId
+            };
+            _context.Bookings.Add(booking);
+            _context.SaveChanges();
+            var bookingDto = new BookingDTO
+            {
+                Id = booking.Id,
+                Date = booking.Date,
+                BookingDuration = booking.Duration,
+                TableId = booking.TableId,
+                UserId = booking.UserId
+            };
+            return Created(string.Empty, bookingDto);
+        }
 
     }
 }
