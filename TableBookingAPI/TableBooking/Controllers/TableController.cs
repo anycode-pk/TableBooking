@@ -12,6 +12,10 @@ namespace TableBooking.Controllers;
 public class TableController : ControllerBase
 {
     private readonly DataContext _context;
+    public TableController(DataContext context)
+    {
+        _context = context;
+    }
     
     [HttpGet]
     public IActionResult GetAllTables()

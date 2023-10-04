@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.DTOs;
 using TableBooking.EF;
+using TableBooking.Extentions;
 using TableBooking.Model;
 
 namespace TableBooking.Controllers
@@ -14,13 +15,15 @@ namespace TableBooking.Controllers
         {
             _context = context;
         }
-        
+
         [HttpGet]
-        public IActionResult GetAllRestaurants()
+        public IActionResult SearchRestaurants(string? search)
         {
-            var restaurants = _context.Restaurants.ToList();
-            return Ok(restaurants);
+            var restaurantsSearched = _context.Restaurants.Search(search).ToList();
+            return Ok(restaurantsSearched);
         }
+
+
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -30,9 +33,9 @@ namespace TableBooking.Controllers
                 return NotFound();
             return Ok(restaurant);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto) 
+        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
         {
             var restaurant = new Restaurant
             {
@@ -40,6 +43,8 @@ namespace TableBooking.Controllers
                 CloseTime = restaurantShortInfoDto.CloseTime,
                 Description = restaurantShortInfoDto.Description,
                 Location = restaurantShortInfoDto.Location,
+                Rating = 0,
+                Price = restaurantShortInfoDto.Price,
                 OpenTime = restaurantShortInfoDto.OpenTime,
                 Type = restaurantShortInfoDto.Type
             };
@@ -48,7 +53,7 @@ namespace TableBooking.Controllers
             return Ok(restaurant);
         }
 
-        [HttpDelete("{id:int}")] 
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var restaurantToDelete = await _context.Restaurants.FindAsync(id);
@@ -58,5 +63,7 @@ namespace TableBooking.Controllers
             await _context.SaveChangesAsync();
             return Ok(restaurantToDelete);
         }
+
+
     }
 }
