@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Reflection;
 using System.Text;
 using Google;
 using Google.Api;
@@ -11,6 +12,7 @@ using Npgsql;
 using TableBooking.EF;
 using TableBooking.Model;
 using TableBooking.Repository;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,12 +25,16 @@ builder.Services.AddCors(p => p.AddPolicy("cors", corsPolicyBuilder =>
     corsPolicyBuilder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
 
-var connectionString = builder.Configuration["ConnectionStrings:WebApiDatabase"];
-var npgsqlBuilder = new NpgsqlConnectionStringBuilder(connectionString);
+builder.Host.UseSerilog((builderContext, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(builderContext.Configuration);
+});
 
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(
-        npgsqlBuilder.ConnectionString));
+builder.Services.AddDbContext<DataContext>(o =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("WebApiDatabase");
+    o.UseNpgsql(connectionString);
+});
 
 builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<DbContext>()
@@ -51,6 +57,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("cors");
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
