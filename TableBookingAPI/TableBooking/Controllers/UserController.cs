@@ -22,7 +22,7 @@ namespace TableBooking.Controllers
         private readonly IJwtTokenService jwtTokenService;
 
         public UserController(
-            UserManager<AppUser> userManager, 
+            UserManager<AppUser> userManager,
             RoleManager<AppRole> roleManager,
             IClaimsService claimsService,
             IJwtTokenService jwtTokenService)
@@ -54,14 +54,15 @@ namespace TableBooking.Controllers
             await SeedRoles();
             result = await userManager.CreateAsync(newUser, UserRoles.User);
             return CreatedAtAction(nameof(Register), new UserRegisterResultDTO { Succeeded = true });
-             
+
         }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO userLoginDTO)
         {
             var user = await userManager.FindByEmailAsync(userLoginDTO.Email);
-            
+
             if (user != null && await userManager.CheckPasswordAsync(user, userLoginDTO.Password))
             {
                 //var userClaims = await claimsService.GetUserClaimsAsync(user);
@@ -72,19 +73,19 @@ namespace TableBooking.Controllers
                             new Claim(ClaimTypes.Email, Guid.NewGuid().ToString()) // Globally Unique Identifier
                         })
                 ));
-               
-                var token = jwtTokenService.GetJwtToken(userClaims);
 
-                return Ok(new UserLoginResultDTO
-                {
-                    Succeeded = true,
-                    Token = new TokenDTO
-                    {
-                        Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    }
-                });
+                //var token = jwtTokenService.GetJwtToken(userClaims);
+
+                //return Ok(new UserLoginResultDTO
+                //{
+                //    Succeeded = true,
+                //    Token = new TokenDTO
+                //    {
+                //        Token = new JwtSecurityTokenHandler().WriteToken(token),
+                //    }
+                //});
+                return Ok("Tomek napraw");
             }
-
             return Unauthorized();
         }
         private async Task SeedRoles()
