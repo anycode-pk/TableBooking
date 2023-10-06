@@ -17,7 +17,7 @@ public class DataContext : IdentityDbContext<AppUser>
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
+        options.UseNpgsql(Configuration.GetConnectionString("TableBookingConnStr"));
     }
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Booking> Bookings { get; set; }

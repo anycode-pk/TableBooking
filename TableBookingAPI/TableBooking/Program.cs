@@ -61,7 +61,7 @@ builder.Host.UseSerilog((builderContext, loggerConfiguration) =>
 
 builder.Services.AddDbContext<DataContext>(o =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("WebApiDatabase");
+    var connectionString = builder.Configuration.GetConnectionString("TableBookingConnStr");
     o.UseNpgsql(connectionString);
 });
 

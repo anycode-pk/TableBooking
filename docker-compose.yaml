@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: tablebooking_api_db
+    restart: unless-stopped
+    env_file: .env
+    # env_file:
+    #   - ./TableBookingAPI/TableBooking/.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5433:5432
+      
+  # api:
+  #   build: ./TableBookingAPI/TableBooking
+    #  build:
+    #       context: .
+    #       dockerfile: ./TableBookingAPI/TableBooking/Dockerfile
+  #   ports:
+  #     - "7012:7012"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   command: ["python", "app.py"]
+  

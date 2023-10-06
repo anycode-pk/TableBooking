@@ -46,8 +46,21 @@ public class TableController : ControllerBase
         return Ok(table);
     }
 
+    [HttpPut]
+    public async Task<IActionResult> UpdateTable(int id, [FromBody] TableDTO tableDto)
+    {
+        var table = new Table
+        {
+            NumberOfSeats = tableDto.NumberOfSeats,
+            RestaurantId = tableDto.RestaurantId
+        };
+        _context.Tables.Add(table);
+        await _context.SaveChangesAsync();
+        return Ok(table);
+    }
+
     [HttpDelete("{id:int}")] 
-    public async Task<IActionResult> DeleteTableById(int id)
+    public async Task<IActionResult> DeleteTable(int id)
     {
         var tableToDelete = _context.Tables.Find(id);
         if (tableToDelete == null)
