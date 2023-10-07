@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.DTOs;
-using TableBooking.EF;
 using TableBooking.Extentions;
 using TableBooking.Model;
 

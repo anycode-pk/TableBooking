@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TableBooking.EF;
+using TableBooking.Model;
 
 #nullable disable
 
 namespace TableBooking.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230509110611_Initial")]
-    partial class Initial
+    [Migration("20230407191138_TablesFixed1")]
+    partial class TablesFixed1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -363,13 +363,13 @@ namespace TableBooking.Migrations
             modelBuilder.Entity("TableBooking.Model.Booking", b =>
                 {
                     b.HasOne("TableBooking.Model.Table", "Table")
-                        .WithMany("Bookings")
+                        .WithMany("Booking")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TableBooking.Model.AppUser", "User")
-                        .WithMany("Bookings")
+                        .WithMany("Booking")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -382,7 +382,7 @@ namespace TableBooking.Migrations
             modelBuilder.Entity("TableBooking.Model.Table", b =>
                 {
                     b.HasOne("TableBooking.Model.Restaurant", "Restaurant")
-                        .WithMany("Tables")
+                        .WithMany("Table")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -392,17 +392,17 @@ namespace TableBooking.Migrations
 
             modelBuilder.Entity("TableBooking.Model.AppUser", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Restaurant", b =>
                 {
-                    b.Navigation("Tables");
+                    b.Navigation("Table");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Table", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("Booking");
                 });
 #pragma warning restore 612, 618
         }

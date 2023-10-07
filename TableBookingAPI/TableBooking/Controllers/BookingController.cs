@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TableBooking.DTOs;
-using TableBooking.EF;
 using TableBooking.Model;
 
 namespace TableBooking.Controllers
@@ -17,8 +16,8 @@ namespace TableBooking.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetBookings(int? id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBooking(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _context.Users
@@ -27,7 +26,7 @@ namespace TableBooking.Controllers
 
             if (user == null)
                 return NotFound();
-
+            
             if (id != null)
             {
                 var booking = user.Bookings.FirstOrDefault(b => b.Id == id);

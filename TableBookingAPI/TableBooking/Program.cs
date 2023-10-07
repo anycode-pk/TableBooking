@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Npgsql;
 using System.Text;
-using TableBooking.EF;
 using TableBooking.Model;
 using TableBooking.Repository;
 using Serilog;

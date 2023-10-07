@@ -1,23 +1,21 @@
-﻿using TableBooking.Model;
-using Microsoft.AspNetCore.Identity;
+﻿namespace TableBooking.Model;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
-namespace TableBooking.EF;
-
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 public class DataContext : IdentityDbContext<AppUser>
 {
-    protected readonly IConfiguration Configuration;
+    protected readonly IConfiguration _configuration;
 
     public DataContext(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseNpgsql(Configuration.GetConnectionString("TableBookingConnStr"));
+        options.UseNpgsql(_configuration.GetConnectionString("TableBookingConnStr"));
     }
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Booking> Bookings { get; set; }

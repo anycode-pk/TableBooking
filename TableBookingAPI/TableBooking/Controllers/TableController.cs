@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TableBooking.DTOs;
-using TableBooking.EF;
 using TableBooking.Model;
 using Table = TableBooking.Model.Table;
 

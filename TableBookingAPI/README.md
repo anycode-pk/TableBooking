@@ -12,5 +12,5 @@ In order to get the application running locally along with empty database perfor
     POSTGRES_PASSWORD=...
     POSTGRES_DB=...
     POSTGRES_VERSION=16.0
-3. Execute the 'docker compose up' command
-4. Run the application locally command
+3. Execute the 'docker compose up table-booking-db' command
+4. Run the api locally (button)
