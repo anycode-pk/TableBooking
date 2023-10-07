@@ -1,6 +1,6 @@
 ## Prerequisites
 
-* Docker
+* Install Docker
 
 ## Application setup
 
