@@ -7,7 +7,7 @@ using Table = TableBooking.Model.Table;
 
 namespace TableBooking.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class TableController : ControllerBase
 {
@@ -34,7 +34,7 @@ public class TableController : ControllerBase
     }
         
     [HttpPost]
-    public async Task<IActionResult> AddTable([FromBody] TableDTO tableDto)
+    public async Task<IActionResult> CreateTable([FromBody] TableDTO tableDto)
     {
         var table = new Table
         {

@@ -7,7 +7,7 @@ using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
     {
@@ -99,5 +99,12 @@ namespace TableBooking.Controllers
 
             return Created(String.Empty, bookingDto);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateBooking()
+        {
+            return Ok();
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RestaurantController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace TableBooking.Controllers
 
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetRestaurantById(int id)
         {
             var restaurant = _context.Restaurants.Find(id);
             if (restaurant == null)
@@ -35,7 +35,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
+        public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
         {
             var restaurant = new Restaurant
             {
@@ -54,7 +54,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteRestaurant(int id)
         {
             var restaurantToDelete = await _context.Restaurants.FindAsync(id);
             if (restaurantToDelete == null)
@@ -62,6 +62,12 @@ namespace TableBooking.Controllers
             _context.Restaurants.Remove(restaurantToDelete);
             await _context.SaveChangesAsync();
             return Ok(restaurantToDelete);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRestaurant()
+        {
+            return Ok();
         }
 
 

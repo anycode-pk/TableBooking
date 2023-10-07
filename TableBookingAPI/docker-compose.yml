@@ -1,5 +1,5 @@
 services:
-  db:
+  table-booking-db:
     image: postgres:${POSTGRES_VERSION}
     container_name: tablebooking_api_db
     restart: unless-stopped
@@ -14,19 +14,18 @@ services:
     networks:
       - table_booking_network
       
-  # api:
-  #   build: ./TableBooking
-    #  build:
-    #       context: .
-    #       dockerfile: ./TableBooking/Dockerfile
-  #   ports:
-  #     - "7012:7012"
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   command: ["python", "app.py"]
-  # networks:
-  #     - table_booking_network
+  table-booking-api:
+    build:
+        context: .
+        dockerfile: ./TableBooking/Dockerfile
+    ports:
+      - "7012:7012"
+    depends_on:
+      - table-booking-db
+    #     condition: service_healthy
+    # command: ["python", "app.py"]
+    networks:
+        - table_booking_network
   
 networks:
   table_booking_network:
