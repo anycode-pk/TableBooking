@@ -17,7 +17,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBooking(int id)
+        public async Task<IActionResult> GetBookingById(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _context.Users

@@ -51,4 +51,8 @@
       <_ContentIncludedByDefault Remove="WebApp1\obj\WebApp1.csproj.nuget.dgspec.json" />
       <_ContentIncludedByDefault Remove="WebApp1\Properties\launchSettings.json" />
     </ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="TableBooking.IntegrationTests" />
+	</ItemGroup>
 </Project>
