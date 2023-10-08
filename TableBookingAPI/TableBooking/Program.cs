@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Npgsql;
 using System.Text;
 using TableBooking.Model;
-using TableBooking.Repository;
 using Serilog;
+using TableBooking.Logic.Interfaces;
+using TableBooking.Logic;
+using TableBooking.Api.Services;
+using TableBooking.Api.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -105,7 +107,12 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
-builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddTransient<IBookingService, BookingService>();
+builder.Services.AddTransient<IRestaurantService, RestaurantService>();
+builder.Services.AddTransient<ITableService, TableService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 

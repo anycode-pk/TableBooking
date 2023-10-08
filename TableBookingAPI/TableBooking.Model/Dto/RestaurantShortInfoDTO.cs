@@ -1,11 +1,6 @@
-﻿namespace TableBooking.DTOs;
+﻿using TableBooking.Model;
 
-public enum Price
-{
-    LOW,
-    MEDIUM,
-    HIGH
-}
+namespace TableBooking.DTOs;
 
 public class RestaurantShortInfoDTO
 {
@@ -15,7 +10,7 @@ public class RestaurantShortInfoDTO
     public string Location { get; set; }
     public string ImageURL { get; set; }
     public int Rating { get; set; }
-    public Model.Price Price { get; set; }
+    public Price Price { get; set; }
     public DateTime OpenTime { get; set; }
     public DateTime CloseTime { get; set; }
 }
