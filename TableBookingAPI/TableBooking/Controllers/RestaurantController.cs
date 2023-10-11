@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.Extentions;
-using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
@@ -9,61 +8,38 @@ namespace TableBooking.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private readonly DataContext _context;
-        public RestaurantController(DataContext context)
+        private IRestaurantService _restaurantService;
+
+        public RestaurantController(IRestaurantService restaurantService)
         {
-            _context = context;
+            _restaurantService = restaurantService;
         }
 
-        [HttpGet]
-        public IActionResult SearchRestaurants(string? search)
+        [HttpGet("GetRestaurants")]
+        public async Task<IActionResult> GetRestaurants([FromBody]string? search)
         {
-            var restaurantsSearched = _context.Restaurants.Search(search).ToList();
-            return Ok(restaurantsSearched);
+            return await _restaurantService.GetAllRestaurantsAsync(search);
         }
 
-
-
-        [HttpGet("{id}")]
-        public IActionResult GetRestaurantById(int id)
+        [HttpGet("GetRestaurantById/{id}")]
+        public async Task<IActionResult> GetRestaurantById(int id)
         {
-            var restaurant = _context.Restaurants.Find(id);
-            if (restaurant == null)
-                return NotFound();
-            return Ok(restaurant);
+            return await _restaurantService.GetRestaurantByIdAsync(id);
         }
 
-        [HttpPost]
+        [HttpPost("CreateRestaurant")]
         public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
         {
-            var restaurant = new Restaurant
-            {
-                Name = restaurantShortInfoDto.Name,
-                CloseTime = restaurantShortInfoDto.CloseTime,
-                Description = restaurantShortInfoDto.Description,
-                Location = restaurantShortInfoDto.Location,
-                Rating = 0,
-                Price = restaurantShortInfoDto.Price,
-                OpenTime = restaurantShortInfoDto.OpenTime,
-                Type = restaurantShortInfoDto.Type
-            };
-            _context.Restaurants.Add(restaurant);
-            await _context.SaveChangesAsync();
-            return Ok(restaurant);
+            return await _restaurantService.CreateRestaurantAsync(restaurantShortInfoDto);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("DeleteRestaurant/{id:int}")]
         public async Task<IActionResult> DeleteRestaurant(int id)
         {
-            var restaurantToDelete = await _context.Restaurants.FindAsync(id);
-            if (restaurantToDelete == null)
-                return NotFound($"Restaurant with Id = {id} not found");
-            _context.Restaurants.Remove(restaurantToDelete);
-            await _context.SaveChangesAsync();
-            return Ok(restaurantToDelete);
+            return await _restaurantService.DeleteRestaurantAsync(id);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateRestaurant")]
         public async Task<IActionResult> UpdateRestaurant()
         {
             return Ok();

@@ -1,8 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
@@ -10,96 +9,41 @@ namespace TableBooking.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private DataContext _context;
-        public BookingController(DataContext context)
+        private IBookingService _bookingService;
+        public BookingController(IBookingService bookingService)
         {
-            _context = context;
+            _bookingService = bookingService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetAllBookings")]
+        public async Task<IActionResult> GetBookings()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _bookingService.GetAllBookings(userId);
+        }
+
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _context.Users
-                    .Include(u => u.Bookings)
-                    .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-                return NotFound();
-            
-            if (id != null)
-            {
-                var booking = user.Bookings.FirstOrDefault(b => b.Id == id);
-                if (booking == null)
-                    return NotFound();
-                var bookingDto = new BookingDTO
-                {
-                    Id = booking.Id,
-                    Date = booking.Date,
-                    BookingDuration = booking.Duration,
-                    TableId = booking.TableId,
-                    UserId = booking.UserId
-                };
-                return Ok(bookingDto);
-            }
-
-            var bookingDtos = user.Bookings.Select(booking => new BookingDTO
-            {
-                Id = booking.Id,
-                Date = booking.Date,
-                BookingDuration = booking.Duration,
-                TableId = booking.TableId,
-                UserId = booking.UserId
-            }).ToList();
-
-            return Ok(bookingDtos);
+            return await _bookingService.GetBookingByIdAsync(id, userId);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
-            if (booking == null)
-                return NotFound();
-
-            _context.Bookings.Remove(booking);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _bookingService.DeleteBookingAsync(id, userId);
         }
 
-        [HttpPost]
+        [HttpPost("CreateBooking")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingToCreateDto bookingToCreateDto)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var table = _context.Tables.FindAsync(bookingToCreateDto.TableId);
-            
-            var newBooking = new Booking
-            {
-                Date = bookingToCreateDto.Date,
-                Duration = bookingToCreateDto.BookingDuration,
-                TableId = bookingToCreateDto.TableId,
-                UserId = userId,
-            };
-            
-            _context.Bookings.Add(newBooking);
-            await _context.SaveChangesAsync();
-
-            var bookingDto = new BookingDTO
-            {
-                Id = newBooking.Id,
-                Date = newBooking.Date,
-                BookingDuration = newBooking.Duration,
-                TableId = newBooking.TableId,
-                UserId = newBooking.UserId
-            };
-
-            return Created(String.Empty, bookingDto);
+            return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateBooking")]
         public async Task<IActionResult> UpdateBooking()
         {
             return Ok();

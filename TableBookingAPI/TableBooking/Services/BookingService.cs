@@ -12,7 +12,8 @@ namespace TableBooking.Api.Services
         public BookingService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-        }        public async Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, string userId)
+        }
+        public async Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, string userId)
         {
             var newBooking = new Booking
             {

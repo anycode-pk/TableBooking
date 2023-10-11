@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableBooking.Model", "TableBooking.Model\TableBooking.Model.csproj", "{D78B787F-4760-4AB1-B369-DBEBEFD632DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableBooking.IntegrationTests", "TableBooking.IntegrationTests\TableBooking.IntegrationTests.csproj", "{728368D4-C976-4D34-AF3E-5910FDC3B5B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableBooking.IntegrationTests", "TableBooking.IntegrationTests\TableBooking.IntegrationTests.csproj", "{728368D4-C976-4D34-AF3E-5910FDC3B5B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableBooking.Logic", "TableBooking.Logic\TableBooking.Logic.csproj", "{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{728368D4-C976-4D34-AF3E-5910FDC3B5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{728368D4-C976-4D34-AF3E-5910FDC3B5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{728368D4-C976-4D34-AF3E-5910FDC3B5B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

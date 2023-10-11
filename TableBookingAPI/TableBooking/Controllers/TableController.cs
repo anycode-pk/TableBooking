@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.Model;
-using Table = TableBooking.Model.Table;
 
 namespace TableBooking.Controllers;
 
@@ -10,62 +8,39 @@ namespace TableBooking.Controllers;
 [ApiController]
 public class TableController : ControllerBase
 {
-    private readonly DataContext _context;
-    public TableController(DataContext context)
+    private ITableService _tableService;
+    public TableController(ITableService tableService)
     {
-        _context = context;
+        _tableService = tableService;
     }
     
-    [HttpGet]
-    public IActionResult GetAllTables()
+    [HttpGet("GetAllTables")]
+    public async Task<IActionResult> GetAllTables()
     {
-        var tables = _context.Tables.ToList();
-        return Ok(tables);
+        return await _tableService.GetAllTablesAsync();
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetTableById(int id)
+    [HttpGet("GetTableById/{id}")]
+    public async Task<IActionResult> GetTableById(int id)
     {
-        var table = _context.Tables.Find(id);
-        if (table == null)
-            return new BadRequestObjectResult($"Can't find table with {id}");
-        return Ok(table);
+        return await _tableService.GetTableByIdAsync(id);
     }
         
-    [HttpPost]
+    [HttpPost("CreateTable")]
     public async Task<IActionResult> CreateTable([FromBody] TableDTO tableDto)
     {
-        var table = new Table
-        {
-            NumberOfSeats = tableDto.NumberOfSeats,
-            RestaurantId = tableDto.RestaurantId
-        };
-        _context.Tables.Add(table);
-        await _context.SaveChangesAsync();
-        return Ok(table);
+        return await _tableService.CreateTableAsync(tableDto);
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateTable(int id, [FromBody] TableDTO tableDto)
+    [HttpPut("UpdateTable")]
+    public async Task<IActionResult> UpdateTable([FromBody] TableDTO tableDto)
     {
-        var table = new Table
-        {
-            NumberOfSeats = tableDto.NumberOfSeats,
-            RestaurantId = tableDto.RestaurantId
-        };
-        _context.Tables.Add(table);
-        await _context.SaveChangesAsync();
-        return Ok(table);
+        return await _tableService.UpdateTableAsync(tableDto);
     }
 
-    [HttpDelete("{id:int}")] 
+    [HttpDelete("DeleteTable/{id:int}")] 
     public async Task<IActionResult> DeleteTable(int id)
     {
-        var tableToDelete = _context.Tables.Find(id);
-        if (tableToDelete == null)
-            return NotFound($"Restaurant with Id = {id} not found");
-        _context.Tables.Remove(tableToDelete);
-        _context.SaveChanges();
-        return Ok(tableToDelete);
+        return await _tableService.DeleteTableAsync(id);
     }
 }
