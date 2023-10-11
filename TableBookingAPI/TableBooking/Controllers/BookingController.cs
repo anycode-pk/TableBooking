@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
@@ -11,7 +10,7 @@ namespace TableBooking.Controllers
     public class BookingController : ControllerBase
     {
         private IBookingService _bookingService;
-        public BookingController(DataContext context, IBookingService bookingService)
+        public BookingController(IBookingService bookingService)
         {
             _bookingService = bookingService;
         }
