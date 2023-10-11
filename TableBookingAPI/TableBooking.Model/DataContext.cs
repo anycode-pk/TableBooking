@@ -3,20 +3,26 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
-public class DataContext : IdentityDbContext<AppUser>
+public class DataContext : DbContext //: IdentityDbContext<AppUser>
 {
-    protected readonly IConfiguration _configuration;
+    public DataContext() { }
+    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-    public DataContext(IConfiguration configuration)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _configuration = configuration;
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=TableBookingDB;Username=TableBookingUser;Password=postgres");
+        }
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        options.UseNpgsql(_configuration.GetConnectionString("TableBookingConnStr"));
-    }
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Table> Tables { get; set; }

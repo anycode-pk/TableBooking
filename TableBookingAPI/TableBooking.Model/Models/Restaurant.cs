@@ -15,8 +15,8 @@ public class Restaurant : Entity
     public string? ImageURL { get; set; }
     public int Rating { get; set; }
     public Price Price { get; set; }
-    public DateTime OpenTime { get; set; }
-    public DateTime CloseTime { get; set; }
+    public TimeSpan OpenTime { get; set; }
+    public TimeSpan CloseTime { get; set; }
     public IEnumerable<Table> Tables { get; set; }
     
 }

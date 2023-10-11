@@ -13,19 +13,21 @@ services:
       - 5433:5432
     networks:
       - table_booking_network
-      
-  table-booking-api:
-    build:
-        context: .
-        dockerfile: ./TableBooking/Dockerfile
-    ports:
-      - "7012:7012"
-    depends_on:
-      - table-booking-db
-    #     condition: service_healthy
-    # command: ["python", "app.py"]
-    networks:
-        - table_booking_network
+    volumes: 
+      - ./TableBooking.Model/Seed/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+
+  # table-booking-api:
+  #   build:
+  #       context: .
+  #       dockerfile: ./TableBooking/Dockerfile
+  #   ports:
+  #     - "7012:7012"
+  #   depends_on:
+  #     - table-booking-db
+  #   #     condition: service_healthy
+  #   # command: ["python", "app.py"]
+  #   networks:
+  #       - table_booking_network
   
 networks:
   table_booking_network:
