@@ -10,7 +10,7 @@ namespace TableBooking.Logic.Repositories
 {
     public class TableRepository : GenericRepository<Table>, ITableRepository
     {
-        public TableRepository(DataContext context) : base(context)
+        public TableRepository(TableBookingContext context) : base(context)
         {
         }
     }

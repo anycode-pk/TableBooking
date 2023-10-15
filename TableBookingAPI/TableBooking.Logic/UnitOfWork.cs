@@ -6,8 +6,8 @@ namespace TableBooking.Logic
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private DataContext _context;
-        public UnitOfWork(DataContext context) 
+        private TableBookingContext _context;
+        public UnitOfWork(TableBookingContext context) 
         {
             _context = context;
         }

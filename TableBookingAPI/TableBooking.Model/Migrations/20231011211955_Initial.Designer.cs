@@ -11,7 +11,7 @@ using TableBooking.Model;
 
 namespace TableBooking.Model.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(TableBookingContext))]
     [Migration("20231011211955_Initial")]
     partial class Initial
     {

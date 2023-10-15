@@ -6,10 +6,10 @@ namespace TableBooking.Logic.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly DataContext _context;
+        protected readonly TableBookingContext _context;
         protected readonly DbSet<T> _objectSet;
 
-        public GenericRepository(DataContext context)
+        public GenericRepository(TableBookingContext context)
         {
             _context = context;
             _objectSet = _context.Set<T>();

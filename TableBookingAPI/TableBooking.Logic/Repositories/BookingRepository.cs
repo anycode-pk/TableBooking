@@ -6,7 +6,7 @@ namespace TableBooking.Logic.Repositories
 {
     public class BookingRepository : GenericRepository<Booking>, IBookingRepository
     {
-        public BookingRepository(DataContext context) : base(context)
+        public BookingRepository(TableBookingContext context) : base(context)
         {
         }
 

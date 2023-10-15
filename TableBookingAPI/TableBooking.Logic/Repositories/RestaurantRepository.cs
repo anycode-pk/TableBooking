@@ -12,7 +12,7 @@ namespace TableBooking.Logic.Repositories
 {
     public class RestaurantRepository : GenericRepository<Restaurant>, IRestaurantRepository
     {
-        public RestaurantRepository(DataContext context) : base(context)
+        public RestaurantRepository(TableBookingContext context) : base(context)
         {
         }
         public async Task<IEnumerable<Restaurant>> GetRestaurantsAsync(string? restaurantName)

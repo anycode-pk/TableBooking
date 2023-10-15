@@ -10,6 +10,9 @@ using TableBooking.Logic.Interfaces;
 using TableBooking.Logic;
 using TableBooking.Api.Services;
 using TableBooking.Api.Interfaces;
+using TableBooking.Api.Configuration.DbSetup;
+using TableBooking.Api.Configuration.HealthCheck;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,11 +63,15 @@ builder.Host.UseSerilog((builderContext, loggerConfiguration) =>
     loggerConfiguration.ReadFrom.Configuration(builderContext.Configuration);
 });
 
-builder.Services.AddDbContext<DataContext>(o =>
+builder.Services.AddDbContext<TableBookingContext>(o =>
 {
     var connectionString = builder.Configuration.GetConnectionString("TableBookingConnStr");
     o.UseNpgsql(connectionString);
 });
+builder.Services.AddHostedService<DbInitializerService>();
+builder.Services.AddHealthChecks().AddCheck<DbHealthCheck>(
+        nameof(DbHealthCheck),
+        failureStatus: HealthStatus.Unhealthy);
 
 builder.Services.AddIdentity<AppUser, AppRole>(x =>
 {
@@ -79,7 +86,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(x =>
     x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(30);
     x.SignIn.RequireConfirmedAccount = false;
 })
-.AddEntityFrameworkStores<DataContext>()
+.AddEntityFrameworkStores<TableBookingContext>()
 .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
@@ -122,6 +129,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapHealthChecks("/healthz"); //.RequireHost("*:5001").RequireAuthorization();
 app.UseCors("cors");
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();

@@ -10,7 +10,7 @@ using TableBooking.Model;
 
 namespace TableBooking.Model.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(TableBookingContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

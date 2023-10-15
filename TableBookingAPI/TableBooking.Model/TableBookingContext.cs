@@ -1,14 +1,15 @@
 ﻿namespace TableBooking.Model;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-public class DataContext : DbContext //: IdentityDbContext<AppUser>
+public class TableBookingContext : IdentityDbContext<AppUser>
 {
-    public DataContext() { }
-    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+    public TableBookingContext() { }
+    public TableBookingContext(DbContextOptions<TableBookingContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

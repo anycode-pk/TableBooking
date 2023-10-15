@@ -11,7 +11,7 @@ namespace TableBooking.Logic.Repositories
 {
     public class UserRepository : GenericRepository<AppUser>, IUserRepository
     {
-        public UserRepository(DataContext context) : base(context)
+        public UserRepository(TableBookingContext context) : base(context)
         {
         }
         
