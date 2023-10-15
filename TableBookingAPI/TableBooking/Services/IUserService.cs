@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
 
 namespace TableBooking.Api.Services
 {
+    public interface IUserService
+    {
+        public Task<IActionResult> Register(UserRegisterDTO userRegisterDTO);
+        public Task<IActionResult> Login(UserLoginDTO userLoginDTO);
+        public JwtSecurityToken GetToken(List<Claim> authClaims);
+        public Task SeedRoles();
+    }
+
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;

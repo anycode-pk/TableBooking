@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-public class TableBookingContext : IdentityDbContext<AppUser>
+public class TableBookingContext : IdentityDbContext<IdentityUser>
 {
     public TableBookingContext() { }
     public TableBookingContext(DbContextOptions<TableBookingContext> options) : base(options) { }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Interfaces;
+using TableBooking.Api.Services;
 using TableBooking.DTOs;
 
 namespace TableBooking.Controllers;
@@ -21,7 +21,7 @@ public class TableController : ControllerBase
     }
 
     [HttpGet("GetTableById/{id}")]
-    public async Task<IActionResult> GetTableById(int id)
+    public async Task<IActionResult> GetTableById(Guid id)
     {
         return await _tableService.GetTableByIdAsync(id);
     }
@@ -39,7 +39,7 @@ public class TableController : ControllerBase
     }
 
     [HttpDelete("DeleteTable/{id:int}")] 
-    public async Task<IActionResult> DeleteTable(int id)
+    public async Task<IActionResult> DeleteTable(Guid id)
     {
         return await _tableService.DeleteTableAsync(id);
     }

@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Interfaces;
+using TableBooking.Api.Services;
 using TableBooking.DTOs;
 
 namespace TableBooking.Controllers
@@ -18,28 +18,28 @@ namespace TableBooking.Controllers
         [HttpGet("GetAllBookings")]
         public async Task<IActionResult> GetBookings()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue();
             return await _bookingService.GetAllBookings(userId);
         }
 
         [HttpGet("GetById/{id}")]
-        public async Task<IActionResult> GetBookingById(int id)
+        public async Task<IActionResult> GetBookingById(Guid id)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await _bookingService.GetBookingByIdAsync(id, userId);
         }
 
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+        public async Task<IActionResult> DeleteBooking(Guid id)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await _bookingService.DeleteBookingAsync(id, userId);
         }
 
         [HttpPost("CreateBooking")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingToCreateDto bookingToCreateDto)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 

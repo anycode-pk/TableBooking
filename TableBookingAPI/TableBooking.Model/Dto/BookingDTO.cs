@@ -4,10 +4,10 @@ namespace TableBooking.DTOs
 {
     public class BookingDTO
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public int BookingDuration { get; set; }
-        public int TableId { get; set; }
-        public string UserId { get; set; }
+        public Guid TableId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

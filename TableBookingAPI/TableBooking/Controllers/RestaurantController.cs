@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Interfaces;
+using TableBooking.Api.Services;
 using TableBooking.DTOs;
 
 namespace TableBooking.Controllers
@@ -22,7 +22,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpGet("GetRestaurantById/{id}")]
-        public async Task<IActionResult> GetRestaurantById(int id)
+        public async Task<IActionResult> GetRestaurantById(Guid id)
         {
             return await _restaurantService.GetRestaurantByIdAsync(id);
         }
@@ -34,7 +34,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpDelete("DeleteRestaurant/{id:int}")]
-        public async Task<IActionResult> DeleteRestaurant(int id)
+        public async Task<IActionResult> DeleteRestaurant(Guid id)
         {
             return await _restaurantService.DeleteRestaurantAsync(id);
         }

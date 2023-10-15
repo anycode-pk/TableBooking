@@ -9,7 +9,7 @@ using Serilog;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Logic;
 using TableBooking.Api.Services;
-using TableBooking.Api.Interfaces;
+using TableBooking.Api.Services;
 using TableBooking.Api.Configuration.DbSetup;
 using TableBooking.Api.Configuration.HealthCheck;
 using Microsoft.Extensions.Diagnostics.HealthChecks;

@@ -113,3 +113,4 @@ packages/vue/test/build/
 .npmrc
 TableBookingAPI/TableBooking/obj
 TableBookingAPI/TableBooking/appsettings.json
+TableBookingAPI/.vs

@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
 
 namespace TableBooking.Api.Services
 {
+    public interface IBookingService
+    {
+        public Task<IActionResult> GetAllBookings(Guid userId);
+        public Task<IActionResult> GetBookingByIdAsync(Guid bookingId, Guid userId);
+        public Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, Guid userId);
+        public Task<IActionResult> UpdateBookingAsync(BookingDTO dto);
+        public Task<IActionResult> DeleteBookingAsync(Guid bookingId, Guid userId);
+    }
     public class BookingService : IBookingService
     {
         public IUnitOfWork _unitOfWork;
@@ -13,7 +20,7 @@ namespace TableBooking.Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, string userId)
+        public async Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, Guid userId)
         {
             var newBooking = new Booking
             {
@@ -37,18 +44,18 @@ namespace TableBooking.Api.Services
             return new CreatedResult(String.Empty, bookingDto);
         }
 
-        public async Task<IActionResult> DeleteBookingAsync(int bookingId, string userId)
+        public async Task<IActionResult> DeleteBookingAsync(Guid bookingId, Guid userId)
         {
             var booking = await _unitOfWork.BookingRepository.GetBookingByIdForSpecificUserAsync(bookingId, userId);
             if (booking == null)
                 return new BadRequestObjectResult("Bad request");
 
-            _unitOfWork.BookingRepository.Delete(booking);
+            await _unitOfWork.BookingRepository.Delete(booking);
             await _unitOfWork.SaveChangesAsync();
             return new NoContentResult();
         }
 
-        public async Task<IActionResult> GetBookingByIdAsync(int bookingId, string userId)
+        public async Task<IActionResult> GetBookingByIdAsync(Guid bookingId, Guid userId)
         {
             if (bookingId != null)
             {
@@ -68,7 +75,7 @@ namespace TableBooking.Api.Services
             return new BadRequestObjectResult("Bad request: no booking id");
         }
 
-        public async Task<IActionResult> GetAllBookings(string userId)
+        public async Task<IActionResult> GetAllBookings(Guid userId)
         {
             var bookings = _unitOfWork.BookingRepository.GetAllBookingsForSpecificUserAsync(userId);
             if (bookings == null) return new BadRequestObjectResult("No bookings found");

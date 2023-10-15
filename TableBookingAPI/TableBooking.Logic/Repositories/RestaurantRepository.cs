@@ -15,9 +15,9 @@ namespace TableBooking.Logic.Repositories
         public RestaurantRepository(TableBookingContext context) : base(context)
         {
         }
-        public async Task<IEnumerable<Restaurant>> GetRestaurantsAsync(string? restaurantName)
+        public async Task<IEnumerable<Restaurant>> GetRestaurantsAsync()
         {
-            return await _objectSet.FilterByName(restaurantName).ToListAsync();
+            return await _objectSet.ToListAsync();
         }
     }
 }
