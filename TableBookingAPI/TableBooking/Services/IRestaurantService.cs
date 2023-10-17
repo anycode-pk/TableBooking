@@ -46,7 +46,7 @@ namespace TableBooking.Api.Services
 
         public async Task<IActionResult> DeleteRestaurantAsync(Guid restaurantId)
         {
-            var restaurantToDelete = await _unitOfWork.RestaurantRepository.GetByIDAsync(restaurantId);
+            var restaurantToDelete = await _unitOfWork.RestaurantRepository.GetByIdAsync(restaurantId);
             if (restaurantToDelete == null)
                 return new NotFoundObjectResult($"Restaurant with Id = {restaurantId} not found");
             await _unitOfWork.RestaurantRepository.Delete(restaurantToDelete);
@@ -61,14 +61,9 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(restaurants);
         }
 
-        public Task<IActionResult> GetAllRestaurantsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IActionResult> GetRestaurantByIdAsync(Guid restaurantId)
         {
-            var restaurant = await _unitOfWork.RestaurantRepository.GetByIDAsync(restaurantId);
+            var restaurant = await _unitOfWork.RestaurantRepository.GetByIdAsync(restaurantId);
             if (restaurant == null)
                 return new NotFoundObjectResult($"Restaurant with Id = {restaurantId} not found");
             return new OkObjectResult(restaurant);

@@ -43,7 +43,7 @@ namespace TableBooking.Api.Services
 
         public async Task<IActionResult> DeleteTableAsync(Guid tableId)
         {
-            var tableToDelete = await _unitOfWork.TableRepository.GetByIDAsync(tableId);
+            var tableToDelete = await _unitOfWork.TableRepository.GetByIdAsync(tableId);
             if (tableToDelete == null)
                 return new NotFoundObjectResult($"Restaurant with Id = {tableId} not found");
             await _unitOfWork.TableRepository.Delete(tableToDelete);
@@ -60,7 +60,7 @@ namespace TableBooking.Api.Services
 
         public async Task<IActionResult> GetTableByIdAsync(Guid tableId)
         {
-            var table = await _unitOfWork.TableRepository.GetByIDAsync(tableId);
+            var table = await _unitOfWork.TableRepository.GetByIdAsync(tableId);
             if (table == null)
                 return new BadRequestObjectResult($"Can't find table with {tableId}");
             return new OkObjectResult(table);

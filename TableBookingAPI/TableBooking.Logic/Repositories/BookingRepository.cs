@@ -10,12 +10,12 @@ namespace TableBooking.Logic.Repositories
         {
         }
 
-        public async Task<IEnumerable<Booking>> GetAllBookingsForSpecificUserAsync(Guid userId)
+        public async Task<IEnumerable<Booking>> GetAllBookingsForSpecificUserAsync(string userId)
         {
             return await _objectSet.Where(x => x.UserId == userId).ToListAsync();
         }
 
-        public async Task<Booking> GetBookingByIdForSpecificUserAsync(Guid bookingId, Guid userId)
+        public async Task<Booking> GetBookingByIdForSpecificUserAsync(Guid bookingId, string userId)
         {
             return await _objectSet.FirstOrDefaultAsync(x => x.Id == bookingId && x.UserId.Equals(userId));
         }

@@ -19,7 +19,7 @@ namespace TableBooking.Logic.Repositories
             return await _objectSet.ToListAsync();
         }
 
-        public async Task<T> GetByIDAsync(object id)
+        public async Task<T> GetByIdAsync(object id)
         {
             return await _objectSet.FindAsync(id);
         }

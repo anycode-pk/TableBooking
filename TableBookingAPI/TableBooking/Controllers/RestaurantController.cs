@@ -15,10 +15,10 @@ namespace TableBooking.Controllers
             _restaurantService = restaurantService;
         }
 
-        [HttpGet("GetRestaurants")]
-        public async Task<IActionResult> GetRestaurants([FromBody]string? search)
+        [HttpGet("GetAllRestaurants")]
+        public async Task<IActionResult> GetRestaurants()
         {
-            return await _restaurantService.GetAllRestaurantsAsync(search);
+            return await _restaurantService.GetAllRestaurantsAsync();
         }
 
         [HttpGet("GetRestaurantById/{id}")]

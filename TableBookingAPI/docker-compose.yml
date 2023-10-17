@@ -1,7 +1,7 @@
 services:
-  table-booking-db:
+  db:
     image: postgres:${POSTGRES_VERSION}
-    container_name: tablebooking_api_db
+    container_name: db
     restart: unless-stopped
     env_file: 
       - .env
@@ -16,14 +16,14 @@ services:
     volumes: 
       - ./TableBooking.Model/Seed/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
-  # table-booking-api:
+  # api:
   #   build:
   #       context: .
   #       dockerfile: ./TableBooking/Dockerfile
   #   ports:
   #     - "7012:7012"
   #   depends_on:
-  #     - table-booking-db
+  #     - db
   #   #     condition: service_healthy
   #   # command: ["python", "app.py"]
   #   networks:
