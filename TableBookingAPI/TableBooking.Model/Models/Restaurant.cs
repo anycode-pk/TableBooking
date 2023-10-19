@@ -15,10 +15,9 @@ public class Restaurant : Entity
     public string Phone { get; set; }
     public string? PrimaryImageURL { get; set; }
     public string? SecondaryImageURL { get; set; }
-    public int Rating { get; set; }
+    public float Rating { get; set; }
     public Price Price { get; set; }
-    public TimeSpan OpenTime { get; set; }
-    public TimeSpan CloseTime { get; set; }
+    public DateTime OpenTime { get; set; } 
+    public DateTime CloseTime { get; set; }
     public IEnumerable<Table> Tables { get; set; }
-    
 }

@@ -43,7 +43,7 @@ namespace TableBooking.Controllers
             return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 
-        [HttpPut("UpdateBooking")]
+        [HttpPut("UpdateBooking/{id}")]
         public async Task<IActionResult> UpdateBooking()
         {
             return Ok();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-public class TableBookingContext : IdentityDbContext<IdentityUser>
+public class TableBookingContext : DbContext//IdentityDbContext<AppUser>
 {
     public TableBookingContext() { }
     public TableBookingContext(DbContextOptions<TableBookingContext> options) : base(options) { }
@@ -27,4 +27,5 @@ public class TableBookingContext : IdentityDbContext<IdentityUser>
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Table> Tables { get; set; }
+    public DbSet<AppUser> Users { get; set; }
 }
