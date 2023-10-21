@@ -7,17 +7,10 @@ using System.Text;
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
+using TableBooking.Api.Interfaces;
 
 namespace TableBooking.Api.Services
 {
-    public interface IUserService
-    {
-        public Task<IActionResult> Register(UserRegisterDTO userRegisterDTO);
-        public Task<IActionResult> Login(UserLoginDTO userLoginDTO);
-        public JwtSecurityToken GetToken(List<Claim> authClaims);
-        public Task SeedRoles();
-    }
-
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Converters.Table;
 using TableBooking.Logic.Interfaces;
@@ -6,14 +7,6 @@ using TableBooking.Model;
 
 namespace TableBooking.Api.Services
 {
-    public interface IBookingService
-    {
-        public Task<IActionResult> GetAllBookings(string userId);
-        public Task<IActionResult> GetBookingByIdAsync(Guid bookingId, string userId);
-        public Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, string userId);
-        public Task<IActionResult> UpdateBookingAsync(BookingDTO dto);
-        public Task<IActionResult> DeleteBookingAsync(Guid bookingId, string userId);
-    }
     public class BookingService : IBookingService
     {
         public IUnitOfWork _unitOfWork;

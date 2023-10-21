@@ -14,6 +14,7 @@ using TableBooking.Api.Configuration.DbSetup;
 using TableBooking.Api.Configuration.HealthCheck;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using TableBooking.Logic.Converters.Table;
+using TableBooking.Api.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

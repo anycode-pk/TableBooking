@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Services;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 
 namespace TableBooking.Controllers

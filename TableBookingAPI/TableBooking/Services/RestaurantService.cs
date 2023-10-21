@@ -2,22 +2,10 @@
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
-using Microsoft.AspNetCore.Mvc;
-using TableBooking.Api.Services;
-using TableBooking.DTOs;
-using TableBooking.Logic.Interfaces;
-using TableBooking.Model;
+using TableBooking.Api.Interfaces;
 
 namespace TableBooking.Api.Services
 {
-    public interface IRestaurantService
-    {
-        public Task<IActionResult> GetAllRestaurantsAsync();
-        public Task<IActionResult> GetRestaurantByIdAsync(Guid restaurantId);
-        public Task<IActionResult> CreateRestaurantAsync(RestaurantShortInfoDTO dto);
-        public Task<IActionResult> UpdateRestaurantAsync(RestaurantShortInfoDTO dto);
-        public Task<IActionResult> DeleteRestaurantAsync(Guid restaurantId);
-    }
 
     public class RestaurantService : IRestaurantService
     {

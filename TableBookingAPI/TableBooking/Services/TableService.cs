@@ -2,25 +2,10 @@
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TableBooking.Api.Services;
-using TableBooking.DTOs;
-using TableBooking.Logic.Interfaces;
-using TableBooking.Model;
+using TableBooking.Api.Interfaces;
 
 namespace TableBooking.Api.Services
 {
-    public interface ITableService
-    {
-        public Task<IActionResult> GetAllTablesAsync();
-        public Task<IActionResult> GetTableByIdAsync(Guid tableId);
-        public Task<IActionResult> CreateTableAsync(TableDTO dto);
-        public Task<IActionResult> UpdateTableAsync(TableDTO dto);
-        public Task<IActionResult> DeleteTableAsync(Guid tableId);
-    }
-
     public class TableService : ITableService
     {
         private IUnitOfWork _unitOfWork;
