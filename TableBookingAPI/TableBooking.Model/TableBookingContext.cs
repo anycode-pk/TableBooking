@@ -1,14 +1,15 @@
 ﻿namespace TableBooking.Model;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-public class DataContext : DbContext //: IdentityDbContext<AppUser>
+public class TableBookingContext : DbContext//IdentityDbContext<AppUser>
 {
-    public DataContext() { }
-    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+    public TableBookingContext() { }
+    public TableBookingContext(DbContextOptions<TableBookingContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,4 +27,5 @@ public class DataContext : DbContext //: IdentityDbContext<AppUser>
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Table> Tables { get; set; }
+    public DbSet<AppUser> Users { get; set; }
 }

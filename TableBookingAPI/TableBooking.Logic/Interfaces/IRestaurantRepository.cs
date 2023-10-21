@@ -4,6 +4,6 @@ namespace TableBooking.Logic.Interfaces
 {
     public interface IRestaurantRepository : IGenericRepository<Restaurant>
     {
-        public Task<IEnumerable<Restaurant>> GetRestaurantsAsync(string? restaurantName);
+        public Task<IEnumerable<Restaurant>> GetRestaurantsAsync();
     }
 }

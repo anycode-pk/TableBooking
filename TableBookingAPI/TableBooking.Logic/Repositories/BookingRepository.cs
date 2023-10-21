@@ -6,18 +6,18 @@ namespace TableBooking.Logic.Repositories
 {
     public class BookingRepository : GenericRepository<Booking>, IBookingRepository
     {
-        public BookingRepository(DataContext context) : base(context)
+        public BookingRepository(TableBookingContext context) : base(context)
         {
         }
 
         public async Task<IEnumerable<Booking>> GetAllBookingsForSpecificUserAsync(string userId)
         {
-            return await _objectSet.Where(x => x.UserId == userId).ToListAsync();
+            return await _objectSet.Where(x => x.User.Id.Equals(userId)).ToListAsync();
         }
 
-        public async Task<Booking> GetBookingByIdForSpecificUserAsync(int bookingId, string userId)
+        public async Task<Booking> GetBookingByIdForSpecificUserAsync(Guid bookingId, string userId)
         {
-            return await _objectSet.FirstOrDefaultAsync(x => x.Id ==  bookingId && x.UserId == userId);
+            return await _objectSet.FirstOrDefaultAsync(x => x.Id.Equals(bookingId) && x.User.Id.Equals(userId));
         }
     }
 }
