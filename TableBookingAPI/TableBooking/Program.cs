@@ -13,6 +13,7 @@ using TableBooking.Api.Services;
 using TableBooking.Api.Configuration.DbSetup;
 using TableBooking.Api.Configuration.HealthCheck;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using TableBooking.Logic.Converters.Table;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,6 +117,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddTransient<ITableConverter, TableConverter>(); // doczytaj debilu
 builder.Services.AddTransient<IBookingService, BookingService>();
 builder.Services.AddTransient<IRestaurantService, RestaurantService>();
 builder.Services.AddTransient<ITableService, TableService>();

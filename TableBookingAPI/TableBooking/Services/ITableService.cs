@@ -34,7 +34,7 @@ namespace TableBooking.Api.Services
             var table = new Table
             {
                 NumberOfSeats = dto.NumberOfSeats,
-                RestaurantId = dto.RestaurantId
+                
             };
             await _unitOfWork.TableRepository.InsertAsync(table);
             await _unitOfWork.SaveChangesAsync();
@@ -70,8 +70,9 @@ namespace TableBooking.Api.Services
         {
             var table = new Table
             {
+                RestaurantId = dto.RestaurantId,
                 NumberOfSeats = dto.NumberOfSeats,
-                RestaurantId = dto.RestaurantId
+                
             };
             await _unitOfWork.TableRepository.Update(table);
             await _unitOfWork.SaveChangesAsync();

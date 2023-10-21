@@ -102,5 +102,5 @@ INSERT INTO "Users" (
 );
 
 -- seed Bookings records
-INSERT INTO "Bookings" VALUES ('ac38ee60-a136-4161-b6ce-60205e311a36','2030-01-01 14:30:00+00', 5, 1, 'id1');
-INSERT INTO "Bookings" VALUES ('c748ee60-a136-4161-b6ce-60205e311123','2050-05-07 20:15:00+00', 3, 2, 'id2');
+INSERT INTO "Bookings" VALUES ('fc9663f0-08b1-4c52-afe4-1d446b11017f','2030-01-01 14:30:00+00', 5, 'e8213e4a-c336-4345-b93e-26231379acda' , 'userid1', 'appuserid1');
+INSERT INTO "Bookings" VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a','2050-05-07 20:15:00+00', 3, 'c52fd4e3-1e46-4c38-84cc-d686800b425c','userid2', 'appuserid2');

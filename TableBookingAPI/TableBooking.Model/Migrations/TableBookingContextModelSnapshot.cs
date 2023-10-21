@@ -86,27 +86,26 @@ namespace TableBooking.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Duration")
+                    b.Property<int>("DurationInMinutes")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("TableId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("TableId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Bookings");
                 });
@@ -117,8 +116,8 @@ namespace TableBooking.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<TimeSpan>("CloseTime")
-                        .HasColumnType("interval");
+                    b.Property<DateTime>("CloseTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -131,8 +130,8 @@ namespace TableBooking.Model.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<TimeSpan>("OpenTime")
-                        .HasColumnType("interval");
+                    b.Property<DateTime>("OpenTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -144,8 +143,8 @@ namespace TableBooking.Model.Migrations
                     b.Property<string>("PrimaryImageURL")
                         .HasColumnType("text");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("integer");
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
 
                     b.Property<string>("SecondaryImageURL")
                         .HasColumnType("text");
@@ -180,17 +179,19 @@ namespace TableBooking.Model.Migrations
 
             modelBuilder.Entity("TableBooking.Model.Booking", b =>
                 {
-                    b.HasOne("TableBooking.Model.AppUser", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("TableBooking.Model.Table", "Table")
                         .WithMany("Bookings")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TableBooking.Model.AppUser", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Table");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Table", b =>

@@ -18,7 +18,7 @@ namespace TableBooking.Controllers
         [HttpGet("GetAllBookings")]
         public async Task<IActionResult> GetBookings()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await _bookingService.GetAllBookings(userId);
         }
 

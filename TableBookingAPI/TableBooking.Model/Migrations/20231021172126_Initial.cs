@@ -21,10 +21,10 @@ namespace TableBooking.Model.Migrations
                     Phone = table.Column<string>(type: "text", nullable: false),
                     PrimaryImageURL = table.Column<string>(type: "text", nullable: true),
                     SecondaryImageURL = table.Column<string>(type: "text", nullable: true),
-                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    Rating = table.Column<float>(type: "real", nullable: false),
                     Price = table.Column<int>(type: "integer", nullable: false),
-                    OpenTime = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    CloseTime = table.Column<TimeSpan>(type: "interval", nullable: false)
+                    OpenTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CloseTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,10 +83,10 @@ namespace TableBooking.Model.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Duration = table.Column<int>(type: "integer", nullable: false),
-                    TableId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    AppUserId = table.Column<string>(type: "text", nullable: true)
+                    DurationInMinutes = table.Column<int>(type: "integer", nullable: false),
+                    UserId1 = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TableId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,21 +98,21 @@ namespace TableBooking.Model.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Users_AppUserId",
-                        column: x => x.AppUserId,
+                        name: "FK_Bookings_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_AppUserId",
-                table: "Bookings",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_TableId",
                 table: "Bookings",
                 column: "TableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId1",
+                table: "Bookings",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tables_RestaurantId",
