@@ -31,6 +31,11 @@ namespace TableBooking.Logic
             get => new UserRepository(_context);
         }
 
+        public IRatingRepository RatingRepository
+        {
+            get => new RatingRepository(_context);
+        }
+
         public void Dispose()
         {
             _context.Dispose();
