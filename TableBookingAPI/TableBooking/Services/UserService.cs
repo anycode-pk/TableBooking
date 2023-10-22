@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
-using TableBooking.Model;
+using TableBooking.Model.Models;
 using TableBooking.Api.Interfaces;
 
 namespace TableBooking.Api.Services

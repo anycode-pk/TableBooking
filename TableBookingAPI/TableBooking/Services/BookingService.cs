@@ -3,7 +3,7 @@ using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Converters.Table;
 using TableBooking.Logic.Interfaces;
-using TableBooking.Model;
+using TableBooking.Model.Models;
 
 namespace TableBooking.Api.Services
 {

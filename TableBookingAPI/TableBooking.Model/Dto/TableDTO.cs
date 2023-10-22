@@ -1,10 +1,9 @@
-﻿using TableBooking.Model;
-
-namespace TableBooking.DTOs;
-
-public class TableDTO
+﻿namespace TableBooking.DTOs
 {
-    public int NumberOfSeats { get; set; }
-    public Guid RestaurantId { get; set; }
-    
+    public class TableDTO
+    {
+        public int NumberOfSeats { get; set; }
+        public Guid RestaurantId { get; set; }
+
+    }
 }

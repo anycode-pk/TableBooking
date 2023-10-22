@@ -1,36 +1,33 @@
-﻿namespace TableBooking.IntegrationTests.Controllers;
-
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TableBooking.Model;
+using TableBooking.Model.Models;
 
-public class RestaurantControllerTests : IClassFixture<WebApplicationFactory<Program>>
+namespace TableBooking.IntegrationTests.Controllers
 {
-    private readonly WebApplicationFactory<Program> _factory;
 
-    public RestaurantControllerTests(WebApplicationFactory<Program> factory)
+    public class RestaurantControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
-        _factory = factory;
-    }
+        private readonly WebApplicationFactory<Program> _factory;
 
-    [Theory]
-    [InlineData(1)]
-    public async Task GetRestaurantById_WhenCalled_ReturnRestaurant(int id)
-    {
-        var client = _factory.CreateClient();
+        public RestaurantControllerTests(WebApplicationFactory<Program> factory)
+        {
+            _factory = factory;
+        }
 
-        var response = await client.GetAsync($"restaurant/{id}");
-        Assert.True(response.IsSuccessStatusCode);
+        [Theory]
+        [InlineData(1)]
+        public async Task GetRestaurantById_WhenCalled_ReturnRestaurant(int id)
+        {
+            var client = _factory.CreateClient();
 
-        var rawResponseData = await response.Content.ReadAsStringAsync();
-        var restaurant = JsonConvert.DeserializeObject<Restaurant>(rawResponseData);
+            var response = await client.GetAsync($"restaurant/{id}");
+            Assert.True(response.IsSuccessStatusCode);
 
-        Assert.NotNull(restaurant);
+            var rawResponseData = await response.Content.ReadAsStringAsync();
+            var restaurant = JsonConvert.DeserializeObject<Restaurant>(rawResponseData);
+
+            Assert.NotNull(restaurant);
+        }
     }
 }
 

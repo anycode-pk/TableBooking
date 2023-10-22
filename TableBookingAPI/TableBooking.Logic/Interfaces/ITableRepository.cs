@@ -1,4 +1,4 @@
-﻿using TableBooking.Model;
+﻿using TableBooking.Model.Models;
 
 namespace TableBooking.Logic.Interfaces
 {

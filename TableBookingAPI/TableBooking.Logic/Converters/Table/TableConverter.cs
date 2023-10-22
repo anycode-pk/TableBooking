@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TableBooking.DTOs;
-using TableBooking.Model;
+﻿using TableBooking.DTOs;
 
-namespace TableBooking.Logic.Converters.Table;
-
-public class TableConverter : ITableConverter
+namespace TableBooking.Logic.Converters.Table
 {
-    public TableDTO TableToTableDto(Model.Table table)
+    public class TableConverter : ITableConverter
     {
-        return new TableDTO
+        public TableDTO TableToTableDto(Model.Models.Table table)
         {
-            RestaurantId = table.Restaurant.Id,
-            NumberOfSeats = table.NumberOfSeats
-        };
+            return new TableDTO
+            {
+                RestaurantId = table.Restaurant.Id,
+                NumberOfSeats = table.NumberOfSeats
+            };
+        }
     }
 }
