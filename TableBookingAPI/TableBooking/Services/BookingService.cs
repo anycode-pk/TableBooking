@@ -74,11 +74,6 @@ namespace TableBooking.Api.Services
             return new BadRequestObjectResult("Bad request: no booking id");
         }
 
-        private TableDTO ToModel(Table table)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IActionResult> GetAllBookings(string userId)
         {
             var bookings = await _unitOfWork.BookingRepository.GetAllBookingsForSpecificUserAsync(userId);
