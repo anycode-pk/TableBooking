@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model;
+using TableBooking.Model.Models;
 
 namespace TableBooking.Logic.Repositories
 {

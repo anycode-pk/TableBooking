@@ -2,7 +2,7 @@
 
 namespace TableBooking.Logic.Interfaces
 {
-    public interface ITableRepository : IGenericRepository<Table>
+    public interface IRatingRepository : IGenericRepository<Rating>
     {
     }
 }

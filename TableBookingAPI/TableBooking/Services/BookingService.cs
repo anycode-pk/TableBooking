@@ -3,7 +3,7 @@ using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Converters.Table;
 using TableBooking.Logic.Interfaces;
-using TableBooking.Model;
+using TableBooking.Model.Models;
 
 namespace TableBooking.Api.Services
 {
@@ -72,11 +72,6 @@ namespace TableBooking.Api.Services
                 return new OkObjectResult(bookingDto);
             }
             return new BadRequestObjectResult("Bad request: no booking id");
-        }
-
-        private TableDTO ToModel(Table table)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IActionResult> GetAllBookings(string userId)

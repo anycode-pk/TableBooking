@@ -1,36 +1,32 @@
-﻿namespace TableBooking.IntegrationTests.Controllers;
-
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TableBooking.Model;
+using TableBooking.Model.Models;
 
-public class TableControllerTests : IClassFixture<WebApplicationFactory<Program>>
+namespace TableBooking.IntegrationTests.Controllers
 {
-    private readonly WebApplicationFactory<Program> _factory;
-
-    public TableControllerTests(WebApplicationFactory<Program> factory)
+    public class TableControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
-        _factory = factory;
-    }
+        private readonly WebApplicationFactory<Program> _factory;
 
-    [Theory]
-    [InlineData(1)]
-    public async Task GetTableById_WhenCalled_ReturnTable(int id)
-    {
-        var client = _factory.CreateClient();
+        public TableControllerTests(WebApplicationFactory<Program> factory)
+        {
+            _factory = factory;
+        }
 
-        var response = await client.GetAsync($"table/{id}");
-        Assert.True(response.IsSuccessStatusCode);
+        [Theory]
+        [InlineData(1)]
+        public async Task GetTableById_WhenCalled_ReturnTable(int id)
+        {
+            var client = _factory.CreateClient();
 
-        var rawResponseData = await response.Content.ReadAsStringAsync();
-        var table = JsonConvert.DeserializeObject<Booking>(rawResponseData);
+            var response = await client.GetAsync($"table/{id}");
+            Assert.True(response.IsSuccessStatusCode);
 
-        Assert.NotNull(table);
+            var rawResponseData = await response.Content.ReadAsStringAsync();
+            var table = JsonConvert.DeserializeObject<Booking>(rawResponseData);
+
+            Assert.NotNull(table);
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Drawing;
 
-namespace TableBooking.Model
+namespace TableBooking.Model.Models
 {
     public class AppRole : IdentityRole
     {

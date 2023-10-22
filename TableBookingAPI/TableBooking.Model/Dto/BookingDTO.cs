@@ -1,6 +1,4 @@
-﻿using TableBooking.Model;
-
-namespace TableBooking.DTOs
+﻿namespace TableBooking.DTOs
 {
     public class BookingDTO
     {

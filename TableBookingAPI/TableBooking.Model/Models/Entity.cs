@@ -1,6 +1,7 @@
-﻿namespace TableBooking.Model;
-
-public class Entity
+﻿namespace TableBooking.Model.Models
 {
-    public Guid Id { get; set; }
+    public class Entity
+    {
+        public Guid Id { get; set; }
+    }
 }

@@ -4,9 +4,9 @@ using TableBooking.Model.Models;
 
 namespace TableBooking.Logic.Repositories
 {
-    public class TableRepository : GenericRepository<Table>, ITableRepository
+    public class RatingRepository : GenericRepository<Rating>, IRatingRepository
     {
-        public TableRepository(TableBookingContext context) : base(context)
+        public RatingRepository(TableBookingContext context) : base(context)
         {
         }
     }

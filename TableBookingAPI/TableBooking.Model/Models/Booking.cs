@@ -1,4 +1,4 @@
-﻿namespace TableBooking.Model
+﻿namespace TableBooking.Model.Models
 {
     public class Booking : Entity
     {
