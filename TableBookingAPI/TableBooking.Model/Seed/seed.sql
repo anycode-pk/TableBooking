@@ -106,3 +106,11 @@ INSERT INTO "Bookings"(
 INSERT INTO "Bookings"(
 "Id", "Date", "DurationInMinutes", "UserId", "TableId")
 	VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a', '2050-05-07 20:15:00+00', 60, 'id2', 'b3bb2638-b51c-4689-a772-0a154b6afa1c');
+
+-- seed Ratings records
+INSERT INTO "Ratings"(
+	"Id", "RatingStars", "NumberOfLikes", "Comment", "DateOfRating", "RestaurantId", "AppUserId")
+	VALUES ('c55fd83c-7105-11ee-b962-0242ac120002', 4, 2, 'Dobre jedzenie, dobrze robią!', '2023-10-12 14:22:00', 'a7f7be1c-adae-40df-b315-f772857936d5', 'id1');
+INSERT INTO "Ratings"(
+	"Id", "RatingStars", "NumberOfLikes", "Comment", "DateOfRating", "RestaurantId", "AppUserId")
+	VALUES ('1e84bcfc-7106-11ee-b962-0242ac120002', 2, 6, 'Mucha w zupie! Ochyda!', '2023-10-24 15:21:00', '123e1a20-6801-4a5e-a327-ecc5cb2bd906', 'id2');
