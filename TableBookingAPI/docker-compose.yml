@@ -15,8 +15,7 @@ services:
       - table_booking_network
     volumes: 
       - ./TableBooking.Model/Seed/seed.sql:/docker-entrypoint-initdb.d/seed.sql
-      # volumes: 
-      # - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
   # api:
   #   build:
   #       context: .
