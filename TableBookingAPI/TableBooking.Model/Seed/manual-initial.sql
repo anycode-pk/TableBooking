@@ -66,15 +66,15 @@ CREATE TABLE IF NOT EXISTS "Ratings" (
 
 -- seed Restaurants records
 INSERT INTO "Restaurants" ("Id","Name", "CloseTime", "Description", "Location", "OpenTime", "Type", "PrimaryImageURL","SecondaryImageURL", "Price", "Rating", "Phone")
-VALUES ('a7f7be1c-adae-40df-b315-f772857936d5', 'UNO', '2023-10-26 21:00:00', 'Description of UNO.', 'Åšniadeckich 10b/2', '2023-10-26 12:00:00', 'Pizza', null,null, 1, 5, 123-456-789);
+VALUES ('a7f7be1c-adae-40df-b315-f772857936d5', 'UNO', '2023-10-26 21:00:00', 'Description of UNO.', 'Œniadeckich 10b/2', '2023-10-26 12:00:00', 'Pizza', null,null, 1, 5, 123-456-789);
 INSERT INTO "Restaurants" ("Id","Name", "CloseTime", "Description", "Location", "OpenTime", "Type", "PrimaryImageURL","SecondaryImageURL", "Price", "Rating", "Phone")
 VALUES ('bfa8ba14-e4ef-4f13-a4a9-4b1d29d2f8ba','Mozaika', '2023-10-26 22:15:00', 'Description of Mozaika restaurant.', 'Ratuszowska 10', '2023-10-26 15:00:00', 'Generic restaurant', null,null, 3, 4, 41-334-219);
 INSERT INTO "Restaurants" ("Id","Name", "CloseTime", "Description", "Location", "OpenTime", "Type", "PrimaryImageURL","SecondaryImageURL", "Price", "Rating", "Phone")
-VALUES ('a50c6651-c1b4-497f-b8db-e101da537692','NieNaÅ»arty', '2023-10-27 00:15:00', 'Description of NieNaÅ»arty.', 'ZwyciÄ™stwa 20/2', '2023-10-26 13:30:00', 'Burger', null, null, 3, 3, 432-123-543);
+VALUES ('a50c6651-c1b4-497f-b8db-e101da537692','NieNa¯arty', '2023-10-27 00:15:00', 'Description of NieNa¯arty.', 'Zwyciêstwa 20/2', '2023-10-26 13:30:00', 'Burger', null, null, 3, 3, 432-123-543);
 INSERT INTO "Restaurants" ("Id","Name", "CloseTime", "Description", "Location", "OpenTime", "Type", "PrimaryImageURL","SecondaryImageURL", "Price", "Rating", "Phone")
 VALUES ('207989de-6d2b-416a-9634-c45870cd9f4f','Heaven', '2023-10-26 20:00:00', 'Description of Heaven.', 'Staszewskiego 2', '2023-10-26 12:00:00', 'Pizza', null,null, 2, 2, 164-231-324);
 INSERT INTO "Restaurants" ("Id","Name", "CloseTime", "Description", "Location", "OpenTime", "Type", "PrimaryImageURL","SecondaryImageURL", "Price", "Rating", "Phone")
-VALUES ('123e1a20-6801-4a5e-a327-ecc5cb2bd906','Green', '2023-10-26 24:00:00', 'Description of Green restaurant.', 'FaÅ‚ata 5/5', '2023-10-26 14:30:00', 'Generic restaurant', null,null, 2, 1, 357-877-667);
+VALUES ('123e1a20-6801-4a5e-a327-ecc5cb2bd906','Green', '2023-10-26 24:00:00', 'Description of Green restaurant.', 'Fa³ata 5/5', '2023-10-26 14:30:00', 'Generic restaurant', null,null, 2, 1, 357-877-667);
 
 -- seed Table records
 INSERT INTO "Tables" ("Id","NumberOfSeats", "RestaurantId") VALUES ('123e1a20-6801-4a5e-a327-ecc5cb2bd906',1, '123e1a20-6801-4a5e-a327-ecc5cb2bd906');
@@ -108,7 +108,7 @@ INSERT INTO "Users" (
     "LockoutEnabled",
     "AccessFailedCount"
 ) VALUES (
-    'abc663f0-08b1-4c52-afe4-1d446b11017f',
+    'id1',
     'refreshtoken1',
     '2023-11-12 00:00:00+00'::timestamptz, -- Note the casting to timestamptz
     'user uno',
@@ -146,7 +146,7 @@ INSERT INTO "Users" (
     "LockoutEnabled",
     "AccessFailedCount"
 ) VALUES (
-    '123663f0-08b1-4c52-afe4-1d446b11017f',
+    'id2',
     'refreshtoken2',
     '2023-11-12 00:00:00+00'::timestamptz, -- Note the casting to timestamptz
     'user nienazarty',
@@ -166,8 +166,8 @@ INSERT INTO "Users" (
 );
 
 -- seed Bookings records
-INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('fc9663f0-08b1-4c52-afe4-1d446b11017f','2030-01-01 14:30:00+00', 5, 'abc663f0-08b1-4c52-afe4-1d446b11017f', '123e1a20-6801-4a5e-a327-ecc5cb2bd906');
-INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a','2050-05-07 20:15:00+00', 3, '123663f0-08b1-4c52-afe4-1d446b11017f', '3eb2eb68-a47e-47cd-8a22-06c20197a0b3');
+INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('fc9663f0-08b1-4c52-afe4-1d446b11017f','2030-01-01 14:30:00+00', 5, 'id1', '123e1a20-6801-4a5e-a327-ecc5cb2bd906');
+INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a','2050-05-07 20:15:00+00', 3, 'id2', '3eb2eb68-a47e-47cd-8a22-06c20197a0b3');
 
 -- Seed Users records
 INSERT INTO "Users" ("Id", "RefreshToken", "RefreshTokenExpiryTime", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount")
@@ -179,7 +179,7 @@ VALUES ('c52fd4e3-1e46-4c38-84cc-d686800b425c', 'refreshtoken2', '2023-11-12 00:
 -- seed Ratings records
 INSERT INTO "Ratings"(
 	"Id", "RatingStars", "NumberOfLikes", "Comment", "DateOfRating", "RestaurantId", "AppUserId")
-	VALUES ('c55fd83c-7105-11ee-b962-0242ac120002', 4, 2, 'Dobre jedzenie, dobrze robiÄ…!', '2023-10-12 14:22:00', 'a7f7be1c-adae-40df-b315-f772857936d5', 'abc663f0-08b1-4c52-afe4-1d446b11017f');
+	VALUES ('c55fd83c-7105-11ee-b962-0242ac120002', 4, 2, 'Dobre jedzenie, dobrze robi¹!', '2023-10-12 14:22:00', 'a7f7be1c-adae-40df-b315-f772857936d5', 'id1');
 INSERT INTO "Ratings"(
 	"Id", "RatingStars", "NumberOfLikes", "Comment", "DateOfRating", "RestaurantId", "AppUserId")
-	VALUES ('1e84bcfc-7106-11ee-b962-0242ac120002', 2, 6, 'Mucha w zupie! Ochyda!', '2023-10-24 15:21:00', '123e1a20-6801-4a5e-a327-ecc5cb2bd906', '123663f0-08b1-4c52-afe4-1d446b11017f');
+	VALUES ('1e84bcfc-7106-11ee-b962-0242ac120002', 2, 6, 'Mucha w zupie! Ochyda!', '2023-10-24 15:21:00', '123e1a20-6801-4a5e-a327-ecc5cb2bd906', 'id2');

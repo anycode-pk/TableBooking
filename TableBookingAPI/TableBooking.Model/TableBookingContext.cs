@@ -9,11 +9,13 @@ namespace TableBooking.Model
         public TableBookingContext() { }
         public TableBookingContext(DbContextOptions<TableBookingContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            base.OnModelCreating(modelBuilder);
-        }
+        // This code is typically used when you have custom entity configurations or specific requirements for how your entities are mapped to the database:
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        //}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -25,7 +27,8 @@ namespace TableBooking.Model
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Table> Tables { get; set; }
-        public DbSet<AppUser> Users { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<AppUser> Users { get; set; }
+
     }
 }

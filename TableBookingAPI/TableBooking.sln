@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableBooking.Model", "Table
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableBooking.IntegrationTests", "TableBooking.IntegrationTests\TableBooking.IntegrationTests.csproj", "{728368D4-C976-4D34-AF3E-5910FDC3B5B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableBooking.Logic", "TableBooking.Logic\TableBooking.Logic.csproj", "{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableBooking.Logic", "TableBooking.Logic\TableBooking.Logic.csproj", "{11C2A605-A9FE-4C1F-AEA6-42598F8A396A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

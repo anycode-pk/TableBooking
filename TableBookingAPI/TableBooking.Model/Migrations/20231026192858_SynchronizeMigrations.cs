@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace TableBooking.Model.Migrations
 {
-    public partial class initial : Migration
+    public partial class SynchronizeMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,14 +78,42 @@ namespace TableBooking.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    RatingStars = table.Column<int>(type: "integer", nullable: false),
+                    NumberOfLikes = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: false),
+                    DateOfRating = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RestaurantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AppUserId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Users_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bookings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DurationInMinutes = table.Column<int>(type: "integer", nullable: false),
-                    UserId1 = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
                     TableId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -97,10 +126,11 @@ namespace TableBooking.Model.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Bookings_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -109,9 +139,19 @@ namespace TableBooking.Model.Migrations
                 column: "TableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_UserId1",
+                name: "IX_Bookings_UserId",
                 table: "Bookings",
-                column: "UserId1");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_AppUserId",
+                table: "Ratings",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_RestaurantId",
+                table: "Ratings",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tables_RestaurantId",
@@ -123,6 +163,9 @@ namespace TableBooking.Model.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Bookings");
+
+            migrationBuilder.DropTable(
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "Tables");

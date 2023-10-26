@@ -12,8 +12,8 @@ using TableBooking.Model;
 namespace TableBooking.Model.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20231022180400_ratings_table_add")]
-    partial class ratings_table_add
+    [Migration("20231026192858_SynchronizeMigrations")]
+    partial class SynchronizeMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
