@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TableBooking.Model.Migrations
 {
-    public partial class SynchronizeMigrations : Migration
+    public partial class JakNieDzialaToNajlepiejWszystkoUsunacFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +35,7 @@ namespace TableBooking.Model.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UserName = table.Column<string>(type: "text", nullable: true),
@@ -87,7 +87,7 @@ namespace TableBooking.Model.Migrations
                     Comment = table.Column<string>(type: "text", nullable: false),
                     DateOfRating = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     RestaurantId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AppUserId = table.Column<string>(type: "text", nullable: false)
+                    AppUserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,7 +113,7 @@ namespace TableBooking.Model.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DurationInMinutes = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TableId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

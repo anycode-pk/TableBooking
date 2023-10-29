@@ -16,7 +16,7 @@ namespace TableBooking.Logic.Repositories
             return await _objectSet.Include(x => x.Bookings).ToListAsync();
         }
 
-        public async Task<AppUser> GetUserById(string userId)
+        public async Task<AppUser> GetUserById(Guid userId)
         {
             return await _objectSet.Include(x => x.Bookings).FirstOrDefaultAsync(x => x.Id == userId);
         }

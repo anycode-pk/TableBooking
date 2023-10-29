@@ -54,10 +54,8 @@ namespace TableBooking.Api.Services
         public async Task<IActionResult> UpdateTableAsync(TableDTO dto)
         {
             var table = new Table
-            {
-                RestaurantId = dto.RestaurantId,
-                NumberOfSeats = dto.NumberOfSeats,
-                
+            { 
+                NumberOfSeats = dto.NumberOfSeats  
             };
             await _unitOfWork.TableRepository.Update(table);
             await _unitOfWork.SaveChangesAsync();

@@ -9,7 +9,6 @@ namespace TableBooking.Api.Interfaces
     {
         public Task<IActionResult> Register(UserRegisterDTO userRegisterDTO);
         public Task<IActionResult> Login(UserLoginDTO userLoginDTO);
-        public JwtSecurityToken GetToken(List<Claim> authClaims);
         public Task SeedRoles();
     }
 }

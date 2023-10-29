@@ -32,7 +32,7 @@ namespace TableBooking.Api.Services
         {
             var userExists = await _userManager.FindByNameAsync(dto.Username);
             if (userExists != null)
-                return new BadRequestObjectResult("Bad request: User already exist");
+                return new BadRequestObjectResult("Bad request: Registration failed");
 
             var user = new AppUser()
             {
@@ -50,7 +50,7 @@ namespace TableBooking.Api.Services
         public async Task<IActionResult> Login(UserLoginDTO dto)
         {
             var user = await _userManager.FindByNameAsync(dto.Username);
-            if (!(user != null || await _userManager.CheckPasswordAsync(user, dto.Password)))
+            if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
             {
                 return new UnauthorizedResult();
             }
@@ -70,7 +70,7 @@ namespace TableBooking.Api.Services
             });
         }
 
-        public JwtSecurityToken GetToken(List<Claim> authClaims)
+        private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 

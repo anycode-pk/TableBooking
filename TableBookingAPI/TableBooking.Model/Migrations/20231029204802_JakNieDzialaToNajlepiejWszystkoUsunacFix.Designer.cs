@@ -12,8 +12,8 @@ using TableBooking.Model;
 namespace TableBooking.Model.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20231026192858_SynchronizeMigrations")]
-    partial class SynchronizeMigrations
+    [Migration("20231029204802_JakNieDzialaToNajlepiejWszystkoUsunacFix")]
+    partial class JakNieDzialaToNajlepiejWszystkoUsunacFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,8 +26,9 @@ namespace TableBooking.Model.Migrations
 
             modelBuilder.Entity("TableBooking.Model.Models.AppUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -97,9 +98,8 @@ namespace TableBooking.Model.Migrations
                     b.Property<Guid>("TableId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -116,9 +116,8 @@ namespace TableBooking.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
                         .IsRequired()

@@ -6,6 +6,6 @@
         public DateTime Date { get; set; }
         public int DurationInMinutes { get; set; }
         public TableDTO TableDto { get; set; }
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

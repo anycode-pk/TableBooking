@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
 using TableBooking.Logic.Converters.Table;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Models;
+using TableBooking.Model.Requests;
 
 namespace TableBooking.Api.Services
 {
@@ -17,14 +19,15 @@ namespace TableBooking.Api.Services
             _unitOfWork = unitOfWork;
             _tableConverter = tableConverter;
         }
-        public async Task<IActionResult> CreateBookingAsync(BookingToCreateDto dto, string userId)
+        public async Task<IActionResult> CreateBookingAsync(CreateBookingRequest dto, string userId)
         {
+            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve the authenticated user's ID
+
             var newBooking = new Booking
             {
                 Date = dto.Date,
                 DurationInMinutes = dto.DurationInMinutes,
-                TableId = dto.TableId,
-                UserId = dto.UserId
+                TableId = dto.TableId
             };
 
 
