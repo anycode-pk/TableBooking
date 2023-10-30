@@ -56,6 +56,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/RestaurantView/RestaurantView.vue'),
       },
       {
+        name: 'BookRestaurant',
+        path: 'book/:id',
+        props: true,
+        component: () => import('@/views/BookRestaurantView/BookRestaurantView.vue'),
+      },
+      {
+        name: 'BookSuccess',
+        path: 'book/success',
+        component: () => import('@/views/BookRestaurantView/BookSuccessView.vue'),
+      },
+      {
         name: 'Admin',
         path: 'admin',
         component: () => import('@/views/AdminView.vue'),
