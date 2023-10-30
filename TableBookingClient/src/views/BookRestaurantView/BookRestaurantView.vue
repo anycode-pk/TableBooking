@@ -1,87 +1,88 @@
 <template>
-    <ion-page>
-        <ion-header>
-            <ion-toolbar>
-                <ion-buttons slot="start">
-                    <ion-back-button></ion-back-button>
-                </ion-buttons>
-                <ion-title>{{ "Booking " + restaurant.name }}</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-card>
-                <img alt="Restaurant image" v-bind:src="restaurant.imageUrl"/>
-                <div class="header-row">
-                    <ion-card-header>
-                        <RestaurantRating v-bind:rating="restaurant.rating"/>
-                        <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
-                        <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
-                        <div class="time-container">
-                            <IonIcon class="time-icon" :icon="time"/>
-                            <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
-                        </div>
-                    </ion-card-header>
-                    <div class="card-buttons">
-                        <ion-button @click.stop="likeRestaurant" fill="clear">
-                            <ion-icon slot="icon-only" :icon="heartSharp"/>
-                        </ion-button>
-                        <ion-button @click.stop="shareRestaurant" fill="clear">
-                            <ion-icon slot="icon-only" :icon="shareSharp"/>
-                        </ion-button>
-                    </div>
-                </div>
-                <ion-card-content>
-                    <ion-datetime id="date" display-format="DD MMM YYYY" picker-format="DD MMM YYYY" placeholder="Select Date"></ion-datetime>
-                    <NumberPicker/>
-                    <div id="button">
-                    <ion-button @click="bookTable">
-                        <ion-icon slot="start" :icon="time"></ion-icon>
-                        <ion-label>Book a table</ion-label>
-                    </ion-button>
-                    </div>
-                </ion-card-content>
-            </ion-card>
-        </ion-content>
-    </ion-page>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ "Booking " + restaurant.name }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-card>
+        <img alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
+        <div class="header-row">
+          <ion-card-header>
+            <RestaurantRating v-bind:rating="restaurant.rating" />
+            <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
+            <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
+            <div class="time-container">
+              <IonIcon class="time-icon" :icon="time" />
+              <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
+            </div>
+          </ion-card-header>
+          <div class="card-buttons">
+            <ion-button @click.stop="likeRestaurant" fill="clear">
+              <ion-icon slot="icon-only" :icon="heartSharp" />
+            </ion-button>
+            <ion-button @click.stop="shareRestaurant" fill="clear">
+              <ion-icon slot="icon-only" :icon="shareSharp" />
+            </ion-button>
+          </div>
+        </div>
+        <ion-card-content>
+          <ion-datetime id="date" display-format="DD MMM YYYY" picker-format="DD MMM YYYY"
+            placeholder="Select Date"></ion-datetime>
+          <NumberPicker />
+          <div id="button">
+            <ion-button @click="bookTable">
+              <ion-icon slot="start" :icon="time"></ion-icon>
+              <ion-label>Book a table</ion-label>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+  </ion-page>
 </template>
 
 <script setup lang="ts">
 
-import {IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
-import {heartSharp, shareSharp, time} from "ionicons/icons";
+import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
+import { heartSharp, shareSharp, time } from "ionicons/icons";
 import type { Restaurant } from "@/models";
 import axios from "axios";
-import {onMounted} from "vue";
-import {restaurantPlaceholders} from "@/restaurants";
+import { onMounted } from "vue";
+import { restaurantPlaceholders } from "@/restaurants";
 import RestaurantRating from "@/views/components/RestaurantRating.vue";
 import NumberPicker from "@/views/BookRestaurantView/components/NumberPicker.vue";
 import router from "@/router";
 
-let restaurant :Restaurant;
+let restaurant: Restaurant;
 restaurant = restaurantPlaceholders[0];
 
-async function getRestaurant(): Promise<void>{
-    const getRestaurantsResponse = await axios.get<Restaurant>('https://localhost:7012/api/Restaurant/' + restaurant.id);
-    let restaurantData : Restaurant = getRestaurantsResponse.data;
-    if (restaurantData){
-        restaurant = restaurantData;
-    }
+async function getRestaurant(): Promise<void> {
+  const getRestaurantsResponse = await axios.get<Restaurant>('https://localhost:7012/api/Restaurant/' + restaurant.id);
+  let restaurantData: Restaurant = getRestaurantsResponse.data;
+  if (restaurantData) {
+    restaurant = restaurantData;
+  }
 }
 onMounted(async () => {
-    await getRestaurant();
+  await getRestaurant();
 })
 const likeRestaurant = () => {
-    console.log("Like restaurant");
+  console.log("Like restaurant");
 };
 const shareRestaurant = () => {
-    console.log("Share restaurant");
+  console.log("Share restaurant");
 };
 
 const bookTable = () => {
-    console.log("Book table");
-    //TODO: Insert a request to the backend to book a table
-    //go to success page
-    router.push("/book/success");
+  console.log("Book table");
+  //TODO: Insert a request to the backend to book a table
+  //go to success page
+  router.push("/book/success");
 };
 
 </script>
@@ -89,25 +90,24 @@ const bookTable = () => {
 <style scoped>
 /*Display the restaurant card in the center center of the page in the middle*/
 ion-card {
-    margin: 10px auto;
-    height: auto;
-    max-width: calc(100% - 20px);
-}
-#time{
-    float: right;
-}
-img{}
-ion-card-subtitle{
-    margin: 0;
+  margin: 10px auto;
+  height: auto;
+  max-width: calc(100% - 20px);
 }
 
-ion-card-content{
-    padding-top: 0;
+#time {
+  float: right;
 }
 
-#button{
-    display: flex;
-    justify-content: center;
+ion-card-subtitle {
+  margin: 0;
 }
 
-</style>
+ion-card-content {
+  padding-top: 0;
+}
+
+#button {
+  display: flex;
+  justify-content: center;
+}</style>
