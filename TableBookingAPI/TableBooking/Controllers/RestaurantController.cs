@@ -1,62 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.EF;
-using TableBooking.Model;
 
 namespace TableBooking.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private readonly DataContext _context;
-        public RestaurantController(DataContext context)
+        private IRestaurantService _restaurantService;
+
+        public RestaurantController(IRestaurantService restaurantService)
         {
-            _context = context;
-        }
-        
-        [HttpGet]
-        public IActionResult GetAllRestaurants()
-        {
-            var restaurants = _context.Restaurants.ToList();
-            return Ok(restaurants);
+            _restaurantService = restaurantService;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("GetAllRestaurants")]
+        public async Task<IActionResult> GetRestaurants()
         {
-            var restaurant = _context.Restaurants.Find(id);
-            if (restaurant == null)
-                return NotFound();
-            return Ok(restaurant);
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> Add([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto) 
-        {
-            var restaurant = new Restaurant
-            {
-                Name = restaurantShortInfoDto.Name,
-                CloseTime = restaurantShortInfoDto.CloseTime,
-                Description = restaurantShortInfoDto.Description,
-                Location = restaurantShortInfoDto.Location,
-                OpenTime = restaurantShortInfoDto.OpenTime,
-                Type = restaurantShortInfoDto.Type
-            };
-            _context.Restaurants.Add(restaurant);
-            await _context.SaveChangesAsync();
-            return Ok(restaurant);
+            return await _restaurantService.GetAllRestaurantsAsync();
         }
 
-        [HttpDelete("{id:int}")] 
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet("GetRestaurantById/{id}")]
+        public async Task<IActionResult> GetRestaurantById(Guid id)
         {
-            var restaurantToDelete = await _context.Restaurants.FindAsync(id);
-            if (restaurantToDelete == null)
-                return NotFound($"Restaurant with Id = {id} not found");
-            _context.Restaurants.Remove(restaurantToDelete);
-            await _context.SaveChangesAsync();
-            return Ok(restaurantToDelete);
+            return await _restaurantService.GetRestaurantByIdAsync(id);
         }
+
+        [HttpPost("CreateRestaurant")]
+        public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
+        {
+            return await _restaurantService.CreateRestaurantAsync(restaurantShortInfoDto);
+        }
+
+        [HttpDelete("DeleteRestaurant/{id:int}")]
+        public async Task<IActionResult> DeleteRestaurant(Guid id)
+        {
+            return await _restaurantService.DeleteRestaurantAsync(id);
+        }
+
+        [HttpPut("UpdateRestaurant")]
+        public async Task<IActionResult> UpdateRestaurant()
+        {
+            return Ok();
+        }
+
+
     }
 }

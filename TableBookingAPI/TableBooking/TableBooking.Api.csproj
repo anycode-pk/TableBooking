@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>af5c4dec-79ad-4dc9-8bdb-51490d8c2469</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.15" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.15">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.15">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
+        <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
+        <PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+        <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TableBooking.Logic\TableBooking.Logic.csproj" />
+      <ProjectReference Include="..\TableBooking.Model\TableBooking.Model.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="WebApp1\Areas\Identity\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_LoginPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\Shared\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="WebApp1\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\appsettings.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\obj\WebApp1.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="WebApp1\Properties\launchSettings.json" />
+    </ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="TableBooking.IntegrationTests" />
+	</ItemGroup>
+</Project>

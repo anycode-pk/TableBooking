@@ -1,68 +1,55 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TableBooking.DTOs;
-using TableBooking.EF;
-using TableBooking.Model;
+using TableBooking.Api.Interfaces;
+using TableBooking.Model.Requests;
 
 namespace TableBooking.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private DataContext _context;
-        public BookingController(DataContext context)
+        private IBookingService _bookingService;
+        public BookingController(IBookingService bookingService)
         {
-            _context = context;
-        }
-        
-        [HttpGet]
-        public IActionResult GetAllBookings()
-        {
-            return Ok(_context.Bookings.ToList());
-        }
-        
-        [HttpGet("{id}")]
-        public ActionResult<BookingDTO> GetBooking([FromRoute] int id)
-        {
-            var booking = _context.Bookings.FirstOrDefault(x => x.Id == id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
-            var bookingDto = new BookingDTO
-            {
-                Id = booking.Id,
-                Date = booking.Date,
-                BookingDuration = booking.Duration,
-                TableId = booking.TableId,
-                UserId = booking.UserId
-            };
-            return Ok(bookingDto);
+            _bookingService = bookingService;
         }
 
-        //[HttpPost]
-        //public ActionResult<BookingDTO> AddBooking([FromBody] BookingToCreateDto bookingToCreateDto)
-        //{
-        //    var booking = new Booking
-        //    {
-        //        Date = bookingToCreateDto.Date,
-        //        Duration = bookingToCreateDto.BookingDuration,
-        //        TableId = bookingToCreateDto.TableId,
-        //        UserId = bookingToCreateDto.UserId
-        //    };
-        //    _context.Bookings.Add(booking);
-        //    _context.SaveChanges();
-        //    var bookingDto = new BookingDTO
-        //    {
-        //        Id = booking.Id,
-        //        Date = booking.Date,
-        //        BookingDuration = booking.Duration,
-        //        TableId = booking.TableId,
-        //        UserId = booking.UserId
-        //    };
-        //    return Created(string.Empty, bookingDto);
-        //}
+        [HttpGet("GetAllUserBookings")]
+        public async Task<IActionResult> GetUserBookings()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _bookingService.GetAllBookings(userId);
+        }
+
+        [HttpGet("GetById/{id}")]
+        public async Task<IActionResult> GetUserBookingById(Guid id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _bookingService.GetBookingByIdAsync(id, userId);
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteUserBooking(Guid id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _bookingService.DeleteBookingAsync(id, userId);
+        }
+
+        [HttpPost("CreateBooking")]
+        public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingRequest bookingToCreateDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
+        }
+
+        [HttpPut("UpdateBooking/{id}")]
+        public async Task<IActionResult> UpdateUserBooking()
+        {
+            return Ok();
+        }
 
     }
 }

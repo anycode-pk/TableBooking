@@ -1,55 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TableBooking.Api.Interfaces;
 using TableBooking.DTOs;
-using TableBooking.EF;
-using TableBooking.Model;
-using Table = TableBooking.Model.Table;
 
-namespace TableBooking.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class TableController : ControllerBase
+namespace TableBooking.Controllers
 {
-    private readonly DataContext _context;
-    
-    [HttpGet]
-    public IActionResult GetAllTables()
-    {
-        var tables = _context.Tables.ToList();
-        return Ok(tables);
-    }
 
-    [HttpGet("{id}")]
-    public IActionResult GetTableById(int id)
+    [Route("[controller]")]
+    [ApiController]
+    public class TableController : ControllerBase
     {
-        var table = _context.Tables.Find(id);
-        if (table == null)
-            return new BadRequestObjectResult($"Can't find table with {id}");
-        return Ok(table);
-    }
-        
-    [HttpPost]
-    public async Task<IActionResult> AddTable([FromBody] TableDTO tableDto)
-    {
-        var table = new Table
+        private ITableService _tableService;
+        public TableController(ITableService tableService)
         {
-            NumberOfSeats = tableDto.NumberOfSeats,
-            RestaurantId = tableDto.RestaurantId
-        };
-        _context.Tables.Add(table);
-        await _context.SaveChangesAsync();
-        return Ok(table);
-    }
+            _tableService = tableService;
+        }
 
-    [HttpDelete("{id:int}")] 
-    public async Task<IActionResult> DeleteTableById(int id)
-    {
-        var tableToDelete = _context.Tables.Find(id);
-        if (tableToDelete == null)
-            return NotFound($"Restaurant with Id = {id} not found");
-        _context.Tables.Remove(tableToDelete);
-        _context.SaveChanges();
-        return Ok(tableToDelete);
+        [HttpGet("GetAllTables")]
+        public async Task<IActionResult> GetAllTables()
+        {
+            return await _tableService.GetAllTablesAsync();
+        }
+
+        [HttpGet("GetTableById/{id}")]
+        public async Task<IActionResult> GetTableById(Guid id)
+        {
+            return await _tableService.GetTableByIdAsync(id);
+        }
+
+        [HttpPost("CreateTable")]
+        public async Task<IActionResult> CreateTable([FromBody] TableDTO tableDto)
+        {
+            return await _tableService.CreateTableAsync(tableDto);
+        }
+
+        [HttpPut("UpdateTable")]
+        public async Task<IActionResult> UpdateTable([FromBody] TableDTO tableDto)
+        {
+            return await _tableService.UpdateTableAsync(tableDto);
+        }
+
+        [HttpDelete("DeleteTable/{id:int}")]
+        public async Task<IActionResult> DeleteTable(Guid id)
+        {
+            return await _tableService.DeleteTableAsync(id);
+        }
     }
 }

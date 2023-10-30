@@ -39,7 +39,7 @@ export const restaurantPlaceholders :Restaurant[] = [
     } as Restaurant,
     {
         id: "2",
-        name: "Restaurant 2",
+        name: "KrowaBurger",
         type: "Burger",
         description: loremIpsum,
         shortDescription: shortIpsum,
