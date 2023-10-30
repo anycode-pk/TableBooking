@@ -29,13 +29,12 @@
 
 <script setup lang="ts">
 
-import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
-import { heartSharp, shareSharp, time } from "ionicons/icons";
+import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
+import { time } from "ionicons/icons";
 import type { Restaurant } from "@/models";
 import axios from "axios";
 import { onMounted } from "vue";
 import { restaurantPlaceholders } from "@/restaurants";
-import RestaurantRating from "@/views/components/RestaurantRating.vue";
 import NumberPicker from "@/views/BookRestaurantView/components/NumberPicker.vue";
 import router from "@/router";
 
@@ -52,12 +51,6 @@ async function getRestaurant(): Promise<void> {
 onMounted(async () => {
   await getRestaurant();
 })
-const likeRestaurant = () => {
-  console.log("Like restaurant");
-};
-const shareRestaurant = () => {
-  console.log("Share restaurant");
-};
 
 const bookTable = () => {
   console.log("Book table");
@@ -82,9 +75,6 @@ ion-card {
 
 ion-card-subtitle {
   margin: 0;
-}
-
-ion-card-content {
 }
 
 #button {

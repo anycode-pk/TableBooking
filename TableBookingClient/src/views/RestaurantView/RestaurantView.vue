@@ -10,7 +10,7 @@
     </ion-header>
     <ion-content>
       <ion-card>
-        <img alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
+        <img alt="Restaurant image" v-bind:src="restaurant.primaryImageUrl" />
         <div class="header-row">
           <ion-card-header id="card-header">
             <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>

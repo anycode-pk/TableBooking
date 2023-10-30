@@ -13,7 +13,6 @@
 
 <script setup lang="ts">
 import {IonToolbar, IonSearchbar, IonSegment, IonSegmentButton} from '@ionic/vue';
-import SearchOptions from "@/views/SearchView/components/SearchOptions.vue";
 import router from "@/router";
 
 const onSegmentChange = (e: CustomEvent) => {

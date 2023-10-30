@@ -7,7 +7,8 @@ export type Restaurant = {
     rating: number;
     shortDescription?: string;
     description?: string;
-    imageUrl: string;
+    primaryImageUrl: string;
+    secondaryImageUrl: string;
     location: string;
     phone: string;
     website: string;
