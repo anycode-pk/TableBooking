@@ -51,6 +51,7 @@ import RestaurantRating from "../components/RestaurantRating.vue"
 import axios from "axios";
 import { onMounted } from "vue";
 import { restaurantPlaceholders } from "@/restaurants";
+import router from "@/router";
 
 let restaurant: Restaurant;
 restaurant = restaurantPlaceholders[0];
@@ -77,7 +78,7 @@ const shareRestaurant = () => {
 
 const bookTable = () => {
   console.log("Book table");
-  //TODO: Route to book table
+  router.push({ name: "BookRestaurant", params: { restaurantId: restaurant.id } });
 };
 
 </script>

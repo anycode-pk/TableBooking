@@ -11,25 +11,6 @@
     <ion-content>
       <ion-card>
         <img alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
-        <div class="header-row">
-          <ion-card-header>
-            <RestaurantRating v-bind:rating="restaurant.rating" />
-            <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
-            <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
-            <div class="time-container">
-              <IonIcon class="time-icon" :icon="time" />
-              <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
-            </div>
-          </ion-card-header>
-          <div class="card-buttons">
-            <ion-button @click.stop="likeRestaurant" fill="clear">
-              <ion-icon slot="icon-only" :icon="heartSharp" />
-            </ion-button>
-            <ion-button @click.stop="shareRestaurant" fill="clear">
-              <ion-icon slot="icon-only" :icon="shareSharp" />
-            </ion-button>
-          </div>
-        </div>
         <ion-card-content>
           <ion-datetime id="date" display-format="DD MMM YYYY" picker-format="DD MMM YYYY"
             placeholder="Select Date"></ion-datetime>
@@ -104,7 +85,6 @@ ion-card-subtitle {
 }
 
 ion-card-content {
-  padding-top: 0;
 }
 
 #button {
