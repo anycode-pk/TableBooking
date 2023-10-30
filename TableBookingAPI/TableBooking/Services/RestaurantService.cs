@@ -14,7 +14,7 @@ namespace TableBooking.Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> CreateRestaurantAsync(RestaurantShortInfoDTO dto)
+        public async Task<IActionResult> CreateRestaurantAsync(RestaurantShortInfoDto dto)
         {
             var restaurant = new Restaurant
             {
@@ -57,7 +57,7 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(restaurant);
         }
 
-        public Task<IActionResult> UpdateRestaurantAsync(RestaurantShortInfoDTO dto)
+        public Task<IActionResult> UpdateRestaurantAsync(RestaurantShortInfoDto dto)
         {
             throw new NotImplementedException();
         }

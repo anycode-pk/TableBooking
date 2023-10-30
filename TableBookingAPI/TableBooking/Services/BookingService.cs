@@ -19,33 +19,33 @@ namespace TableBooking.Api.Services
             _unitOfWork = unitOfWork;
             _tableConverter = tableConverter;
         }
-        public async Task<IActionResult> CreateBookingAsync(CreateBookingRequest dto, string userId)
+        public async Task<IActionResult> CreateBookingAsync(CreateBookingRequest request, Guid userId)
         {
             //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve the authenticated user's ID
 
             var newBooking = new Booking
             {
-                Date = dto.Date,
-                DurationInMinutes = dto.DurationInMinutes,
-                TableId = dto.TableId
+                Date = request.Date,
+                DurationInMinutes = request.DurationInMinutes,
+                TableId = request.TableId
             };
 
 
-        await _unitOfWork.BookingRepository.InsertAsync(newBooking);
+            await _unitOfWork.BookingRepository.InsertAsync(newBooking);
             await _unitOfWork.SaveChangesAsync();
 
-            var bookingDto = new BookingDTO
+            var bookingDto = new BookingDto
             {
                 Id = newBooking.Id,
                 Date = newBooking.Date,
                 DurationInMinutes = newBooking.DurationInMinutes,
                 TableDto = _tableConverter.TableToTableDto(newBooking.Table),
-                UserId = newBooking.User.Id
+                UserId = userId
             };
             return new CreatedResult(String.Empty, bookingDto);
         }
 
-        public async Task<IActionResult> DeleteBookingAsync(Guid bookingId, string userId)
+        public async Task<IActionResult> DeleteBookingAsync(Guid bookingId, Guid userId)
         {
             var booking = await _unitOfWork.BookingRepository.GetBookingByIdForSpecificUserAsync(bookingId, userId);
             if (booking == null)
@@ -64,7 +64,7 @@ namespace TableBooking.Api.Services
 
                 if (booking == null)
                     return new BadRequestObjectResult("Bad request: no bookings");
-                var bookingDto = new BookingDTO
+                var bookingDto = new BookingDto
                 {
                     Id = booking.Id,
                     Date = booking.Date,
@@ -84,7 +84,7 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(bookings);
         }
 
-        public async Task<IActionResult> UpdateBookingAsync(BookingDTO dto)
+        public async Task<IActionResult> UpdateBookingAsync(BookingDto dto)
         {
             return new OkObjectResult("XD");
         }

@@ -2,7 +2,7 @@
 
 namespace TableBooking.DTOs
 {
-    public class UserRegisterDTO
+    public class UserRegisterDto
     {
         [Required(ErrorMessage = "User Name is required")]
         public string? Username { get; set; }
