@@ -92,8 +92,6 @@ ion-card {
   float: right;
 }
 
-img {}
-
 ion-card-subtitle {
   margin: 0;
 }
