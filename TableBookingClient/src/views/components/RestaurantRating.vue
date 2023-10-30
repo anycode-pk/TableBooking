@@ -1,6 +1,6 @@
 <template>
     <div class="rating">
-        <p style="margin: 5px">{{rating}}</p>
+        <p style="margin: 0 5px 0 0;">{{rating}}</p>
         <ion-icon v-for="star in 5" :key="star" :icon="starIcon" :style="getStarColor(star)"></ion-icon>
     </div>
 </template>
