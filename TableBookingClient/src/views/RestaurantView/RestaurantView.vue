@@ -22,10 +22,10 @@
             <RestaurantRating v-bind:rating="restaurant.rating" />
           </ion-card-header>
           <div class="card-buttons">
-            <ion-button fill="clear">
+            <ion-button @click.stop="likeRestaurant" fill="clear">
               <ion-icon slot="icon-only" :icon="heartSharp" />
             </ion-button>
-            <ion-button fill="clear">
+            <ion-button @click.stop="shareRestaurant" fill="clear">
               <ion-icon slot="icon-only" :icon="shareSharp" />
             </ion-button>
           </div>
@@ -66,8 +66,16 @@ onMounted(async () => {
   await getRestaurant();
 })
 
+const bookTable = '/book/' + restaurant.id;
+
+const likeRestaurant = () => {
+    console.log("Like restaurant");
+};
+const shareRestaurant = () => {
+    console.log("Share restaurant");
 const bookTable = () => {
   console.log("Book table");
+  //TODO: Route to book table
 };
 
 </script>
