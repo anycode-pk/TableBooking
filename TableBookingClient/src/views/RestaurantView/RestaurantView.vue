@@ -62,17 +62,19 @@ async function getRestaurant(): Promise<void> {
     restaurant = restaurantData;
   }
 }
+
 onMounted(async () => {
   await getRestaurant();
-})
-
-const bookTable = '/book/' + restaurant.id;
+});
 
 const likeRestaurant = () => {
     console.log("Like restaurant");
 };
+
 const shareRestaurant = () => {
     console.log("Share restaurant");
+};
+
 const bookTable = () => {
   console.log("Book table");
   //TODO: Route to book table
@@ -91,8 +93,6 @@ ion-card {
 #time {
   float: right;
 }
-
-img {}
 
 ion-card-subtitle {
   margin: 0;
