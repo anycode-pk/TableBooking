@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.Logic;
 using TableBooking.Logic.Converters.RatingConverters;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Dtos.RatingDtos;
+using TableBooking.Model.Models;
 
 namespace TableBooking.Api.Services
 {
@@ -19,7 +19,22 @@ namespace TableBooking.Api.Services
         }
         public async Task<IActionResult> CreateRatingAsync(CreateRatingDto dto)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(dto.AppUserId);
+            var restaurant = await _unitOfWork.RestaurantRepository.GetByIdAsync(dto.RestaurantId);
+            if (user == null || restaurant == null) return new BadRequestObjectResult(string.Empty);
+
+            var rating = new Rating
+            {
+                RatingStars = dto.RatingStars,
+                Comment = dto.Comment,
+                DateOfRating = dto.DateOfRating,
+                RestaurantId = dto.RestaurantId,
+                AppUserId = dto.AppUserId
+            };
+
+            await _unitOfWork.RatingRepository.InsertAsync(rating);
+            await _unitOfWork.SaveChangesAsync();
+            return new OkObjectResult(_ratingConverter.RatingToRatingDto(rating));
         }
 
         public async Task<IActionResult> DeleteRatingAsync(Guid ratingId)

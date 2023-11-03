@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TableBooking.Model.Dtos.RatingDtos
+﻿namespace TableBooking.Model.Dtos.RatingDtos
 {
     public class CreateRatingDto
     {

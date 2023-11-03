@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.Api.Services;
-using TableBooking.Model.Models;
+using TableBooking.Model.Dtos.RatingDtos;
 
 namespace TableBooking.Api.Controllers
 {
@@ -21,6 +20,12 @@ namespace TableBooking.Api.Controllers
         public async Task<IActionResult> GetRestaurants([FromQuery] Guid restuarantId)
         {
             return await _ratingService.GetAllRatingsAsync(restuarantId);
+        }
+
+        [HttpPost("CreateRating")]
+        public async Task<IActionResult> CreateRating([FromBody] CreateRatingDto createRatingDto)
+        {
+            return await _ratingService.CreateRatingAsync(createRatingDto);
         }
     }
 }
