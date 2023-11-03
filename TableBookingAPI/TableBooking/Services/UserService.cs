@@ -28,11 +28,11 @@ namespace TableBooking.Api.Services
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Register(UserRegisterDTO dto)
+        public async Task<IActionResult> Register(UserRegisterDto dto)
         {
             var userExists = await _userManager.FindByNameAsync(dto.Username);
             if (userExists != null)
-                return new BadRequestObjectResult("Bad request: User already exist");
+                return new BadRequestObjectResult("Bad request: Registration failed");
 
             var user = new AppUser()
             {
@@ -44,13 +44,13 @@ namespace TableBooking.Api.Services
             if (!result.Succeeded)
                 return new BadRequestObjectResult("Invalid password lenght");
 
-            return new OkObjectResult(new ResultDTO { Status = "Success", Message = "User created successfully!" });
+            return new OkObjectResult(new ResultDto { Status = "Success", Message = "User created successfully!" });
         }
 
-        public async Task<IActionResult> Login(UserLoginDTO dto)
+        public async Task<IActionResult> Login(UserLoginDto dto)
         {
             var user = await _userManager.FindByNameAsync(dto.Username);
-            if (!(user != null || await _userManager.CheckPasswordAsync(user, dto.Password)))
+            if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
             {
                 return new UnauthorizedResult();
             }
@@ -70,7 +70,7 @@ namespace TableBooking.Api.Services
             });
         }
 
-        public JwtSecurityToken GetToken(List<Claim> authClaims)
+        private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 

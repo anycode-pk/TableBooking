@@ -25,8 +25,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "TableBooking API",
-        Version = "v1",
-        Description = "Application created by .Net Group Koszalin University of Technology",
+        Version = "v0.0.1",
+        Description = "Application created by AnyCode Students Club at Koszalin University of Technology",
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -105,11 +105,16 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
 });
+
+builder.Services.AddAuthorization();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -132,10 +137,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
 app.MapHealthChecks("/healthz"); //.RequireHost("*:5001").RequireAuthorization();
 app.UseCors("cors");
 app.UseHttpsRedirection();
-app.UseSerilogRequestLogging();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

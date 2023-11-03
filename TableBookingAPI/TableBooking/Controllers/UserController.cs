@@ -17,14 +17,14 @@ namespace TableBooking.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegisterDTO userRegisterDTO)
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDTO)
         {
             return await _userService.Register(userRegisterDTO);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginDTO userLoginDTO)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDTO)
         {
             return await _userService.Login(userLoginDTO);
         }

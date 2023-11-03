@@ -7,9 +7,8 @@ namespace TableBooking.Api.Interfaces
 {
     public interface IUserService
     {
-        public Task<IActionResult> Register(UserRegisterDTO userRegisterDTO);
-        public Task<IActionResult> Login(UserLoginDTO userLoginDTO);
-        public JwtSecurityToken GetToken(List<Claim> authClaims);
+        public Task<IActionResult> Register(UserRegisterDto userRegisterDTO);
+        public Task<IActionResult> Login(UserLoginDto userLoginDTO);
         public Task SeedRoles();
     }
 }

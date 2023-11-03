@@ -2,7 +2,7 @@
 
 namespace TableBooking.DTOs
 {
-    public class RestaurantShortInfoDTO
+    public class RestaurantShortInfoDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

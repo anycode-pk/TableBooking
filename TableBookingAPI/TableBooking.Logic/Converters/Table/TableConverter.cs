@@ -4,9 +4,9 @@ namespace TableBooking.Logic.Converters.Table
 {
     public class TableConverter : ITableConverter
     {
-        public TableDTO TableToTableDto(Model.Models.Table table)
+        public TableDto TableToTableDto(Model.Models.Table table)
         {
-            return new TableDTO
+            return new TableDto
             {
                 RestaurantId = table.Restaurant.Id,
                 NumberOfSeats = table.NumberOfSeats

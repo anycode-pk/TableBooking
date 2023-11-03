@@ -14,7 +14,7 @@ namespace TableBooking.Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> CreateTableAsync(TableDTO dto)
+        public async Task<IActionResult> CreateTableAsync(TableDto dto)
         {
             var table = new Table
             {
@@ -51,13 +51,11 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(table);
         }
 
-        public async Task<IActionResult> UpdateTableAsync(TableDTO dto)
+        public async Task<IActionResult> UpdateTableAsync(TableDto dto)
         {
             var table = new Table
-            {
-                RestaurantId = dto.RestaurantId,
-                NumberOfSeats = dto.NumberOfSeats,
-                
+            { 
+                NumberOfSeats = dto.NumberOfSeats  
             };
             await _unitOfWork.TableRepository.Update(table);
             await _unitOfWork.SaveChangesAsync();

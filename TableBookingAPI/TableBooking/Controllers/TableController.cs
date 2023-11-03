@@ -28,13 +28,13 @@ namespace TableBooking.Controllers
         }
 
         [HttpPost("CreateTable")]
-        public async Task<IActionResult> CreateTable([FromBody] TableDTO tableDto)
+        public async Task<IActionResult> CreateTable([FromBody] TableDto tableDto)
         {
             return await _tableService.CreateTableAsync(tableDto);
         }
 
         [HttpPut("UpdateTable")]
-        public async Task<IActionResult> UpdateTable([FromBody] TableDTO tableDto)
+        public async Task<IActionResult> UpdateTable([FromBody] TableDto tableDto)
         {
             return await _tableService.UpdateTableAsync(tableDto);
         }

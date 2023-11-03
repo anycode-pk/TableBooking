@@ -2,7 +2,7 @@
 
 namespace TableBooking.Model.Models
 {
-    public class AppUser : IdentityUser
+    public class AppUser : IdentityUser<Guid>
     {
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }

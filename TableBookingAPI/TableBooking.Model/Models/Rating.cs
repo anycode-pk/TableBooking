@@ -7,7 +7,6 @@
         public string Comment { get; set; }
         public DateTime DateOfRating { get; set; }
         public Guid RestaurantId { get; set; }
-        public string AppUserId { get; set; }
         public Restaurant Restaurant { get; set; }
         public AppUser AppUser { get; set; }
     }
