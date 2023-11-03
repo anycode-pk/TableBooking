@@ -6,6 +6,7 @@
         public IRestaurantRepository RestaurantRepository { get; }
         public ITableRepository TableRepository { get; }
         public IUserRepository UserRepository { get; }
+        public IRatingRepository RatingRepository { get; }
         void Dispose();
         Task SaveChangesAsync();
     }

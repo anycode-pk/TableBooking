@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.Logic.Converters.Table;
+using TableBooking.Logic.Converters.TableConverters;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Dtos.BookingDtos;
 using TableBooking.Model.Models;
