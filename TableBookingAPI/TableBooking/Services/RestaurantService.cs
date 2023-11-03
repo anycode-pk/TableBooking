@@ -42,9 +42,9 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(restaurantToDelete);
         }
 
-        public async Task<IActionResult> GetAllRestaurantsAsync()
+        public async Task<IActionResult> GetAllRestaurantsAsync(string? restaurantName, Price? price)
         {
-            var restaurants = await _unitOfWork.RestaurantRepository.GetRestaurantsAsync();
+            var restaurants = await _unitOfWork.RestaurantRepository.GetRestaurantsAsync(restaurantName, price);
             if (restaurants == null) return new BadRequestObjectResult("No restaurants found");
             return new OkObjectResult(restaurants);
         }

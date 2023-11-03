@@ -10,7 +10,16 @@ namespace TableBooking.Logic.Extensions
             {
                 return restaurant;
             }
-            return restaurant.Where(x => x.Name.StartsWith(name));
+            return restaurant.Where(x => x.Name.ToLower().StartsWith(name.ToLower()));
+        }
+
+        public static IQueryable<Restaurant> FilterByPrice(this IQueryable<Restaurant> restaurant, Price? price)
+        {
+            if (price == null)
+            {
+                return restaurant;
+            }
+            return restaurant.Where(x => x.Price.Equals(price));
         }
     }
 }
