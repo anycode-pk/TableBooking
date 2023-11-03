@@ -1,6 +1,6 @@
 ﻿namespace TableBooking.Model.Dto
 {
-    public class RatingDTO
+    public class RatingDto
     {
         public Guid Id { get; set; }
         public int RatingStars { get; set; }

@@ -4,6 +4,6 @@ namespace TableBooking.Logic.Converters.Table
 {
     public interface ITableConverter
     {
-        public TableDTO TableToTableDto(Model.Models.Table table);
+        public TableDto TableToTableDto(Model.Models.Table table);
     }
 }

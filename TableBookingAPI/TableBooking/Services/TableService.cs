@@ -14,7 +14,7 @@ namespace TableBooking.Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> CreateTableAsync(TableDTO dto)
+        public async Task<IActionResult> CreateTableAsync(TableDto dto)
         {
             var table = new Table
             {
@@ -51,7 +51,7 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(table);
         }
 
-        public async Task<IActionResult> UpdateTableAsync(TableDTO dto)
+        public async Task<IActionResult> UpdateTableAsync(TableDto dto)
         {
             var table = new Table
             { 

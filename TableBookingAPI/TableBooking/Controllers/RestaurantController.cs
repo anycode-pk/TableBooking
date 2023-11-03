@@ -28,7 +28,7 @@ namespace TableBooking.Controllers
         }
 
         [HttpPost("CreateRestaurant")]
-        public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantShortInfoDTO restaurantShortInfoDto)
+        public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantShortInfoDto restaurantShortInfoDto)
         {
             return await _restaurantService.CreateRestaurantAsync(restaurantShortInfoDto);
         }
