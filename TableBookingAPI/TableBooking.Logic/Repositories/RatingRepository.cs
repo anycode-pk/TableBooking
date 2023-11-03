@@ -17,5 +17,13 @@ namespace TableBooking.Logic.Repositories
                 .Include(x => x.AppUser)
                 .Where(x => x.RestaurantId.Equals(restaurantId)).ToListAsync();
         }
+
+        public async Task<Rating> GetRating(Guid id)
+        {
+            return await _objectSet
+                .Include(x => x.Restaurant)
+                .Include(x => x.AppUser)
+                .FirstAsync(x => x.Id == id);
+        }
     }
 }

@@ -39,7 +39,13 @@ namespace TableBooking.Api.Services
 
         public async Task<IActionResult> DeleteRatingAsync(Guid ratingId)
         {
-            throw new NotImplementedException();
+            var ratingToDelete = await _unitOfWork.RatingRepository.GetRating(ratingId);
+            if (ratingToDelete == null)
+                return new NotFoundObjectResult($"Rating with Id = {ratingId} not found");
+            var deletedRating = _ratingConverter.RatingToRatingDto(ratingToDelete);
+            await _unitOfWork.RatingRepository.Delete(ratingId);
+            await _unitOfWork.SaveChangesAsync();
+            return new OkObjectResult(deletedRating);
         }
 
         public async Task<IActionResult> GetAllRatingsAsync(Guid restaurantId)

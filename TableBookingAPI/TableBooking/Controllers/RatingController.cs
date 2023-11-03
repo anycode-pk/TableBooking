@@ -34,5 +34,11 @@ namespace TableBooking.Api.Controllers
         {
             return await _ratingService.CreateRatingAsync(createRatingDto);
         }
+
+        [HttpDelete("DeleteRating/{id}")]
+        public async Task<IActionResult> DeleteRating(Guid id)
+        {
+            return await _ratingService.DeleteRatingAsync(id);
+        }
     }
 }
