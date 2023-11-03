@@ -52,7 +52,10 @@ namespace TableBooking.Api.Services
 
         public async Task<IActionResult> GetRatingByIdAsync(Guid ratingId)
         {
-            throw new NotImplementedException();
+            var rating = await _unitOfWork.RatingRepository.GetByIdAsync(ratingId);
+            if (rating == null)
+                return new NotFoundObjectResult($"Rating with Id = {ratingId} not found");
+            return new OkObjectResult(rating);
         }
     }
 }
