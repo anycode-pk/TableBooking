@@ -1,10 +1,11 @@
 ﻿using TableBooking.Model.Dtos.TableDtos;
+using TableBooking.Model.Models;
 
-namespace TableBooking.Logic.Converters.Table
+namespace TableBooking.Logic.Converters.TableConverters
 {
     public class TableConverter : ITableConverter
     {
-        public TableDto TableToTableDto(Model.Models.Table table)
+        public TableDto TableToTableDto(Table table)
         {
             return new TableDto
             {
