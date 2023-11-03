@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.Model.Requests;
+using TableBooking.Model.Dtos.BookingDtos;
 
 namespace TableBooking.Controllers
 {
@@ -39,17 +39,17 @@ namespace TableBooking.Controllers
         }
 
         [HttpPost("CreateBooking")]
-        public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingRequest bookingToCreateDto)
+        public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingDto bookingToCreateDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 
         [HttpPut("UpdateBooking/{id}")]
-        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateBookingRequest, Guid tableId)
+        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateBookingDto updateBookignDto, Guid tableId)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await _bookingService.UpdateBookingAsync(UpdateBookingRequest, userId);
+            return await _bookingService.UpdateBookingAsync(updateBookignDto, userId);
         }
 
     }

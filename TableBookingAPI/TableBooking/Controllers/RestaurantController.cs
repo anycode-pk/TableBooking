@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.DTOs;
+using TableBooking.Model.Dtos.RestaurantDtos;
+using TableBooking.Model.Models;
 
 namespace TableBooking.Controllers
 {
@@ -16,9 +17,9 @@ namespace TableBooking.Controllers
         }
 
         [HttpGet("GetAllRestaurants")]
-        public async Task<IActionResult> GetRestaurants()
+        public async Task<IActionResult> GetRestaurants([FromQuery]string? restuarantName, [FromQuery]Price? price)
         {
-            return await _restaurantService.GetAllRestaurantsAsync();
+            return await _restaurantService.GetAllRestaurantsAsync(restuarantName, price);
         }
 
         [HttpGet("GetRestaurantById/{id}")]

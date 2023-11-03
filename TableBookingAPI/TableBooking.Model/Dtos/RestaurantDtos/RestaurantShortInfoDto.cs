@@ -1,6 +1,6 @@
 ﻿using TableBooking.Model.Models;
 
-namespace TableBooking.DTOs
+namespace TableBooking.Model.Dtos.RestaurantDtos
 {
     public class RestaurantShortInfoDto
     {
