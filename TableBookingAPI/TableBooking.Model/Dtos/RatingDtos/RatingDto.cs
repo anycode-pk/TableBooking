@@ -1,4 +1,6 @@
-﻿namespace TableBooking.Model.Dtos.RatingDtos
+﻿using TableBooking.Model.Dtos.UserDtos;
+
+namespace TableBooking.Model.Dtos.RatingDtos
 {
     public class RatingDto
     {
@@ -8,6 +10,6 @@
         public string Comment { get; set; }
         public DateTime DateOfRating { get; set; }
         public Guid RestaurantId { get; set; }
-        public Guid AppUserId { get; set; }
+        public UserShortInfoDto User { get; set; }
     }
 }

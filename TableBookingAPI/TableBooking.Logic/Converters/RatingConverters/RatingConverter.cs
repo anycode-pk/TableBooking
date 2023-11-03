@@ -1,10 +1,17 @@
-﻿using TableBooking.Model.Dtos.RatingDtos;
+﻿using TableBooking.Logic.Converters.UserConverters;
+using TableBooking.Model.Dtos.RatingDtos;
 using TableBooking.Model.Models;
 
 namespace TableBooking.Logic.Converters.RatingConverters
 {
     public class RatingConverter : IRatingConverter
     {
+        private IShortUserInfoConverter _shortUserInfoConverter;
+
+        public RatingConverter(IShortUserInfoConverter shortUserInfoConverter)
+        {
+            _shortUserInfoConverter = shortUserInfoConverter;
+        }
         public IEnumerable<RatingDto> RatingsToRatingDtos(IEnumerable<Rating> ratings)
         {
             var ratingsDto = new List<RatingDto>();
@@ -23,7 +30,7 @@ namespace TableBooking.Logic.Converters.RatingConverters
                 DateOfRating = rating.DateOfRating,
                 NumberOfLikes = rating.NumberOfLikes,
                 RatingStars = rating.RatingStars,
-                AppUserId = rating.AppUser.Id,
+                User = _shortUserInfoConverter.UserToUserShortInfo(rating.AppUser),
                 RestaurantId = rating.Restaurant.Id,
             };
         }

@@ -16,6 +16,7 @@ using TableBooking.Api.Interfaces;
 using TableBooking.Model.Models;
 using TableBooking.Logic.Converters.TableConverters;
 using TableBooking.Logic.Converters.RatingConverters;
+using TableBooking.Logic.Converters.UserConverters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -126,6 +127,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ITableConverter, TableConverter>(); // doczytaj debilu
 builder.Services.AddTransient<IRatingConverter, RatingConverter>();
+builder.Services.AddTransient<IShortUserInfoConverter, ShortUserInfoConverter>();
 
 builder.Services.AddTransient<IBookingService, BookingService>();
 builder.Services.AddTransient<IRestaurantService, RestaurantService>();
