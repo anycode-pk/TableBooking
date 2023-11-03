@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using TableBooking.Api.Interfaces;
-using TableBooking.DTOs;
 using TableBooking.Logic.Converters.Table;
 using TableBooking.Logic.Interfaces;
+using TableBooking.Model.Dtos.BookingDtos;
 using TableBooking.Model.Models;
-using TableBooking.Model.Requests;
 
 namespace TableBooking.Api.Services
 {
@@ -19,7 +17,7 @@ namespace TableBooking.Api.Services
             _unitOfWork = unitOfWork;
             _tableConverter = tableConverter;
         }
-        public async Task<IActionResult> CreateBookingAsync(CreateBookingRequest request, Guid userId)
+        public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId)
         {
             //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve the authenticated user's ID
 
@@ -56,7 +54,7 @@ namespace TableBooking.Api.Services
             return new NoContentResult();
         }
 
-        public async Task<IActionResult> GetBookingByIdAsync(Guid bookingId, string userId)
+        public async Task<IActionResult> GetBookingByIdAsync(Guid bookingId, Guid userId)
         {
             if (bookingId != null)
             {
@@ -77,14 +75,14 @@ namespace TableBooking.Api.Services
             return new BadRequestObjectResult("Bad request: no booking id");
         }
 
-        public async Task<IActionResult> GetAllBookings(string userId)
+        public async Task<IActionResult> GetAllBookings(Guid userId)
         {
             var bookings = await _unitOfWork.BookingRepository.GetAllBookingsForSpecificUserAsync(userId);
             if (bookings == null) return new BadRequestObjectResult("No bookings found");
             return new OkObjectResult(bookings);
         }
 
-        public async Task<IActionResult> UpdateBookingAsync(BookingDto dto)
+        public async Task<IActionResult> UpdateBookingAsync(UpdateBookingDto updateBookingDto, Guid userId)
         {
             return new OkObjectResult("XD");
         }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.DTOs;
+using TableBooking.Model.Dtos.RestaurantDtos;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Models;
 using TableBooking.Api.Interfaces;

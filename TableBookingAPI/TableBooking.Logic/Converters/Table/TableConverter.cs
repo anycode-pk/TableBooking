@@ -1,4 +1,4 @@
-﻿using TableBooking.DTOs;
+﻿using TableBooking.Model.Dtos.TableDtos;
 
 namespace TableBooking.Logic.Converters.Table
 {

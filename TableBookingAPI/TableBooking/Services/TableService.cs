@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Models;
 using TableBooking.Api.Interfaces;
+using TableBooking.Model.Dtos.TableDtos;
 
 namespace TableBooking.Api.Services
 {

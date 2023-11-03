@@ -4,10 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TableBooking.DTOs;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Models;
 using TableBooking.Api.Interfaces;
+using TableBooking.Model.Dtos.UserDtos;
+using TableBooking.Model.Dtos;
 
 namespace TableBooking.Api.Services
 {
