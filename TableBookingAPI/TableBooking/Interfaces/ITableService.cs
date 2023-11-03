@@ -7,6 +7,7 @@ namespace TableBooking.Api.Interfaces
     {
         public Task<IActionResult> GetAllTablesAsync();
         public Task<IActionResult> GetTableByIdAsync(Guid tableId);
+        public Task<IActionResult> GetTableByRestaurantAsync(Guid restaurantId);
         public Task<IActionResult> CreateTableAsync(TableDto dto);
         public Task<IActionResult> UpdateTableAsync(TableDto dto);
         public Task<IActionResult> DeleteTableAsync(Guid tableId);

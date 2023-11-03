@@ -126,6 +126,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ITableConverter, TableConverter>(); // doczytaj debilu
+builder.Services.AddTransient<ITableToGetConverter, TableToGetConverter>();
 builder.Services.AddTransient<IRatingConverter, RatingConverter>();
 builder.Services.AddTransient<IShortUserInfoConverter, ShortUserInfoConverter>();
 
