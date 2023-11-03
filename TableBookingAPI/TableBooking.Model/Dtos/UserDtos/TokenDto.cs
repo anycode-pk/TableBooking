@@ -1,4 +1,4 @@
-﻿namespace TableBooking.DTOs
+﻿namespace TableBooking.Model.Dtos.UserDtos
 {
     public class TokenDto
     {

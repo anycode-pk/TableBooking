@@ -1,4 +1,6 @@
-﻿namespace TableBooking.DTOs
+﻿using TableBooking.Model.Dtos.TableDtos;
+
+namespace TableBooking.Model.Dtos.BookingDtos
 {
     public class BookingDto
     {

@@ -1,4 +1,4 @@
-﻿namespace TableBooking.Model.Dto
+﻿namespace TableBooking.Model.Dtos.RatingDtos
 {
     public class RatingDto
     {

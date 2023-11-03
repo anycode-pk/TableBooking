@@ -1,4 +1,4 @@
-﻿namespace TableBooking.DTOs
+﻿namespace TableBooking.Model.Dtos
 {
     public class ResultDto
     {
