@@ -29,7 +29,7 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(VueAxios, axios);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
 });

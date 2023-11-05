@@ -10,7 +10,7 @@
     </ion-header>
     <ion-content>
       <ion-card>
-        <img alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
+        <img alt="Restaurant image" v-bind:src="restaurant.secondaryImageUrl" />
         <ion-card-content>
           <ion-datetime id="date" display-format="DD MMM YYYY" picker-format="DD MMM YYYY"
             placeholder="Select Date"></ion-datetime>
@@ -80,4 +80,5 @@ ion-card-subtitle {
 #button {
   display: flex;
   justify-content: center;
-}</style>
+}
+</style>

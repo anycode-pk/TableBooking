@@ -9,26 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
-import { onMounted } from "vue";
 import { IonPage, IonContent, IonList } from "@ionic/vue";
 import RestaurantCard from "@/views/SearchView/components/RestaurantCard.vue";
 import type { Restaurant } from "@/models";
-import { restaurantPlaceholders } from "@/restaurants";
+import { inject } from "vue";
 
-const restaurants: Restaurant[] = [];
-restaurants.push(...restaurantPlaceholders);
+const restaurants = inject("restaurants") as Restaurant[];
 
-async function getRestaurants(): Promise<void> {
-  const getRestaurantsResponse = await axios.get<Restaurant[]>('https://localhost:7012/api/Restaurant');
-  let restaurantData: Restaurant[] = getRestaurantsResponse.data;
-  for (let restaurant in restaurantData) {
-    restaurants.push(restaurantData[restaurant]);
-  }
-}
-onMounted(async () => {
-  await getRestaurants();
-})
 </script>
 
 <style scoped>
