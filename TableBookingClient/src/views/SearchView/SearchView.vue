@@ -24,10 +24,6 @@ const searchOptions = ref<SearchOptions>({
 });
 const query = "https://localhost:7012/api/Restaurant"
 
-const updateSearchOptions = (newSearchOptions: SearchOptions) => {
-  searchOptions.value = newSearchOptions;
-};
-
 const restaurants = ref<Restaurant[]>([]);
 
 onMounted(async () => {
@@ -38,7 +34,6 @@ onMounted(async () => {
         sort: searchOptions.value.sort,
       },
     });
-    let restaurantData: Restaurant[] = [];
     restaurants.value.push(...getRestaurantsResponse.data);
   } catch (error) {
     console.error("Error fetching data: ", error);

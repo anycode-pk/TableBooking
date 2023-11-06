@@ -65,11 +65,8 @@ import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, lo
 import { OverlayEventDetail } from '@ionic/core';
 import { priceRange, sortingMethod, SearchOptions } from '@/models';
 
-const props = defineProps(['searchOptions']);
-const emit = defineEmits(['update:searchOptions']);
-
-const selectedSort = ref(props.searchOptions.value.sort);
-const selectedPrice = ref(props.searchOptions.value.price);
+const selectedSort = ref<sortingMethod>(sortingMethod.popular);
+const selectedPrice = ref<priceRange>(priceRange.$);
 
 const modal = ref<typeof IonModal | null>(null);
 
@@ -78,10 +75,7 @@ const cancel = () => {
 };
 
 const confirm = () => {
-  emit('update:searchOptions', {
-    sort: selectedSort.value,
-    price: selectedPrice.value,
-  });
+
   modal.value?.$el.dismiss(null, 'confirm');
 };
 

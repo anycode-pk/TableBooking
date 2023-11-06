@@ -10,7 +10,7 @@
             <ion-label class="tb-label">TBApp</ion-label>
           </ion-tab-button>
 
-          <ion-tab-button tab="home" href="/home" >
+          <ion-tab-button tab="home" href="/home">
             <ion-icon :icon="homeSharp" />
             <ion-label>Home</ion-label>
           </ion-tab-button>
@@ -36,28 +36,25 @@
 </template>
 
 <style>
-
-
 ion-tab-button {
-  --color-selected	: #ff6e6e;
+  --color-selected: #ff6e6e;
 }
 
 
-ion-tab-bar
-{
+ion-tab-bar {
   border: 2px solid rgb(44, 38, 38) !important;
 }
 
-ion-list{
+ion-list {
   margin-left: 1500px;
 }
 
-.tb-label{
+.tb-label {
   display: none;
 }
 
 
-.account-label{
+.account-label {
   display: none;
 }
 
@@ -69,29 +66,33 @@ ion-list{
 
 @media only screen and (min-width: 1024px) {
 
-  .tb-label{
+  .tb-label {
     display: block;
 
   }
 
-  .tb-btn{
+  .tb-btn {
     margin-bottom: 220px;
   }
 
-  .tb-account{
+  .tb-account {
     margin-top: 200px;
   }
 
 
 
-  .inner-scroll{
+  .inner-scroll {
     margin-left: 200px;
   }
-  ion-img{
+
+  ion-img {
     width: 40px;
   }
-  .btn{
-    display: flex; align-items: center; justify-content: center
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
 
 
@@ -105,8 +106,7 @@ ion-list{
   }
 
 
-  ion-tab-bar
-  {
+  ion-tab-bar {
     position: absolute;
     width: 80px;
     height: 100vh;
@@ -117,29 +117,31 @@ ion-list{
 
   }
 
-  ion-tab-button{
+  ion-tab-button {
     max-width: inherit;
   }
 
-  ion-title
-  {
+  ion-title {
     font-size: 1.5em;
     padding: 20px;
   }
 
-  ion-label{
+  ion-label {
     font-size: 10px;
     margin: 15px;
   }
-  ion-header, ion-card, ion-list, ion-card{
+
+  ion-header,
+  ion-card,
+  ion-list,
+  ion-card {
     margin-left: 80px;
 
   }
 
 
 
-  ion-icon
-  {
+  ion-icon {
     font-size: 1.5rem;
   }
 
@@ -152,31 +154,24 @@ ion-list{
 
   }
 
-  ion-list, ion-card{
+  ion-list,
+  ion-card {
     margin-left: 80px !important;
   }
 
-  ion-card{
+  ion-card {
     max-width: 1600px;
     padding: 40px;
   }
 
-  ion-list
-  {
+  ion-list {
     background-color: #121212 !important;
 
   }
 }
-
-
-
-
-
 </style>
 
-
-
-<script lang="ts">
+<script setup lang="ts">
 
 import {
   IonTabBar,
@@ -187,6 +182,7 @@ import {
   IonIcon,
   IonPage,
   IonRouterOutlet,
+  IonImg
 } from '@ionic/vue';
 import { calendarSharp, personSharp, searchSharp, homeSharp } from 'ionicons/icons';
 import { defineComponent } from 'vue';
