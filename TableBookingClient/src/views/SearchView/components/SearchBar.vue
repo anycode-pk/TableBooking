@@ -1,7 +1,7 @@
 <template>
   <ion-toolbar>
-    <ion-searchbar slot="start"/>
-    <!--<SearchOptions/>-->
+    <ion-searchbar slot="start" />
+    <SearchOptions />
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="list" @ionChange="onSegmentChange">
@@ -12,19 +12,18 @@
 </template>
 
 <script setup lang="ts">
-import {IonToolbar, IonSearchbar, IonSegment, IonSegmentButton} from '@ionic/vue';
-import SearchOptions from "@/views/SearchView/components/SearchOptions.vue";
+import { IonToolbar, IonSearchbar, IonSegment, IonSegmentButton } from '@ionic/vue';
 import router from "@/router";
+import SearchOptions from "./SearchOptions.vue"
 
 const onSegmentChange = (e: CustomEvent) => {
   //push segment value to router
-    router.push(e.detail.value);
+  router.push(e.detail.value);
 }
 </script>
 
 <style scoped>
-  ion-searchbar{
-    padding: 10px;
-  }
-
+ion-searchbar {
+  padding: 10px;
+}
 </style>

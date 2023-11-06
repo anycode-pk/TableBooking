@@ -1,6 +1,6 @@
 <template>
   <ion-card :router-link='linkToRestaurant'>
-    <img class="restaurant-card-image" alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
+    <img class="restaurant-card-image" alt="Restaurant image" v-bind:src="restaurant.primaryImageUrl" />
     <div class="header-row">
       <ion-card-header>
         <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonLabel, IonNavLink } from "@ionic/vue";
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonLabel } from "@ionic/vue";
 import { heartSharp, shareSharp, time } from "ionicons/icons";
 import { defineProps } from "vue";
 import type { Restaurant } from "@/models";

@@ -10,26 +10,7 @@
     </ion-header>
     <ion-content>
       <ion-card>
-        <img alt="Restaurant image" v-bind:src="restaurant.imageUrl" />
-        <div class="header-row">
-          <ion-card-header>
-            <RestaurantRating v-bind:rating="restaurant.rating" />
-            <ion-card-title>{{ restaurant.name || 'Name' }}</ion-card-title>
-            <ion-card-subtitle>{{ restaurant.type || 'Type' }}</ion-card-subtitle>
-            <div class="time-container">
-              <IonIcon class="time-icon" :icon="time" />
-              <IonLabel class="time-label">{{ restaurant.openTime + '-' + restaurant.closeTime }}</IonLabel>
-            </div>
-          </ion-card-header>
-          <div class="card-buttons">
-            <ion-button @click.stop="likeRestaurant" fill="clear">
-              <ion-icon slot="icon-only" :icon="heartSharp" />
-            </ion-button>
-            <ion-button @click.stop="shareRestaurant" fill="clear">
-              <ion-icon slot="icon-only" :icon="shareSharp" />
-            </ion-button>
-          </div>
-        </div>
+        <img alt="Restaurant image" v-bind:src="restaurant.secondaryImageUrl" />
         <ion-card-content>
           <ion-datetime id="date" display-format="DD MMM YYYY" picker-format="DD MMM YYYY"
             placeholder="Select Date"></ion-datetime>
@@ -48,13 +29,12 @@
 
 <script setup lang="ts">
 
-import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
-import { heartSharp, shareSharp, time } from "ionicons/icons";
+import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
+import { time } from "ionicons/icons";
 import type { Restaurant } from "@/models";
 import axios from "axios";
 import { onMounted } from "vue";
 import { restaurantPlaceholders } from "@/restaurants";
-import RestaurantRating from "@/views/components/RestaurantRating.vue";
 import NumberPicker from "@/views/BookRestaurantView/components/NumberPicker.vue";
 import router from "@/router";
 
@@ -71,12 +51,6 @@ async function getRestaurant(): Promise<void> {
 onMounted(async () => {
   await getRestaurant();
 })
-const likeRestaurant = () => {
-  console.log("Like restaurant");
-};
-const shareRestaurant = () => {
-  console.log("Share restaurant");
-};
 
 const bookTable = () => {
   console.log("Book table");
@@ -103,11 +77,8 @@ ion-card-subtitle {
   margin: 0;
 }
 
-ion-card-content {
-  padding-top: 0;
-}
-
 #button {
   display: flex;
   justify-content: center;
-}</style>
+}
+</style>

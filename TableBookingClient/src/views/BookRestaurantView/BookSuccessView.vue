@@ -35,7 +35,7 @@
     </ion-page>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon } from '@ionic/vue';
 import { listSharp, bookmarksSharp } from 'ionicons/icons';
 import { useRouter } from 'vue-router';
@@ -49,9 +49,6 @@ const booking = {
 
 const router = useRouter();
 
-const goToHomePage = () => {
-    router.push('/');
-};
 const goBackToBrowsing = () => {
     router.push('/search');
 };
