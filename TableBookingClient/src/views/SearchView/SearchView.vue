@@ -32,7 +32,7 @@ const updateQuery = (query: string) => {
   fetchRestaurants();
 };
 
-const endpoint = "https://localhost:7012/api/Restaurant"
+const endpoint = "https://localhost:7012/Restaurant/GetAllRestaurants"
 
 const restaurants = ref<Restaurant[]>([]);
 
@@ -44,9 +44,9 @@ const fetchRestaurants = async () => {
   try {
     const getRestaurantsResponse = await axios.get<Restaurant[]>(endpoint, {
       params: {
-        price: searchOptions.value.price,
-        sort: searchOptions.value.sort,
-        query: searchOptions.value.query,
+        //price: searchOptions.value.price,
+        // sort: searchOptions.value.sort,
+        //query: searchOptions.value.query,
       },
     });
     restaurants.value.push(...getRestaurantsResponse.data);
