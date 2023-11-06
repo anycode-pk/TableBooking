@@ -7,11 +7,11 @@
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 </script>
 
 <style scoped>
-  h1 {
-    text-align: center;
-  }
+h1 {
+  text-align: center;
+}
 </style>

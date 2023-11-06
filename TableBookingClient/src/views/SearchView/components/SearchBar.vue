@@ -15,6 +15,9 @@
 import { IonToolbar, IonSearchbar, IonSegment, IonSegmentButton } from '@ionic/vue';
 import router from "@/router";
 import SearchOptions from "./SearchOptions.vue"
+import { defineProps } from "vue";
+
+defineProps(['searchOptions'])
 
 const onSegmentChange = (e: CustomEvent) => {
   //push segment value to router

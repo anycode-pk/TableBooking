@@ -26,3 +26,8 @@ export enum sortingMethod {
     rating,
     distance
 }
+
+export type SearchOptions = {
+    price: priceRange;
+    sort: sortingMethod;
+};
