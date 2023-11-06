@@ -1,43 +1,52 @@
 <template>
   <ion-page>
     <ion-header>
-      <SearchBar />
+      <SearchBar></SearchBar> <!-- To do: Bind Search Options -->
     </ion-header>
-    <ion-router-outlet>
-
-    </ion-router-outlet>
+    <IonContent>
+      <ion-router-outlet>
+      </ion-router-outlet>
+    </IonContent>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonRouterOutlet } from "@ionic/vue";
+import { IonPage, IonHeader, IonRouterOutlet, IonContent } from "@ionic/vue";
 import SearchBar from "@/views/SearchView/components/SearchBar.vue";
-
-import { Restaurant, priceRange, sortingMethod } from "@/models";
+import { Restaurant, priceRange, sortingMethod, SearchOptions } from "@/models";
 import { restaurantPlaceholders } from "@/restaurants";
 import axios from "axios";
-import { provide } from "vue";
+import { provide, onMounted, ref } from "vue";
 
-let price: priceRange = priceRange.$;
+const searchOptions = ref<SearchOptions>({
+  price: priceRange.$,
+  sort: sortingMethod.popular,
+});
+const query = "https://localhost:7012/api/Restaurant"
 
-let sort: sortingMethod = sortingMethod.popular;
+const updateSearchOptions = (newSearchOptions: SearchOptions) => {
+  searchOptions.value = newSearchOptions;
+};
 
-let query = "https://localhost:7012/api/Restaurant"
+const restaurants = ref<Restaurant[]>([]);
 
-provide("restaurants", getRestaurants());
+onMounted(async () => {
+  try {
+    const getRestaurantsResponse = await axios.get<Restaurant[]>(query, {
+      params: {
+        price: searchOptions.value.price,
+        sort: searchOptions.value.sort,
+      },
+    });
+    let restaurantData: Restaurant[] = [];
+    restaurants.value.push(...getRestaurantsResponse.data);
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    restaurants.value.push(...restaurantPlaceholders);
+  }
+});
 
-async function getRestaurants(): Promise<Restaurant[]> {
-  const getRestaurantsResponse = await axios.get<Restaurant[]>(query, {
-    params: {
-      price: price,
-      sort: sort,
-    },
-
-  });
-  let restaurantData: Restaurant[] = getRestaurantsResponse.data;
-  restaurantData.push(...restaurantPlaceholders);
-  return restaurantData;
-}
+provide("restaurants", restaurants);
 </script>
 
 <style scoped></style>

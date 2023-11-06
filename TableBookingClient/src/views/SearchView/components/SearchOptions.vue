@@ -59,35 +59,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineProps, watch } from 'vue';
 import { IonModal, IonIcon, IonContent, IonList, IonRadioGroup, IonItem, IonRadio, IonListHeader, IonLabel, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle } from '@ionic/vue';
 import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, locationSharp } from 'ionicons/icons';
 import { OverlayEventDetail } from '@ionic/core';
-import { priceRange, sortingMethod } from '@/models';
+import { priceRange, sortingMethod, SearchOptions } from '@/models';
+
+const props = defineProps(['searchOptions']);
+const emit = defineEmits(['update:searchOptions']);
+
+const selectedSort = ref(props.searchOptions.value.sort);
+const selectedPrice = ref(props.searchOptions.value.price);
 
 const modal = ref<typeof IonModal | null>(null);
-
-const selectedPrice = ref<priceRange>(priceRange.$);
-const selectedSort = ref<sortingMethod>(sortingMethod.popular);
-
-const emit = defineEmits(['update:price', 'update:sort']);
-
-const changePrice = () => {
-  emit('update:price', selectedPrice);
-};
-
-const changeSort = () => {
-  emit('update:sort', selectedSort);
-};
 
 const cancel = () => {
   modal.value?.$el.dismiss(null, 'cancel');
 };
 
 const confirm = () => {
-  changePrice();
-  changeSort();
-  console.log("updated filters\nprice: " + selectedPrice.value + "\nsort: " + selectedSort.value + "\n");
+  emit('update:searchOptions', {
+    sort: selectedSort.value,
+    price: selectedPrice.value,
+  });
   modal.value?.$el.dismiss(null, 'confirm');
 };
 

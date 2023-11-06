@@ -35,7 +35,6 @@
   </ion-page>
 </template>
 
-
 <style>
 
 
@@ -178,6 +177,7 @@ ion-list{
 
 
 <script lang="ts">
+
 import {
   IonTabBar,
   IonTabButton,
@@ -189,26 +189,19 @@ import {
   IonRouterOutlet,
 } from '@ionic/vue';
 import { calendarSharp, personSharp, searchSharp, homeSharp } from 'ionicons/icons';
+import { defineComponent } from 'vue';
 
-export default {
-  name: 'Tabs',
+defineComponent({
+  name: 'NavBar',
   components: {
-    IonContent,
-    IonLabel,
-    IonTabs,
     IonTabBar,
     IonTabButton,
+    IonTabs,
+    IonContent,
+    IonLabel,
     IonIcon,
     IonPage,
     IonRouterOutlet,
   },
-  setup() {
-    return {
-      calendarSharp,
-      personSharp,
-      searchSharp,
-      homeSharp
-    };
-  },
-};
+});
 </script>
