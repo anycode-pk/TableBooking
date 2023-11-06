@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <SearchBar></SearchBar> <!-- To do: Bind Search Options -->
+      <SearchBar @search-updated="updateQuery"></SearchBar> <!-- To do: Bind Search Options -->
     </ion-header>
     <IonContent>
       <ion-router-outlet>
@@ -21,25 +21,40 @@ import { provide, onMounted, ref } from "vue";
 const searchOptions = ref<SearchOptions>({
   price: priceRange.$,
   sort: sortingMethod.popular,
+  query: ""
 });
-const query = "https://localhost:7012/api/Restaurant"
+
+//Todo: Bind Search Options
+//Todo: Query in the URL
+
+const updateQuery = (query: string) => {
+  searchOptions.value.query = query;
+  fetchRestaurants();
+};
+
+const endpoint = "https://localhost:7012/api/Restaurant"
 
 const restaurants = ref<Restaurant[]>([]);
 
 onMounted(async () => {
+  fetchRestaurants();
+});
+
+const fetchRestaurants = async () => {
   try {
-    const getRestaurantsResponse = await axios.get<Restaurant[]>(query, {
+    const getRestaurantsResponse = await axios.get<Restaurant[]>(endpoint, {
       params: {
         price: searchOptions.value.price,
         sort: searchOptions.value.sort,
+        query: searchOptions.value.query,
       },
     });
     restaurants.value.push(...getRestaurantsResponse.data);
   } catch (error) {
     console.error("Error fetching data: ", error);
-    restaurants.value.push(...restaurantPlaceholders);
+    restaurants.value = restaurantPlaceholders;
   }
-});
+};
 
 provide("restaurants", restaurants);
 </script>

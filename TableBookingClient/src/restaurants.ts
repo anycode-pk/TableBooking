@@ -1,7 +1,7 @@
-import {Restaurant} from "@/models";
-import {LoremIpsum} from "lorem-ipsum";
+import { Restaurant } from "@/models";
+import { LoremIpsum } from "lorem-ipsum";
 
-const loremIpsum :string = new LoremIpsum({
+const loremIpsum: string = new LoremIpsum({
     sentencesPerParagraph: {
         max: 8,
         min: 4
@@ -11,7 +11,7 @@ const loremIpsum :string = new LoremIpsum({
         min: 4
     }
 }).generateParagraphs(1);
-const shortIpsum :string = new LoremIpsum({
+const shortIpsum: string = new LoremIpsum({
     sentencesPerParagraph: {
         max: 3,
         min: 2
@@ -21,7 +21,7 @@ const shortIpsum :string = new LoremIpsum({
         min: 4
     }
 }).generateParagraphs(1);
-export const restaurantPlaceholders :Restaurant[] = [
+export const restaurantPlaceholders: Restaurant[] = [
     {
         id: "1",
         name: "Restaurant",
@@ -29,6 +29,7 @@ export const restaurantPlaceholders :Restaurant[] = [
         description: loremIpsum,
         shortDescription: shortIpsum,
         primaryImageUrl: "https://picsum.photos/700/300?random=1",
+        secondaryImageUrl: "https://picsum.photos/700/300?random=2",
         openTime: "10:00",
         closeTime: "22:00",
         location: "Location",
@@ -44,6 +45,7 @@ export const restaurantPlaceholders :Restaurant[] = [
         description: loremIpsum,
         shortDescription: shortIpsum,
         primaryImageUrl: "https://picsum.photos/700/300?random=2",
+        secondaryImageUrl: "https://picsum.photos/700/300?random=3",
         openTime: "10:00",
         closeTime: "22:00",
         location: "Location",

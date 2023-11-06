@@ -1,6 +1,6 @@
 <template>
   <ion-toolbar>
-    <ion-searchbar slot="start" />
+    <ion-searchbar slot="start" v-model="searchValue" :debounce="1000" @ionInput="onSearch($event)" />
     <SearchOptions />
   </ion-toolbar>
   <ion-toolbar>
@@ -15,12 +15,18 @@
 import { IonToolbar, IonSearchbar, IonSegment, IonSegmentButton } from '@ionic/vue';
 import router from "@/router";
 import SearchOptions from "./SearchOptions.vue"
-import { defineProps } from "vue";
+import { defineProps, ref, defineEmits } from "vue";
 
 defineProps(['searchOptions'])
+const emit = defineEmits(['search-updated'])
+const searchValue = ref('');
+
+const onSearch = (e: CustomEvent) => {
+  searchValue.value = e.detail.value;
+  emit('search-updated', e.detail.value);
+}
 
 const onSegmentChange = (e: CustomEvent) => {
-  //push segment value to router
   router.push(e.detail.value);
 }
 </script>

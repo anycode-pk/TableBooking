@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 
-import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, } from "@ionic/vue";
+import { IonPage, IonIcon, IonCardContent, IonLabel, IonCard, IonButton, IonBackButton, IonButtons, IonTitle, IonHeader, IonContent, IonToolbar, IonDatetime } from "@ionic/vue";
 import { time } from "ionicons/icons";
 import type { Restaurant } from "@/models";
 import axios from "axios";
@@ -42,10 +42,12 @@ let restaurant: Restaurant;
 restaurant = restaurantPlaceholders[0];
 
 async function getRestaurant(): Promise<void> {
-  const getRestaurantsResponse = await axios.get<Restaurant>('https://localhost:7012/api/Restaurant/' + restaurant.id);
-  let restaurantData: Restaurant = getRestaurantsResponse.data;
-  if (restaurantData) {
-    restaurant = restaurantData;
+  try {
+    const getRestaurantsResponse = await axios.get<Restaurant>('https://localhost:7012/api/Restaurant/' + restaurant.id);
+    restaurant = getRestaurantsResponse.data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    restaurant = restaurantPlaceholders[0];
   }
 }
 onMounted(async () => {
