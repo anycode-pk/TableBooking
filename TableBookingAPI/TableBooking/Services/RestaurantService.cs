@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.DTOs;
+using TableBooking.Model.Dtos.RestaurantDtos;
 using TableBooking.Logic.Interfaces;
 using TableBooking.Model.Models;
 using TableBooking.Api.Interfaces;
@@ -14,7 +14,7 @@ namespace TableBooking.Api.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> CreateRestaurantAsync(RestaurantShortInfoDTO dto)
+        public async Task<IActionResult> CreateRestaurantAsync(RestaurantShortInfoDto dto)
         {
             var restaurant = new Restaurant
             {
@@ -42,9 +42,9 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(restaurantToDelete);
         }
 
-        public async Task<IActionResult> GetAllRestaurantsAsync()
+        public async Task<IActionResult> GetAllRestaurantsAsync(string? restaurantName, Price? price)
         {
-            var restaurants = await _unitOfWork.RestaurantRepository.GetRestaurantsAsync();
+            var restaurants = await _unitOfWork.RestaurantRepository.GetRestaurantsAsync(restaurantName, price);
             if (restaurants == null) return new BadRequestObjectResult("No restaurants found");
             return new OkObjectResult(restaurants);
         }
@@ -57,7 +57,7 @@ namespace TableBooking.Api.Services
             return new OkObjectResult(restaurant);
         }
 
-        public Task<IActionResult> UpdateRestaurantAsync(RestaurantShortInfoDTO dto)
+        public Task<IActionResult> UpdateRestaurantAsync(RestaurantShortInfoDto dto)
         {
             throw new NotImplementedException();
         }

@@ -12,8 +12,8 @@ using TableBooking.Model;
 namespace TableBooking.Model.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20231029204802_JakNieDzialaToNajlepiejWszystkoUsunacFix")]
-    partial class JakNieDzialaToNajlepiejWszystkoUsunacFix
+    [Migration("20231103174905_initialProperWithOldFixes")]
+    partial class initialProperWithOldFixes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.Model.Requests;
+using TableBooking.Model.Dtos.BookingDtos;
 
 namespace TableBooking.Controllers
 {
@@ -20,35 +20,36 @@ namespace TableBooking.Controllers
         [HttpGet("GetAllUserBookings")]
         public async Task<IActionResult> GetUserBookings()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _bookingService.GetAllBookings(userId);
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetUserBookingById(Guid id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _bookingService.GetBookingByIdAsync(id, userId);
         }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteUserBooking(Guid id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _bookingService.DeleteBookingAsync(id, userId);
         }
 
         [HttpPost("CreateBooking")]
-        public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingRequest bookingToCreateDto)
+        public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingDto bookingToCreateDto)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 
         [HttpPut("UpdateBooking/{id}")]
-        public async Task<IActionResult> UpdateUserBooking()
+        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateBookingDto updateBookignDto, Guid tableId)
         {
-            return Ok();
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await _bookingService.UpdateBookingAsync(updateBookignDto, userId);
         }
 
     }

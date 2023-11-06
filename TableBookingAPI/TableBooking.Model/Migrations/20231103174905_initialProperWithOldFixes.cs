@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TableBooking.Model.Migrations
 {
-    public partial class JakNieDzialaToNajlepiejWszystkoUsunacFix : Migration
+    public partial class initialProperWithOldFixes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

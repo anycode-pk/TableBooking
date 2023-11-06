@@ -31,13 +31,13 @@ namespace TableBooking.Logic.Repositories
 
         public async Task Delete(object id)
         {
-            T entityToDelete = await _objectSet.FindAsync(id);
-            Delete(entityToDelete);
+            T objectToDelete = await _objectSet.FindAsync(id);
+            _objectSet.Remove(objectToDelete);
         }
 
         public async virtual Task Update(T entity)
         {
-            Update(entity);
+            await Update(entity);
         }
 
     }

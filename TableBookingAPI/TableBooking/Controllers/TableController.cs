@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
-using TableBooking.DTOs;
+using TableBooking.Model.Dtos.TableDtos;
 
 namespace TableBooking.Controllers
 {
@@ -21,20 +21,26 @@ namespace TableBooking.Controllers
             return await _tableService.GetAllTablesAsync();
         }
 
-        [HttpGet("GetTableById/{id}")]
+        [HttpGet("GetTable/{id}")]
         public async Task<IActionResult> GetTableById(Guid id)
         {
             return await _tableService.GetTableByIdAsync(id);
         }
 
+        [HttpGet("GetTableByRestaurant")]
+        public async Task<IActionResult> GetTableByRestaurantId([FromQuery] Guid restaurantId)
+        {
+            return await _tableService.GetTableByRestaurantAsync(restaurantId);
+        }
+
         [HttpPost("CreateTable")]
-        public async Task<IActionResult> CreateTable([FromBody] TableDTO tableDto)
+        public async Task<IActionResult> CreateTable([FromBody] TableDto tableDto)
         {
             return await _tableService.CreateTableAsync(tableDto);
         }
 
         [HttpPut("UpdateTable")]
-        public async Task<IActionResult> UpdateTable([FromBody] TableDTO tableDto)
+        public async Task<IActionResult> UpdateTable([FromBody] TableDto tableDto)
         {
             return await _tableService.UpdateTableAsync(tableDto);
         }

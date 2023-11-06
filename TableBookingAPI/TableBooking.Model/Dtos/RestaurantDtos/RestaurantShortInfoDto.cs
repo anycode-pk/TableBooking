@@ -1,8 +1,8 @@
 ﻿using TableBooking.Model.Models;
 
-namespace TableBooking.DTOs
+namespace TableBooking.Model.Dtos.RestaurantDtos
 {
-    public class RestaurantShortInfoDTO
+    public class RestaurantShortInfoDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

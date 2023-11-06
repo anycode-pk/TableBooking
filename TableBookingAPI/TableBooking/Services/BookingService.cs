@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using TableBooking.Api.Interfaces;
-using TableBooking.DTOs;
-using TableBooking.Logic.Converters.Table;
+using TableBooking.Logic.Converters.TableConverters;
 using TableBooking.Logic.Interfaces;
+using TableBooking.Model.Dtos.BookingDtos;
 using TableBooking.Model.Models;
-using TableBooking.Model.Requests;
 
 namespace TableBooking.Api.Services
 {
@@ -19,33 +17,33 @@ namespace TableBooking.Api.Services
             _unitOfWork = unitOfWork;
             _tableConverter = tableConverter;
         }
-        public async Task<IActionResult> CreateBookingAsync(CreateBookingRequest dto, string userId)
+        public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId)
         {
             //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve the authenticated user's ID
 
             var newBooking = new Booking
             {
-                Date = dto.Date,
-                DurationInMinutes = dto.DurationInMinutes,
-                TableId = dto.TableId
+                Date = request.Date,
+                DurationInMinutes = request.DurationInMinutes,
+                TableId = request.TableId
             };
 
 
-        await _unitOfWork.BookingRepository.InsertAsync(newBooking);
+            await _unitOfWork.BookingRepository.InsertAsync(newBooking);
             await _unitOfWork.SaveChangesAsync();
 
-            var bookingDto = new BookingDTO
+            var bookingDto = new BookingDto
             {
                 Id = newBooking.Id,
                 Date = newBooking.Date,
                 DurationInMinutes = newBooking.DurationInMinutes,
                 TableDto = _tableConverter.TableToTableDto(newBooking.Table),
-                UserId = newBooking.User.Id
+                UserId = userId
             };
             return new CreatedResult(String.Empty, bookingDto);
         }
 
-        public async Task<IActionResult> DeleteBookingAsync(Guid bookingId, string userId)
+        public async Task<IActionResult> DeleteBookingAsync(Guid bookingId, Guid userId)
         {
             var booking = await _unitOfWork.BookingRepository.GetBookingByIdForSpecificUserAsync(bookingId, userId);
             if (booking == null)
@@ -56,7 +54,7 @@ namespace TableBooking.Api.Services
             return new NoContentResult();
         }
 
-        public async Task<IActionResult> GetBookingByIdAsync(Guid bookingId, string userId)
+        public async Task<IActionResult> GetBookingByIdAsync(Guid bookingId, Guid userId)
         {
             if (bookingId != null)
             {
@@ -64,7 +62,7 @@ namespace TableBooking.Api.Services
 
                 if (booking == null)
                     return new BadRequestObjectResult("Bad request: no bookings");
-                var bookingDto = new BookingDTO
+                var bookingDto = new BookingDto
                 {
                     Id = booking.Id,
                     Date = booking.Date,
@@ -77,14 +75,14 @@ namespace TableBooking.Api.Services
             return new BadRequestObjectResult("Bad request: no booking id");
         }
 
-        public async Task<IActionResult> GetAllBookings(string userId)
+        public async Task<IActionResult> GetAllBookings(Guid userId)
         {
             var bookings = await _unitOfWork.BookingRepository.GetAllBookingsForSpecificUserAsync(userId);
             if (bookings == null) return new BadRequestObjectResult("No bookings found");
             return new OkObjectResult(bookings);
         }
 
-        public async Task<IActionResult> UpdateBookingAsync(BookingDTO dto)
+        public async Task<IActionResult> UpdateBookingAsync(UpdateBookingDto updateBookingDto, Guid userId)
         {
             return new OkObjectResult("XD");
         }

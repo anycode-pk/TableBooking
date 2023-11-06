@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TableBooking.DTOs;
+using TableBooking.Model.Dtos.TableDtos;
 
 namespace TableBooking.Api.Interfaces
 {
@@ -7,8 +7,9 @@ namespace TableBooking.Api.Interfaces
     {
         public Task<IActionResult> GetAllTablesAsync();
         public Task<IActionResult> GetTableByIdAsync(Guid tableId);
-        public Task<IActionResult> CreateTableAsync(TableDTO dto);
-        public Task<IActionResult> UpdateTableAsync(TableDTO dto);
+        public Task<IActionResult> GetTableByRestaurantAsync(Guid restaurantId);
+        public Task<IActionResult> CreateTableAsync(TableDto dto);
+        public Task<IActionResult> UpdateTableAsync(TableDto dto);
         public Task<IActionResult> DeleteTableAsync(Guid tableId);
     }
 

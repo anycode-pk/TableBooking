@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TableBooking.DTOs
+namespace TableBooking.Model.Dtos.UserDtos
 {
-    public class UserLoginDTO
+    public class UserLoginDto
     {
         [Required(ErrorMessage = "User Name is required")]
         public string? Username { get; set; }
