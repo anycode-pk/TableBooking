@@ -30,4 +30,5 @@ export enum sortingMethod {
 export type SearchOptions = {
     price: priceRange;
     sort: sortingMethod;
+    query: string;
 };
