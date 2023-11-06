@@ -22,43 +22,35 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-radio-group value="popular">
+        <ion-radio-group v-model="selectedSort">
           <ion-list-header>
             <ion-label>Sort</ion-label>
           </ion-list-header>
           <ion-item>
             <ion-icon :icon="flameSharp" />
-            <ion-label>Popular</ion-label>
-            <ion-radio slot="end" color="success" value="popular" mode="ios"></ion-radio>
+            <ion-radio slot="end" color="success" v-model="sortingMethod.popular">Popular</ion-radio>
           </ion-item>
-
           <ion-item>
             <ion-icon :icon="starSharp" />
-            <ion-label>Rating</ion-label>
-            <ion-radio slot="end" color="success" value="rating" mode="ios"></ion-radio>
+            <ion-radio slot="end" color="success" v-model="sortingMethod.rating">Rating</ion-radio>
           </ion-item>
-
           <ion-item>
             <ion-icon :icon="locationSharp" />
-            <ion-label>Distance</ion-label>
-            <ion-radio slot="end" color="success" value="time" mode="ios"></ion-radio>
+            <ion-radio slot="end" color="success" v-model="sortingMethod.distance">Distance</ion-radio>
           </ion-item>
         </ion-radio-group>
-        <ion-radio-group value="1">
+        <ion-radio-group v-model="selectedPrice">
           <ion-list-header>
             <ion-label>Price</ion-label>
           </ion-list-header>
           <ion-item>
-            <ion-label>$</ion-label>
-            <ion-checkbox slot="end" checked='checked'></ion-checkbox>
+            <ion-radio slot="end" color="success" v-model="priceRange.$">$</ion-radio>
           </ion-item>
           <ion-item>
-            <ion-label>$$</ion-label>
-            <ion-checkbox slot="end" checked='checked'></ion-checkbox>
+            <ion-radio slot="end" color="success" v-model="priceRange.$$">$$</ion-radio>
           </ion-item>
           <ion-item>
-            <ion-label>$$$</ion-label>
-            <ion-checkbox slot="end" checked='checked'></ion-checkbox>
+            <ion-radio slot="end" color="success" v-model="priceRange.$$$">$$$</ion-radio>
           </ion-item>
         </ion-radio-group>
       </ion-list>
@@ -67,15 +59,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { IonModal, IonIcon } from '@ionic/vue';
+import { ref, defineEmits } from 'vue';
+import { IonModal, IonIcon, IonContent, IonList, IonRadioGroup, IonItem, IonRadio, IonListHeader, IonLabel, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle } from '@ionic/vue';
 import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, locationSharp } from 'ionicons/icons';
 import { OverlayEventDetail } from '@ionic/core';
+import { priceRange, sortingMethod } from '@/models';
 
 const modal = ref<typeof IonModal | null>(null);
 
-const openModal = () => {
-  modal.value = modal.value?.$el.present();
+const selectedPrice = ref<priceRange>(priceRange.$);
+const selectedSort = ref<sortingMethod>(sortingMethod.popular);
+
+const emit = defineEmits(['update:price', 'update:sort']);
+
+const changePrice = () => {
+  emit('update:price', selectedPrice);
+};
+
+const changeSort = () => {
+  emit('update:sort', selectedSort);
 };
 
 const cancel = () => {
@@ -83,6 +85,9 @@ const cancel = () => {
 };
 
 const confirm = () => {
+  changePrice();
+  changeSort();
+  console.log("updated filters\nprice: " + selectedPrice.value + "\nsort: " + selectedSort.value + "\n");
   modal.value?.$el.dismiss(null, 'confirm');
 };
 

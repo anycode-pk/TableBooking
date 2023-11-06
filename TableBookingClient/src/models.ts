@@ -14,3 +14,15 @@ export type Restaurant = {
     website: string;
     email: string;
 }
+
+export enum priceRange {
+    $,
+    $$,
+    $$$
+}
+
+export enum sortingMethod {
+    popular,
+    rating,
+    distance
+}
