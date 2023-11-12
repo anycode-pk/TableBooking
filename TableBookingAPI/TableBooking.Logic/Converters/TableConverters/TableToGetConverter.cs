@@ -20,7 +20,7 @@ namespace TableBooking.Logic.Converters.TableConverters
             return new GetTablesDto
             {
                 Id = table.Id,
-                RestaurantId = table.Restaurant.Id,
+                RestaurantId = table.RestaurantId,
                 NumberOfSeats = table.NumberOfSeats
             };
         }

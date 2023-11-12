@@ -53,6 +53,14 @@ namespace TableBooking.Api.Services
                 return new BadRequestObjectResult($"Can't find table with {tableId}");
             return new OkObjectResult(table);
         }
+        
+        public async Task<Table> GetTableObjectByIdAsync(Guid tableId)
+        {
+            var table = await _unitOfWork.TableRepository.GetByIdAsync(tableId);
+            if (table == null)
+                throw new BadHttpRequestException($"Table id: {tableId} doesn't exist.");
+            return table;
+        }
 
         public async Task<IActionResult> GetTableByRestaurantAsync(Guid restaurantId)
         {
