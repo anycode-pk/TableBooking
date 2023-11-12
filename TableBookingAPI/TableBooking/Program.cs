@@ -17,6 +17,7 @@ using TableBooking.Model.Models;
 using TableBooking.Logic.Converters.TableConverters;
 using TableBooking.Logic.Converters.RatingConverters;
 using TableBooking.Logic.Converters.UserConverters;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,12 +117,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization();
-
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
+    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
 });
+
+//builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
