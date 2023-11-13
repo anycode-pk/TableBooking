@@ -12,8 +12,8 @@ using TableBooking.Model;
 namespace TableBooking.Model.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20231103174905_initialProperWithOldFixes")]
-    partial class initialProperWithOldFixes
+    [Migration("20231112181725_AppUserId")]
+    partial class AppUserId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,6 +89,9 @@ namespace TableBooking.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
@@ -98,14 +101,11 @@ namespace TableBooking.Model.Migrations
                     b.Property<Guid>("TableId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("TableId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TableId");
 
                     b.ToTable("Bookings");
                 });
@@ -213,21 +213,19 @@ namespace TableBooking.Model.Migrations
 
             modelBuilder.Entity("TableBooking.Model.Models.Booking", b =>
                 {
+                    b.HasOne("TableBooking.Model.Models.AppUser", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TableBooking.Model.Models.Table", "Table")
                         .WithMany("Bookings")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TableBooking.Model.Models.AppUser", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Table");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Models.Rating", b =>
@@ -251,13 +249,11 @@ namespace TableBooking.Model.Migrations
 
             modelBuilder.Entity("TableBooking.Model.Models.Table", b =>
                 {
-                    b.HasOne("TableBooking.Model.Models.Restaurant", "Restaurant")
+                    b.HasOne("TableBooking.Model.Models.Restaurant", null)
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("TableBooking.Model.Models.AppUser", b =>

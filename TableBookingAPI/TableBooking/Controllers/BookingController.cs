@@ -32,6 +32,8 @@ namespace TableBooking.Api.Controllers
 
 
         [HttpGet("GetAllUserBookings")]
+        [ProducesResponseType(typeof(List<BookingDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetUserBookings()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

@@ -11,23 +11,27 @@ namespace TableBooking.Api.Services
     {
         public IUnitOfWork _unitOfWork;
         private readonly ITableConverter _tableConverter;
+        private readonly ITableService _tableService;
 
-        public BookingService(IUnitOfWork unitOfWork, ITableConverter tableConverter)
+
+        public BookingService(IUnitOfWork unitOfWork, ITableConverter tableConverter, ITableService tableService)
         {
             _unitOfWork = unitOfWork;
             _tableConverter = tableConverter;
+            _tableService = tableService;
         }
         public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId)
         {
-            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve the authenticated user's ID
-
+            var table = await _tableService.GetTableObjectByIdAsync(request.TableId);
+            
             var newBooking = new Booking
             {
                 Date = request.Date,
                 DurationInMinutes = request.DurationInMinutes,
-                TableId = request.TableId
+                TableId = request.TableId,
+                AppUserId = userId,
+                Table = table
             };
-
 
             await _unitOfWork.BookingRepository.InsertAsync(newBooking);
             await _unitOfWork.SaveChangesAsync();
@@ -68,7 +72,7 @@ namespace TableBooking.Api.Services
                     Date = booking.Date,
                     DurationInMinutes = booking.DurationInMinutes,
                     TableDto = _tableConverter.TableToTableDto(booking.Table),
-                    UserId = booking.User.Id
+                    UserId = userId
                 };
                 return new OkObjectResult(bookingDto);
             }
