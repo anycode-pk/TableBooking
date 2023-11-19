@@ -60,14 +60,15 @@ namespace TableBooking.Api.Controllers
         public async Task<IActionResult> CreateUserBooking([FromBody] CreateBookingDto bookingToCreateDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
             return await _bookingService.CreateBookingAsync(bookingToCreateDto, userId);
         }
 
-        [HttpPut("UpdateBooking/{id}")]
-        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateBookingDto updateBookignDto, Guid tableId)
+        [HttpPut("UpdateBooking/{bookingId}")]
+        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateBookingDto updateBookingDto, Guid bookingId)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await _bookingService.UpdateBookingAsync(updateBookignDto, userId);
+            return await _bookingService.UpdateBookingAsync(updateBookingDto, userId, bookingId);
         }
 
     }
