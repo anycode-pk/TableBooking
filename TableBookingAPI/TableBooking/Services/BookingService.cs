@@ -103,7 +103,8 @@ namespace TableBooking.Api.Services
             };
 
             await _unitOfWork.BookingRepository.Update(newBooking);
-            
+            await _unitOfWork.SaveChangesAsync();
+
             return new OkObjectResult(newBooking);
         }
     }

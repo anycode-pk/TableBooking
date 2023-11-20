@@ -45,7 +45,6 @@ namespace TableBooking.Logic.Repositories
             }
 
             _objectSet.Update(entity);
-            await _context.SaveChangesAsync();
         }
         
         private object[] GetKeyValues(T entity)
