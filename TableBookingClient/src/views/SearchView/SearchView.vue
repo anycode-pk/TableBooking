@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <SearchBar @options-updated="updateQuery"></SearchBar> <!-- To do: Bind Search Options -->
+      <SearchBar :options="searchOptions" @options-updated="updateQuery"></SearchBar>
     </ion-header>
     <IonContent>
       <ion-router-outlet>
@@ -17,6 +17,10 @@ import { Restaurant, priceRange, sortingMethod, SearchOptions } from "@/models";
 import { restaurantPlaceholders } from "@/restaurants";
 import axios from "axios";
 import { provide, onMounted, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
 
 const searchOptions = ref<SearchOptions>({
   price: priceRange.$,
@@ -24,12 +28,19 @@ const searchOptions = ref<SearchOptions>({
   query: ""
 });
 
-//Todo: Query in the URL
-
 const updateQuery = (options: SearchOptions) => {
-  console.log(options);
   searchOptions.value = options;
   fetchRestaurants();
+
+  // Update the URL with the new query parameters
+  router.replace({
+    path: router.currentRoute.value.path,
+    query: {
+      price: options.price,
+      sort: options.sort,
+      query: options.query,
+    },
+  });
 };
 
 const endpoint = "https://localhost:7012/api/GetAllRestaurants"
@@ -37,6 +48,17 @@ const endpoint = "https://localhost:7012/api/GetAllRestaurants"
 const restaurants = ref<Restaurant[]>([]);
 
 onMounted(async () => {
+  // Check the route's query parameters and update the searchOptions accordingly
+  if (route.query.price) {
+    searchOptions.value.price = route.query.price as unknown as priceRange;
+  }
+  if (route.query.sort) {
+    searchOptions.value.sort = route.query.sort as unknown as sortingMethod;
+  }
+  if (route.query.query) {
+    searchOptions.value.query = route.query.query as string;
+  }
+  console.log(searchOptions.value);
   fetchRestaurants();
 });
 

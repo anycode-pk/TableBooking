@@ -36,7 +36,9 @@ import axios from "axios";
 import { onMounted } from "vue";
 import { restaurantPlaceholders } from "@/restaurants";
 import NumberPicker from "@/views/BookRestaurantView/components/NumberPicker.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let restaurant: Restaurant;
 restaurant = restaurantPlaceholders[0];

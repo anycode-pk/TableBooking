@@ -1,10 +1,10 @@
 <template>
   <ion-toolbar>
     <ion-searchbar slot="start" v-model="searchOptions.query" :debounce="1000" @ionInput="onSearch($event)" />
-    <SearchOptions @options-updated="updateOptions" />
+    <SearchOptions :options="searchOptions" @options-updated="updateOptions" />
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="list" @ionChange="onSegmentChange">
+    <ion-segment v-model="selectedSegment" @ionChange="onSegmentChange">
       <ion-segment-button value="list">List</ion-segment-button>
       <ion-segment-button value="map">Map</ion-segment-button>
     </ion-segment>
@@ -13,16 +13,31 @@
 
 <script setup lang="ts">
 import { IonToolbar, IonSearchbar, IonSegment, IonSegmentButton } from '@ionic/vue';
-import router from "@/router";
 import SearchOptions from "./SearchOptions.vue"
-import { ref, defineEmits } from "vue";
+import { ref, defineEmits, defineProps, watch, onMounted } from "vue";
+import { useRouter } from 'vue-router';
 import { SearchOptions as SearchOptionsModel, priceRange, sortingMethod } from "@/models";
 
-const searchOptions = ref<SearchOptionsModel>({
-  price: priceRange.$,
-  sort: sortingMethod.popular,
-  query: ""
-});
+const router = useRouter();
+
+const selectedSegment = ref<string>("list");
+
+const props = defineProps({
+  options: {
+    type: Object as () => SearchOptionsModel,
+    required: true
+  }
+})
+
+const searchOptions = ref<SearchOptionsModel>({ ...props.options });
+
+watch(
+  () => props.options,
+  (newOptions) => {
+    searchOptions.value = { ...newOptions };
+  },
+  { deep: true }
+);
 
 const emit = defineEmits(['options-updated'])
 
@@ -36,8 +51,20 @@ const updateOptions = (options: SearchOptionsModel) => {
   emit('options-updated', searchOptions.value);
 }
 
+onMounted(() => {
+  selectedSegment.value = router.currentRoute.value.path.split("/")[2];
+})
+
 const onSegmentChange = (e: CustomEvent) => {
-  router.push(e.detail.value);
+  selectedSegment.value = e.detail.value as string;
+  router.replace({
+    path: "/search/" + e.detail.value,
+    query: {
+      price: searchOptions.value.price,
+      sort: searchOptions.value.sort,
+      query: searchOptions.value.query,
+    },
+  });
 }
 </script>
 
