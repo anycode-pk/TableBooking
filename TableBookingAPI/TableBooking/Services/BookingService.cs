@@ -22,13 +22,11 @@ namespace TableBooking.Api.Services
         }
         public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId)
         {
-            var table = await _tableService.GetTableObjectByIdAsync(request.TableId);
-            
             var newBooking = new Booking
             {
                 Date = request.Date,
                 DurationInMinutes = request.DurationInMinutes,
-                TableId = request.TableId,
+                TableId = Guid.NewGuid(),
                 AppUserId = userId,
                 AmountOfPeople = request.AmountOfPeople
             };
