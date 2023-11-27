@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <SearchBar @search-updated="updateQuery"></SearchBar> <!-- To do: Bind Search Options -->
+      <SearchBar @options-updated="updateQuery"></SearchBar> <!-- To do: Bind Search Options -->
     </ion-header>
     <IonContent>
       <ion-router-outlet>
@@ -24,15 +24,15 @@ const searchOptions = ref<SearchOptions>({
   query: ""
 });
 
-//Todo: Bind Search Options
 //Todo: Query in the URL
 
-const updateQuery = (query: string) => {
-  searchOptions.value.query = query;
+const updateQuery = (options: SearchOptions) => {
+  console.log(options);
+  searchOptions.value = options;
   fetchRestaurants();
 };
 
-const endpoint = "https://localhost:7012/api/Restaurant"
+const endpoint = "https://localhost:7012/api/GetAllRestaurants"
 
 const restaurants = ref<Restaurant[]>([]);
 
@@ -45,8 +45,8 @@ const fetchRestaurants = async () => {
     const getRestaurantsResponse = await axios.get<Restaurant[]>(endpoint, {
       params: {
         price: searchOptions.value.price,
-        sort: searchOptions.value.sort,
-        query: searchOptions.value.query,
+        // sort: searchOptions.value.sort,
+        restaurantName: searchOptions.value.query,
       },
     });
     restaurants.value.push(...getRestaurantsResponse.data);

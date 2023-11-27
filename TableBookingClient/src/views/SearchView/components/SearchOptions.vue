@@ -22,34 +22,38 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-radio-group v-model="selectedSort">
+        <ion-radio-group v-model="searchOptions.sort">
           <ion-list-header>
             <ion-label>Sort</ion-label>
           </ion-list-header>
           <ion-item>
-            <ion-icon :icon="flameSharp" />
+            <ion-icon slot="start" :icon="flameSharp" />
             <ion-radio slot="end" color="success" v-model="sortingMethod.popular">Popular</ion-radio>
           </ion-item>
           <ion-item>
-            <ion-icon :icon="starSharp" />
+            <ion-icon slot="start" :icon="starSharp" />
             <ion-radio slot="end" color="success" v-model="sortingMethod.rating">Rating</ion-radio>
           </ion-item>
           <ion-item>
-            <ion-icon :icon="locationSharp" />
+            <ion-icon slot="start" :icon="locationSharp" />
             <ion-radio slot="end" color="success" v-model="sortingMethod.distance">Distance</ion-radio>
           </ion-item>
         </ion-radio-group>
-        <ion-radio-group v-model="selectedPrice">
+        <ion-radio-group v-model="searchOptions.price">
           <ion-list-header>
+
             <ion-label>Price</ion-label>
           </ion-list-header>
           <ion-item>
+            <ion-icon slot="start" :icon="logoUsd" />
             <ion-radio slot="end" color="success" v-model="priceRange.$">$</ion-radio>
           </ion-item>
           <ion-item>
+            <ion-icon slot="start" :icon="logoUsd" />
             <ion-radio slot="end" color="success" v-model="priceRange.$$">$$</ion-radio>
           </ion-item>
           <ion-item>
+            <ion-icon slot="start" :icon="logoUsd" />
             <ion-radio slot="end" color="success" v-model="priceRange.$$$">$$$</ion-radio>
           </ion-item>
         </ion-radio-group>
@@ -59,32 +63,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, defineProps, watch } from 'vue';
+import { ref, defineEmits } from 'vue';
 import { IonModal, IonIcon, IonContent, IonList, IonRadioGroup, IonItem, IonRadio, IonListHeader, IonLabel, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle } from '@ionic/vue';
-import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, locationSharp } from 'ionicons/icons';
+import { optionsSharp, arrowBackSharp, checkmarkSharp, flameSharp, starSharp, locationSharp, logoUsd } from 'ionicons/icons';
 import { OverlayEventDetail } from '@ionic/core';
 import { priceRange, sortingMethod, SearchOptions } from '@/models';
 
-const selectedSort = ref<sortingMethod>(sortingMethod.popular);
-const selectedPrice = ref<priceRange>(priceRange.$);
+const searchOptions = ref<SearchOptions>({
+  price: priceRange.$,
+  sort: sortingMethod.popular,
+  query: ''
+});
+
+const emit = defineEmits(['options-updated']);
 
 const modal = ref<typeof IonModal | null>(null);
-
 const cancel = () => {
   modal.value?.$el.dismiss(null, 'cancel');
 };
-
 const confirm = () => {
-
   modal.value?.$el.dismiss(null, 'confirm');
 };
-
 const onWillDismiss = (ev: CustomEvent<OverlayEventDetail>) => {
   if (ev.detail.role === 'confirm') {
-    // On confirm
+    emit('options-updated', searchOptions.value);
   }
   if (ev.detail.role === 'cancel') {
-    // On cancel
+    // Cancel
   }
 };
 </script>

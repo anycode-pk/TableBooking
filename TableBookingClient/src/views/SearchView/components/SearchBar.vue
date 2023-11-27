@@ -1,7 +1,7 @@
 <template>
   <ion-toolbar>
-    <ion-searchbar slot="start" v-model="searchValue" :debounce="1000" @ionInput="onSearch($event)" />
-    <SearchOptions />
+    <ion-searchbar slot="start" v-model="searchOptions.query" :debounce="1000" @ionInput="onSearch($event)" />
+    <SearchOptions @options-updated="updateOptions" />
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="list" @ionChange="onSegmentChange">
@@ -15,15 +15,25 @@
 import { IonToolbar, IonSearchbar, IonSegment, IonSegmentButton } from '@ionic/vue';
 import router from "@/router";
 import SearchOptions from "./SearchOptions.vue"
-import { defineProps, ref, defineEmits } from "vue";
+import { ref, defineEmits } from "vue";
+import { SearchOptions as SearchOptionsModel, priceRange, sortingMethod } from "@/models";
 
-defineProps(['searchOptions'])
-const emit = defineEmits(['search-updated'])
-const searchValue = ref('');
+const searchOptions = ref<SearchOptionsModel>({
+  price: priceRange.$,
+  sort: sortingMethod.popular,
+  query: ""
+});
+
+const emit = defineEmits(['options-updated'])
 
 const onSearch = (e: CustomEvent) => {
-  searchValue.value = e.detail.value;
-  emit('search-updated', e.detail.value);
+  searchOptions.value.query = e.detail.value;
+  emit('options-updated', searchOptions.value);
+}
+const updateOptions = (options: SearchOptionsModel) => {
+  searchOptions.value.price = options.price;
+  searchOptions.value.sort = options.sort;
+  emit('options-updated', searchOptions.value);
 }
 
 const onSegmentChange = (e: CustomEvent) => {
