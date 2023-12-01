@@ -142,6 +142,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.UseSerilogRequestLogging();
 app.MapHealthChecks("/healthz"); //.RequireHost("*:5001").RequireAuthorization();
