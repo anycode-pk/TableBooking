@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TableBooking.Api.Interfaces;
 using TableBooking.Model.Dtos.RestaurantDtos;

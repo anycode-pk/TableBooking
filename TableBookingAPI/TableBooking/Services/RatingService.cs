@@ -41,7 +41,7 @@ namespace TableBooking.Api.Services
             if (numberOfRaitings > 0 && numberOfRaitings % 5 == 0)
             {
                 result = ratings.Select(x => x.RatingStars).Average();
-                restaurant.Rating = (float)result;
+                restaurant.Rating = result;
                 await _unitOfWork.RestaurantRepository.Update(restaurant);
                 await _unitOfWork.SaveChangesAsync();
             }
