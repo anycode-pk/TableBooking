@@ -51,7 +51,9 @@ import RestaurantRating from "../components/RestaurantRating.vue"
 import axios from "axios";
 import { onMounted } from "vue";
 import { restaurantPlaceholders } from "@/restaurants";
-import router from "@/router";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let restaurant: Restaurant;
 restaurant = restaurantPlaceholders[0];
@@ -69,11 +71,11 @@ onMounted(async () => {
 });
 
 const likeRestaurant = () => {
-    console.log("Like restaurant");
+  console.log("Like restaurant");
 };
 
 const shareRestaurant = () => {
-    console.log("Share restaurant");
+  console.log("Share restaurant");
 };
 
 const bookTable = () => {
