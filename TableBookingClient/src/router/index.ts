@@ -20,10 +20,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/HomeView/HomeView.vue'),
       },
       {
+        name: 'Search',
         path: 'search',
         component: () => import('@/views/SearchView/SearchView.vue'),
         children: [
           {
+            name: 'Search',
             path: '',
             redirect: '/search/list',
           },
@@ -47,7 +49,29 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Account',
         path: 'account',
-        component: () => import('@/views/AccountView.vue'),
+        component: () => import('@/views/AccountView/AccountView.vue'),
+        children: [
+          {
+            name: 'Account',
+            path: '',
+            redirect: '/account/signin',
+          },
+          {
+            name: 'SignIn',
+            path: 'signin',
+            component: () => import('@/views/AccountView/SignInView.vue'),
+          },
+          {
+            name: 'Signup',
+            path: 'signup',
+            component: () => import('@/views/AccountView/SignUpView.vue'),
+          },
+          {
+            name: 'Profile',
+            path: 'profile',
+            component: () => import('@/views/AccountView/ProfileView.vue'),
+          }
+        ],
       },
       {
         name: 'Restaurant',
@@ -76,16 +100,6 @@ const routes: Array<RouteRecordRaw> = [
         path: 'welcome',
         component: () => import('@/views/WelcomeView.vue'),
       },
-      {
-        name: "SignIn",
-        path: 'signin',
-        component: () => import('@/views/SignInView.vue'),
-      },
-      {
-        name: "SignUp",
-        path: 'signup',
-        component: () => import('@/views/SignUpView.vue'),
-      }
     ],
   },
 ];

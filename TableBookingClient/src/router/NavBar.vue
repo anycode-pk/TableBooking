@@ -53,11 +53,6 @@ ion-list {
   display: none;
 }
 
-
-.account-label {
-  display: none;
-}
-
 :root {
   --width-left-menu: 80px;
 }
