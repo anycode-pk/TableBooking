@@ -49,7 +49,7 @@ const fetchRestaurants = async () => {
         query: searchOptions.value.query,
       },
     });
-    restaurants.value.push(...getRestaurantsResponse.data);
+    restaurants.value = getRestaurantsResponse.data;
   } catch (error) {
     console.error("Error fetching data: ", error);
     restaurants.value = restaurantPlaceholders;
