@@ -1,5 +1,4 @@
 ALTER ROLE "TableBookingUser" SET search_path = public;
-
 -- Create Restaurants table
 CREATE TABLE IF NOT EXISTS "Restaurants" (
     "Id" UUID PRIMARY KEY,
@@ -57,8 +56,9 @@ CREATE TABLE IF NOT EXISTS "Users" (
 CREATE TABLE IF NOT EXISTS "Bookings" (
     "Id" UUID PRIMARY KEY,
     "Date" TIMESTAMPTZ,
+    "AmountOfPeople" INT,
     "DurationInMinutes" INT,
-    "UserId" UUID REFERENCES "Users"("Id"),
+    "AppUserId" UUID REFERENCES "Users"("Id"),
     "TableId" UUID REFERENCES "Tables"("Id")
 );
 
@@ -190,8 +190,8 @@ INSERT INTO "Users" (
 );
 
 -- seed Bookings records
-INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('fc9663f0-08b1-4c52-afe4-1d446b11017f','2030-01-01 14:30:00+00', 5, 'abc663f0-08b1-4c52-afe4-1d446b11017f', '123e1a20-6801-4a5e-a327-ecc5cb2bd906');
-INSERT INTO "Bookings" ("Id", "Date", "DurationInMinutes", "UserId", "TableId") VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a','2050-05-07 20:15:00+00', 3, '123663f0-08b1-4c52-afe4-1d446b11017f', '3eb2eb68-a47e-47cd-8a22-06c20197a0b3');
+INSERT INTO "Bookings" ("Id", "Date","AmountOfPeople", "DurationInMinutes", "AppUserId", "TableId") VALUES ('fc9663f0-08b1-4c52-afe4-1d446b11017f','2030-01-01 14:30:00+00', 1, 5, 'abc663f0-08b1-4c52-afe4-1d446b11017f', '123e1a20-6801-4a5e-a327-ecc5cb2bd906');
+INSERT INTO "Bookings" ("Id", "Date","AmountOfPeople", "DurationInMinutes", "AppUserId", "TableId") VALUES ('c4c4a1c0-3cb4-445e-ba81-311a6b939b4a','2050-05-07 20:15:00+00', 2, 3, '123663f0-08b1-4c52-afe4-1d446b11017f', '3eb2eb68-a47e-47cd-8a22-06c20197a0b3');
 
 -- Seed Users records
 INSERT INTO "Users" ("Id", "RefreshToken", "RefreshTokenExpiryTime", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount", "AppRoleId")
