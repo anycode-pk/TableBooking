@@ -35,16 +35,16 @@ namespace TableBooking.Controllers
             return await _restaurantService.CreateRestaurantAsync(restaurantShortInfoDto);
         }
 
-        [HttpDelete("DeleteRestaurant/{id:int}")]
+        [HttpDelete("DeleteRestaurant/{id:Guid}")]
         public async Task<IActionResult> DeleteRestaurant(Guid id)
         {
             return await _restaurantService.DeleteRestaurantAsync(id);
         }
 
-        [HttpPut("UpdateRestaurant")]
-        public async Task<IActionResult> UpdateRestaurant()
+        [HttpPut("UpdateRestaurant/{restaurantId}")]
+        public async Task<IActionResult> UpdateRestaurant([FromBody] RestaurantShortInfoDto restaurantShortInfoDto, Guid restaurantId)
         {
-            return Ok();
+            return await _restaurantService.UpdateRestaurantAsync(restaurantShortInfoDto, restaurantId);
         }
 
 

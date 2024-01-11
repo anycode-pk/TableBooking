@@ -20,13 +20,15 @@ namespace TableBooking.Api.Services
             _tableConverter = tableConverter;
             _tableService = tableService;
         }
-        public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId)
+        public async Task<IActionResult> CreateBookingAsync(CreateBookingDto request, Guid userId, Guid restaurantId)
         {
+            var restaurantTables = await _unitOfWork.TableRepository.GetTablesByRestaurantIdAsync(restaurantId);
+            var table = restaurantTables.FirstOrDefault(x => x.Bookings == null);
             var newBooking = new Booking
             {
                 Date = request.Date,
                 DurationInMinutes = request.DurationInMinutes,
-                TableId = Guid.NewGuid(),
+                TableId = table.Id,
                 AppUserId = userId,
                 AmountOfPeople = request.AmountOfPeople
             };
